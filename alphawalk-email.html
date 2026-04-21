@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>AlphaWalk — An agent swarm for your portfolio</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0a0d12;
+      --bg-1: #0e1218;
+      --bg-2: #141923;
+      --panel: #10151d;
+      --line: #1e2632;
+      --line-2: #2a3446;
+      --fg: #e6ecf2;
+      --fg-dim: #8a97a8;
+      --fg-mute: #5a6776;
+      --accent-h: 200;
+      --accent: oklch(0.78 0.12 var(--accent-h));
+      --accent-dim: oklch(0.52 0.10 var(--accent-h));
+      --accent-glow: oklch(0.78 0.12 var(--accent-h) / 0.2);
+      --green: oklch(0.78 0.14 150);
+      --red: oklch(0.70 0.17 25);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      font-size: 15px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(ellipse at 30% 0%, var(--accent-glow) 0%, transparent 55%);
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: repeating-linear-gradient(to bottom, transparent 0px 2px, rgba(255,255,255,0.012) 2px 3px);
+      z-index: 1;
+    }
+
+    .grid-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 64px 64px;
+      z-index: 0;
+      mask-image: radial-gradient(ellipse at 50% 30%, black 20%, transparent 70%);
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 2;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 0 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--fg);
+    }
+
+    .logo .mark {
+      width: 48px;
+      height: 48px;
+      transition: transform 0.2s ease;
+    }
+
+    .logo:hover .mark {
+      transform: scale(1.02);
+    }
+
+    .wordmark {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 28px;
+      letter-spacing: -0.01em;
+    }
+
+    .wordmark span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      font-size: 14px;
+    }
+
+    .nav-links a {
+      color: var(--fg-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--fg);
+    }
+
+    .statusbar {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--fg-mute);
+      letter-spacing: 0.04em;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse 2.2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1);}
+      50% { opacity: 0.5; transform: scale(0.96);}
+    }
+
+    .ticker {
+      flex: 1;
+      overflow: hidden;
+      white-space: nowrap;
+      mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+    }
+
+    .ticker-inner {
+      display: inline-block;
+      animation: scrollTicker 70s linear infinite;
+      padding-right: 48px;
+    }
+
+    @keyframes scrollTicker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .ticker-item {
+      display: inline-block;
+      margin-right: 32px;
+    }
+
+    .tkr-sym {
+      color: var(--fg-dim);
+      font-weight: 500;
+    }
+
+    .up {
+      color: var(--green);
+    }
+
+    .down {
+      color: var(--red);
+    }
+
+    .hero {
+      padding: 80px 0 70px;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin-bottom: 28px;
+    }
+
+    .eyebrow::before {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    h1.tagline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: clamp(42px, 5.5vw, 68px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin: 0 0 24px;
+    }
+
+    .kw {
+      color: var(--accent);
+      position: relative;
+      display: inline-block;
+    }
+
+    .kw::after {
+      content: '';
+      position: absolute;
+      left: -2px;
+      right: -2px;
+      bottom: 2px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.35;
+    }
+
+    .lede {
+      font-size: 18px;
+      line-height: 1.55;
+      color: var(--fg-dim);
+      max-width: 54ch;
+      margin-bottom: 36px;
+    }
+
+    .signup {
+      display: flex;
+      max-width: 540px;
+      border: 1px solid var(--line-2);
+      border-radius: 8px;
+      background: var(--bg-1);
+      transition: all 0.2s;
+    }
+
+    .signup:focus-within {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .signup input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--fg);
+      font-family: inherit;
+      font-size: 15px;
+      padding: 16px 20px;
+      outline: none;
+    }
+
+    .signup input::placeholder {
+      color: var(--fg-mute);
+    }
+
+    .signup button {
+      background: var(--accent);
+      color: #081218;
+      border: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0 26px;
+      cursor: pointer;
+      border-radius: 0 7px 7px 0;
+      transition: all 0.2s;
+    }
+
+    .signup button:hover {
+      filter: brightness(1.08);
+    }
+
+    .signup button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .signup-note {
+      margin-top: 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--fg-mute);
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .signup-note b {
+      color: var(--fg-dim);
+    }
+
+    .hero-visual {
+      position: relative;
+      aspect-ratio: 4/5;
+      max-height: 560px;
+      width: 100%;
+    }
+
+    .swarm {
+      position: absolute;
+      inset: 0;
+    }
+
+    .ring {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 1px dashed var(--line-2);
+    }
+
+    .r1 {
+      width: 260px;
+      height: 260px;
+      animation: spinRing 70s linear infinite;
+    }
+
+    .r2 {
+      width: 390px;
+      height: 390px;
+      animation: spinRing 100s linear infinite reverse;
+    }
+
+    .r3 {
+      width: 540px;
+      height: 540px;
+      border-color: var(--line);
+    }
+
+    @keyframes spinRing {
+      to {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+
+    .center {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 210px;
+      height: 210px;
+      border-radius: 50%;
+      border: 1px solid var(--accent-dim);
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%), var(--bg-1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 0 40px var(--accent-glow);
+      backdrop-filter: blur(2px);
+      animation: centerGlow 4s ease-in-out infinite;
+    }
+
+    @keyframes centerGlow {
+      0%, 100% { box-shadow: 0 0 30px var(--accent-glow); }
+      50% { box-shadow: 0 0 60px var(--accent-glow); }
+    }
+
+    .center .label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+    }
+
+    .center .val {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 28px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+    }
+
+    .center .sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--green);
+    }
+
+    .center .agent-list {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid var(--line-2);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--fg-mute);
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .links-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .node {
+      position: absolute;
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: var(--bg-2);
+      border: 1px solid var(--line-2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--fg);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+      transition: all 0.2s;
+      animation: nodeFloat 5s ease-in-out infinite;
+      backdrop-filter: blur(2px);
+    }
+
+    @keyframes nodeFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .node .n-role {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8px;
+      color: var(--fg-mute);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .node.active {
+      border-color: var(--accent);
+      box-shadow: 0 0 22px var(--accent-glow);
+    }
+
+    .node.active .n-role {
+      color: var(--accent);
+    }
+
+    .n1 { top: 2%; left: 50%; transform: translateX(-50%); animation-delay: 0s; }
+    .n2 { top: 26%; right: 0%; animation-delay: 0.7s; }
+    .n3 { bottom: 18%; right: 10%; animation-delay: 1.4s; }
+    .n4 { bottom: 2%; left: 50%; transform: translateX(-50%); animation-delay: 2.1s; }
+    .n5 { bottom: 18%; left: 10%; animation-delay: 2.8s; }
+    .n6 { top: 26%; left: 0%; animation-delay: 3.5s; }
+
+    .bubble {
+      position: absolute;
+      background: var(--bg-2);
+      border: 1px solid var(--line-2);
+      border-radius: 12px;
+      padding: 8px 14px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      color: var(--fg);
+      max-width: 170px;
+      line-height: 1.35;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
+      opacity: 0;
+      transition: opacity 0.9s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      pointer-events: none;
+      z-index: 20;
+    }
+
+    .bubble.show {
+      opacity: 0.96;
+    }
+
+    .bubble::before {
+      content: attr(data-agent);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 5px;
+      height: 10px;
+      background: var(--accent);
+      margin-left: 2px;
+      vertical-align: -1px;
+      animation: blinkCursor 1s step-end infinite;
+    }
+
+    @keyframes blinkCursor {
+      50% { opacity: 0; }
+    }
+
+    .roster {
+      padding: 100px 0 60px;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 40px;
+      margin-bottom: 52px;
+    }
+
+    .section-head h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: 40px;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+
+    .section-head .meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--fg-mute);
+      text-transform: uppercase;
+      text-align: right;
+      line-height: 1.6;
+    }
+
+    .roster-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 18px;
+    }
+
+    .agent-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 20px;
+      transition: all 0.2s;
+    }
+
+    .agent-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--line-2);
+    }
+
+    .agent-card.lead {
+      border-color: var(--accent-dim);
+      background: linear-gradient(145deg, var(--accent-glow) 0%, var(--panel) 45%);
+    }
+
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 14px;
+    }
+
+    .led-green {
+      width: 6px;
+      height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 6px var(--green);
+    }
+
+    .avatar {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--bg-2), var(--bg-1));
+      border: 1px solid var(--line-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 28px;
+      font-weight: 500;
+      color: var(--fg-dim);
+      margin-bottom: 16px;
+    }
+
+    .lead .avatar {
+      border-color: var(--accent-dim);
+      color: var(--accent);
+      background: linear-gradient(135deg, var(--bg-2), var(--accent-glow));
+    }
+
+    .callsign {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--fg-mute);
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+
+    .agent-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+
+    .role-desc {
+      font-size: 13px;
+      color: var(--fg-dim);
+      line-height: 1.4;
+      margin-bottom: 14px;
+    }
+
+    .stats-line {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      border-top: 1px solid var(--line);
+      padding-top: 12px;
+      margin-top: 6px;
+    }
+
+    .cap-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border-radius: 20px;
+      overflow: hidden;
+      margin: 40px 0 20px;
+    }
+
+    .cap-cell {
+      background: var(--panel);
+      padding: 28px 24px;
+    }
+
+    .cap-cell .idx {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .cap-cell h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .cap-cell p {
+      font-size: 13px;
+      color: var(--fg-dim);
+      line-height: 1.5;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 48px 0 64px;
+      display: flex;
+      justify-content: space-between;
+      gap: 48px;
+      font-size: 13px;
+    }
+
+    .footer-left .brand {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .disclaimer {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--fg-mute);
+      max-width: 68ch;
+      line-height: 1.6;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+    }
+
+    .footer-links a {
+      color: var(--fg-mute);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: var(--fg);
+    }
+
+    /* Message toast */
+    .toast-message {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--panel);
+      border: 1px solid var(--line-2);
+      border-radius: 12px;
+      padding: 12px 24px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--fg);
+      z-index: 10000;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .toast-message.show {
+      opacity: 1;
+    }
+
+    .toast-message.success {
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    .toast-message.error {
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    @media (max-width: 980px) {
+      .hero { grid-template-columns: 1fr; gap: 48px; }
+      .roster-grid { grid-template-columns: repeat(2, 1fr); }
+      .cap-grid { grid-template-columns: 1fr 1fr; }
+      .section-head { flex-direction: column; align-items: flex-start; }
+      .nav-links { display: none; }
+      .wrap { padding: 0 24px; }
+    }
+
+    @media (max-width: 640px) {
+      .roster-grid { grid-template-columns: 1fr; }
+      .cap-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+<div class="grid-overlay"></div>
+<div class="wrap">
+
+  <nav class="top">
+    <a class="logo" href="#">
+      <svg class="mark" viewBox="0 0 48 48" fill="none">
+        <defs><linearGradient id="lg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="oklch(0.82 0.14 var(--accent-h, 200))"/><stop offset="1" stop-color="oklch(0.55 0.12 var(--accent-h, 200))"/></linearGradient></defs>
+        <path d="M24 4 L44 42 L4 42 Z" fill="url(#lg)" opacity="0.16"/>
+        <path d="M24 4 L44 42 L4 42 Z" stroke="url(#lg)" stroke-width="2.4" stroke-linejoin="round"/>
+        <path d="M12 42 C24 34, 12 28, 22 24 C32 20, 20 16, 24 10 L26 10 C30 16, 38 20, 28 24 C18 28, 30 34, 22 42 Z" fill="url(#lg)" opacity="0.9"/>
+      </svg>
+      <div class="wordmark">alpha<span>walk</span></div>
+    </a>
+    <div class="nav-links">
+      <a href="#">Swarm</a>
+      <a href="#">Agents</a>
+      <a href="#">Research</a>
+    </div>
+  </nav>
+
+  <div class="statusbar">
+    <span class="dot"></span>
+    <span>SWARM · ACTIVE</span>
+    <span style="color:var(--fg-mute)">|</span>
+    <span>v0.9.6 · continuous</span>
+    <div class="ticker"><div class="ticker-inner">
+      <span class="ticker-item"><span class="tkr-sym">SPX</span> 5219.42 <span class="up">+0.41%</span></span>
+      <span class="ticker-item"><span class="tkr-sym">NDX</span> 18442.3 <span class="up">+0.78%</span></span>
+      <span class="ticker-item"><span class="tkr-sym">US10Y</span> 4.168 <span class="down">-2.3bp</span></span>
+      <span class="ticker-item"><span class="tkr-sym">DXY</span> 103.62 <span class="down">-0.18%</span></span>
+      <span class="ticker-item"><span class="tkr-sym">BTC</span> 71284 <span class="up">+2.1%</span></span>
+      <span class="ticker-item"><span class="tkr-sym">GLD</span> 2392 <span class="up">+0.55%</span></span>
+      <span class="ticker-item"><span class="tkr-sym">VIX</span> 12.9 <span class="down">-3.0%</span></span>
+      <span class="ticker-item"><span class="tkr-sym">OIL</span> 82.37 <span class="up">+1.12%</span></span>
+      <span class="ticker-item"><span class="tkr-sym">SPX</span> 5219.42 <span class="up">+0.41%</span></span>
+      <span class="ticker-item"><span class="tkr-sym">NDX</span> 18442.3 <span class="up">+0.78%</span></span>
+      <span class="ticker-item"><span class="tkr-sym">US10Y</span> 4.168 <span class="down">-2.3bp</span></span>
+      <span class="ticker-item"><span class="tkr-sym">BTC</span> 71284 <span class="up">+2.1%</span></span>
+    </div></div>
+  </div>
+
+  <section class="hero">
+    <div>
+      <div class="eyebrow">AlphaWalk · Private Beta · Q3 2026</div>
+      <h1 class="tagline">An <span class="kw">agent swarm</span> for your portfolio.</h1>
+      <p class="lede">AlphaWalk orchestrates a team of specialized AI agents that continuously reallocates your portfolio against live macro signals, goes deep on companies and industries, and evolves with every market regime. Customize them. They only get sharper.</p>
+      <form class="signup" id="signupForm">
+        <input type="email" id="emailInput" placeholder="you@domain.com" required aria-label="email">
+        <button type="submit" id="submitBtn">Notify me →</button>
+      </form>
+      <div class="signup-note">
+        <span><b>2,971</b> already on the list</span>
+        <span>·</span>
+        <span>No spam. Launch Q3 2026.</span>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="swarm">
+        <div class="ring r3"></div><div class="ring r2"></div><div class="ring r1"></div>
+        <svg class="links-svg" viewBox="0 0 400 500" preserveAspectRatio="none">
+          <g stroke="var(--accent)" stroke-width="0.7" fill="none" opacity="0.5">
+            <line x1="200" y1="250" x2="200" y2="40" stroke-dasharray="3 4"><animate attributeName="stroke-dashoffset" from="0" to="14" dur="1.6s" repeatCount="indefinite"/></line>
+            <line x1="200" y1="250" x2="360" y2="170" stroke-dasharray="3 4"><animate attributeName="stroke-dashoffset" from="0" to="14" dur="2s" repeatCount="indefinite"/></line>
+            <line x1="200" y1="250" x2="330" y2="380" stroke-dasharray="3 4"><animate attributeName="stroke-dashoffset" from="0" to="14" dur="1.9s" repeatCount="indefinite"/></line>
+            <line x1="200" y1="250" x2="200" y2="460" stroke-dasharray="3 4"><animate attributeName="stroke-dashoffset" from="0" to="14" dur="1.7s" repeatCount="indefinite"/></line>
+            <line x1="200" y1="250" x2="70" y2="380" stroke-dasharray="3 4"><animate attributeName="stroke-dashoffset" from="0" to="14" dur="2.1s" repeatCount="indefinite"/></line>
+            <line x1="200" y1="250" x2="40" y2="170" stroke-dasharray="3 4"><animate attributeName="stroke-dashoffset" from="0" to="14" dur="1.8s" repeatCount="indefinite"/></line>
+          </g>
+        </svg>
+        <div class="center">
+          <div class="label">Portfolio</div>
+          <div class="val">$251,420</div>
+          <div class="sub" style="color:var(--green);">+2.87%</div>
+          <div class="agent-list">Ada · Mac · Ein · Rho · Quill · Sable</div>
+        </div>
+        <div class="node n1 active"><div>Ada</div><div class="n-role">CIO</div></div>
+        <div class="node n2"><div>Mac</div><div class="n-role">Macro</div></div>
+        <div class="node n3"><div>Rho</div><div class="n-role">Risk</div></div>
+        <div class="node n4"><div>Quill</div><div class="n-role">Scribe</div></div>
+        <div class="node n5"><div>Ein</div><div class="n-role">Equity</div></div>
+        <div class="node n6"><div>Sable</div><div class="n-role">Sentry</div></div>
+
+        <div class="bubble" data-agent="Mac · Macro" style="top: -4%; left: 54%; transform: rotate(-2deg);">Inflation prints stay sticky — staying overweight real assets.</div>
+        <div class="bubble" data-agent="Rho · Risk" style="top: 20%; right: -8%; transform: rotate(3deg);">Let's add 2% gold to hedge the dollar tail.</div>
+        <div class="bubble" data-agent="Ein · Equity" style="bottom: 20%; left: -10%; transform: rotate(-4deg);">New pick: a zinc producer, cheap on EV/EBITDA<span class="cursor"></span></div>
+        <div class="bubble" data-agent="Quill · Scribe" style="bottom: 2%; right: -6%; transform: rotate(2deg);">Drafting this week's memo — 3 trade rationales queued.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="roster">
+    <div class="section-head"><h2>The <span class="kw">team</span> running<br>your capital.</h2><div class="meta"><b>6 agents · deployed</b><br>customizable · always learning<br>coordinated via α-CIO</div></div>
+    <div class="roster-grid">
+      <div class="agent-card lead"><div class="status-badge"><span class="led-green"></span> lead</div><div class="avatar">α</div><div class="callsign">AGENT 001</div><div class="agent-name">Ada</div><div class="role-desc">Chief Investment Officer. Sets allocation, aligns to your mandate, briefs you weekly.</div><div class="stats-line"><span>role</span><span>CIO</span></div><div class="stats-line"><span>coord</span><span class="up">5 reports</span></div><div class="stats-line"><span>uptime</span><span class="up">99.98%</span></div></div>
+      <div class="agent-card"><div class="status-badge"><span class="led-green"></span> online</div><div class="avatar">M</div><div class="callsign">AGENT 002</div><div class="agent-name">Mac</div><div class="role-desc">Macro strategist. Rates, FX, regime shifts — streaming live from global data.</div><div class="stats-line"><span>signals</span><span>47 live</span></div><div class="stats-line"><span>cadence</span><span>1m tick</span></div><div class="stats-line"><span>uptime</span><span class="up">99.99%</span></div></div>
+      <div class="agent-card"><div class="status-badge"><span class="led-green"></span> online</div><div class="avatar">E</div><div class="callsign">AGENT 003</div><div class="agent-name">Ein</div><div class="role-desc">Equity analyst. Deep company research, industry maps, filings synthesis.</div><div class="stats-line"><span>coverage</span><span>2,140 cos</span></div><div class="stats-line"><span>notes/wk</span><span>~80</span></div><div class="stats-line"><span>depth</span><span class="up">L4</span></div></div>
+      <div class="agent-card"><div class="status-badge"><span class="led-green"></span> online</div><div class="avatar">R</div><div class="callsign">AGENT 004</div><div class="agent-name">Rho</div><div class="role-desc">Risk officer. Drawdown limits, correlation drift, hedge proposals.</div><div class="stats-line"><span>scope</span><span>portfolio</span></div><div class="stats-line"><span>alerts</span><span class="up">realtime</span></div><div class="stats-line"><span>uptime</span><span class="up">99.98%</span></div></div>
+      <div class="agent-card"><div class="status-badge"><span class="led-green"></span> online</div><div class="avatar">Q</div><div class="callsign">AGENT 005</div><div class="agent-name">Quill</div><div class="role-desc">Scribe. Weekly memos, trade rationales, plain-English summaries.</div><div class="stats-line"><span>output</span><span>memos · md</span></div><div class="stats-line"><span>tone</span><span>configurable</span></div><div class="stats-line"><span>uptime</span><span class="up">100%</span></div></div>
+      <div class="agent-card"><div class="status-badge"><span class="led-green"></span> online</div><div class="avatar">S</div><div class="callsign">AGENT 006</div><div class="agent-name">Sable</div><div class="role-desc">Sentry. Watches filings, news, and alt-data for signals the team should act on.</div><div class="stats-line"><span>sources</span><span>1.2k feeds</span></div><div class="stats-line"><span>latency</span><span class="up">sub-min</span></div><div class="stats-line"><span>uptime</span><span class="up">99.96%</span></div></div>
+    </div>
+  </section>
+
+  <div class="cap-grid">
+    <div class="cap-cell"><div class="idx">// 01</div><h3>Real-time macro allocation</h3><p>The team rebalances your book against live rates, FX, and regime signals — not last quarter's model.</p></div>
+    <div class="cap-cell"><div class="idx">// 02</div><h3>Deep company research</h3><p>Equity agents map industries, synthesize filings, and surface opportunities at L4 depth.</p></div>
+    <div class="cap-cell"><div class="idx">// 03</div><h3>Fully customizable</h3><p>Set the mandate, hire or retire agents, adjust risk limits. You're the boss; they do the work.</p></div>
+    <div class="cap-cell"><div class="idx">// 04</div><h3>Continuously improving</h3><p>Every cycle refines the models. Every memo teaches Quill your voice. The team compounds.</p></div>
+  </div>
+
+  <footer>
+    <div class="footer-left">
+      <div class="brand">AlphaWalk</div>
+      <div class="disclaimer">© AlphaWalk 2026. AlphaWalk is not a registered investment advisor, broker-dealer, or tax advisor. Information provided is for informational purposes only and does not constitute investment advice, a recommendation, or a solicitation to buy or sell any security. Past performance is not indicative of future results. All investing involves risk, including the possible loss of principal.</div>
+    </div>
+    <div class="footer-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Security</a><a href="#">Contact</a></div>
+  </footer>
+</div>
+
+<div id="toastMessage" class="toast-message"></div>
+
+<script>
+  // API Configuration - Your AWS API Gateway endpoint
+  const API_URL = 'https://ctxcwa79ii.execute-api.us-east-1.amazonaws.com/prod/subscribe';
+  
+  const form = document.getElementById('signupForm');
+  const emailInput = document.getElementById('emailInput');
+  const submitBtn = document.getElementById('submitBtn');
+  const toast = document.getElementById('toastMessage');
+  
+  function showToast(message, type) {
+    toast.textContent = message;
+    toast.className = `toast-message show ${type}`;
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 4000);
+  }
+  
+  function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+  
+  async function submitToDynamoDB(email) {
+    submitBtn.disabled = true;
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Submitting...';
+    
+    try {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.trim().toLowerCase() })
+      });
+      
+      const data = await response.json();
+      
+      if (response.status === 200) {
+        showToast(data.message || 'Subscription successful! Thank you.', 'success');
+        emailInput.value = '';
+        console.log('✅ DynamoDB write successful:', email);
+      } else if (response.status === 400) {
+        showToast(data.message || 'Invalid email or already subscribed', 'error');
+        console.warn('API returned 400:', data);
+      } else {
+        showToast(data.message || `Server error (${response.status})`, 'error');
+        console.error('API error:', data);
+      }
+    } catch (error) {
+      console.error('Fetch error:', error);
+      if (error.message === 'Failed to fetch') {
+        showToast('Unable to connect to API. Please check your connection and CORS configuration.', 'error');
+      } else {
+        showToast(`Request failed: ${error.message}`, 'error');
+      }
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    }
+  }
+  
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = emailInput.value.trim();
+    
+    if (!email) {
+      showToast('Please enter your email address', 'error');
+      return;
+    }
+    
+    if (!isValidEmail(email)) {
+      showToast('Please enter a valid email address', 'error');
+      return;
+    }
+    
+    await submitToDynamoDB(email);
+  });
+  
+  // Bubble animation cycle
+  (function cycleBubbles() {
+    const bubbles = Array.from(document.querySelectorAll('.bubble'));
+    if (!bubbles.length) return;
+    const FADE = 1200;
+    const HOLD = 3800;
+    const GAP = 500;
+    let idx = 0;
+    function showNext() {
+      const b = bubbles[idx];
+      b.classList.add('show');
+      setTimeout(() => {
+        b.classList.remove('show');
+        setTimeout(() => {
+          idx = (idx + 1) % bubbles.length;
+          showNext();
+        }, FADE + GAP);
+      }, FADE + HOLD);
+    }
+    setTimeout(showNext, 500);
+  })();
+  
+  console.log('🚀 AlphaWalk — An agent swarm for your portfolio');
+  console.log('📡 API Endpoint:', API_URL);
+  console.log('📊 DynamoDB Table: AlphaWalkSubscribers');
+</script>
+</body>
+</html>
