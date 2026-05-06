@@ -3327,8 +3327,8 @@ p + p{ margin-top:1em; }
 
      Marching effect: a 6px-period linear-gradient repeated as the
      background, animated via background-position. Direction
-     alternates per pair (matching .mesh-link--rl/--lr intent
-     from the old SVG mesh) for two-way conversation.
+     alternates per pair so the mesh reads as two-way chatter,
+     not a one-way pipeline.
      ============================================================ */
   /* override the .map-node{position:static !important} rule below
      so the absolute pseudo-elements anchor to THIS wrapper, not
@@ -4730,188 +4730,44 @@ p + p{ margin-top:1em; }
     filter:blur(2px);
   }
 }
-</style>
-<!-- Additional styles for AlphaWalk waitlist module -->
-<style>
-  .aw-waitlist-container {
-    --aw-bg: #0a0d12;
-    --aw-bg-1: #0e1218;
-    --aw-panel: #10151d;
-    --aw-line: #1e2632;
-    --aw-line-2: #2a3446;
-    --aw-fg: #e6ecf2;
-    --aw-fg-dim: #8a97a8;
-    --aw-fg-mute: #5a6776;
-    --aw-accent: oklch(0.78 0.12 200);
-    --aw-accent-dim: oklch(0.52 0.10 200);
-    --aw-accent-glow: oklch(0.78 0.12 200 / 0.2);
-    --aw-green: oklch(0.78 0.14 150);
-    --aw-red: oklch(0.70 0.17 25);
-    max-width: 100%;
-  }
-  
-  .aw-waitlist-card {
-    background: var(--aw-panel);
-    border: 1px solid var(--aw-line);
-    border-radius: 16px;
-    padding: 32px 28px;
-    backdrop-filter: blur(4px);
-  }
-  
-  .aw-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(122, 214, 255, 0.08);
-    border: 1px solid var(--aw-accent-dim);
-    border-radius: 40px;
-    padding: 4px 12px;
-    font-family: 'JetBrains Mono', 'SF Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    color: var(--aw-accent);
-    margin-bottom: 20px;
-  }
-  
-  .aw-badge .dot {
-    width: 6px;
-    height: 6px;
-    background: var(--aw-green);
-    border-radius: 50%;
-    box-shadow: 0 0 6px var(--aw-green);
-    animation: aw-pulse 2s infinite;
-  }
-  
-  @keyframes aw-pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
-  
-  .aw-waitlist-title {
-    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
-    font-weight: 500;
-    font-size: 28px;
-    letter-spacing: -0.02em;
-    margin: 0 0 8px 0;
-    color: var(--aw-fg);
-  }
-  
-  .aw-waitlist-title span {
-    color: var(--aw-accent);
-  }
-  
-  .aw-waitlist-desc {
-    color: var(--aw-fg-dim);
-    font-size: 14px;
-    margin-bottom: 24px;
-    border-left: 2px solid var(--aw-accent-dim);
-    padding-left: 14px;
-  }
-  
-  .aw-form-group {
-    margin-bottom: 20px;
-  }
-  
-  .aw-input-wrapper {
-    display: flex;
-    border: 1px solid var(--aw-line-2);
-    border-radius: 12px;
-    background: var(--aw-bg-1);
-    transition: all 0.2s;
-  }
-  
-  .aw-input-wrapper:focus-within {
-    border-color: var(--aw-accent);
-    box-shadow: 0 0 0 3px var(--aw-accent-glow);
-  }
-  
-  .aw-input-wrapper input {
-    flex: 1;
-    background: transparent;
-    border: none;
-    color: var(--aw-fg);
-    font-size: 14px;
-    padding: 14px 18px;
-    outline: none;
-    font-family: inherit;
-  }
-  
-  .aw-input-wrapper input::placeholder {
-    color: var(--aw-fg-mute);
-  }
-  
-  .aw-input-wrapper button {
-    background: var(--aw-accent);
-    color: #081218;
-    border: none;
-    font-weight: 600;
-    font-size: 12px;
-    font-family: 'JetBrains Mono', 'SF Mono', monospace;
-    padding: 0 28px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.2s;
-    white-space: nowrap;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-  
-  .aw-input-wrapper button:hover:not(:disabled) {
-    filter: brightness(1.08);
-    transform: scale(0.98);
-  }
-  
-  .aw-input-wrapper button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-  
-  .aw-message {
-    margin-top: 16px;
-    padding: 10px 14px;
-    border-radius: 10px;
-    font-size: 12px;
-    display: none;
-    font-family: 'JetBrains Mono', 'SF Mono', monospace;
-  }
-  
-  .aw-message.show {
-    display: block;
-  }
-  
-  .aw-message.success {
-    background: rgba(76, 255, 158, 0.08);
-    border: 1px solid var(--aw-green);
-    color: var(--aw-green);
-  }
-  
-  .aw-message.error {
-    background: rgba(255, 80, 80, 0.08);
-    border: 1px solid var(--aw-red);
-    color: #ff8080;
-  }
-  
-  .aw-stats {
-    margin-top: 20px;
-    padding-top: 16px;
-    border-top: 1px solid var(--aw-line);
-    display: flex;
-    justify-content: space-between;
-    font-family: 'JetBrains Mono', 'SF Mono', monospace;
-    font-size: 10px;
-    color: var(--aw-fg-mute);
-  }
-  
-  .aw-stats span {
-    color: var(--aw-fg-dim);
-    font-weight: 500;
-  }
-  
-  @media (max-width: 520px) {
-    .aw-input-wrapper { flex-direction: column; }
-    .aw-input-wrapper button { padding: 10px; margin-top: 6px; border-radius: 8px; }
-    .aw-waitlist-card { padding: 24px 20px; }
-  }
+
+/* DynamoDB email submit toast */
+.email-submit-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+  z-index: 99999;
+  max-width: min(92vw, 520px);
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-family: var(--mono, ui-monospace, Menlo, monospace);
+  font-size: 12px;
+  line-height: 1.4;
+  letter-spacing: .04em;
+  color: #eef2ff;
+  background: rgba(5, 7, 13, .88);
+  border: 1px solid rgba(207, 231, 255, .22);
+  box-shadow: 0 18px 44px -18px rgba(0,0,0,.75), inset 0 1px 0 rgba(255,255,255,.08);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease, transform .25s ease;
+}
+.email-submit-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-4px);
+}
+.email-submit-toast.success {
+  border-color: rgba(124,255,207,.55);
+  color: #bfffe9;
+}
+.email-submit-toast.error {
+  border-color: rgba(255,120,120,.55);
+  color: #ffd0d0;
+}
+
 </style>
 </head>
 <body>
@@ -6913,10 +6769,10 @@ p + p{ margin-top:1em; }
       </div>
 
       <!-- Hero headline — three-beat story arc.
-             Setup    "While you sleep,"            — italic, dim, drifts in
-             Punch    "the walk continues."         — massive, gradient sweep
-             Promise  "EVERY STEP YOURS."           — mono small-caps, "yours"
-                                                      in ember + blinking cursor
+             Setup    "While you sleep,"        — italic, dim, drifts in
+             Punch    "the walk continues."     — massive, gradient sweep
+             Promise  "EVERY STEP YOURS."       — mono small-caps, "yours"
+                                                  in ember + blinking cursor
 
            Color logic: cyan/white = the AI / market / always-on infra.
            Ember (#ffb547) = YOU — warm decision in a cool electric field.
@@ -8016,200 +7872,172 @@ p + p{ margin-top:1em; }
         </div>
       </div>
 
-      <!-- AlphaWalk Waitlist Module inserted here -->
-      <div class="aw-waitlist-container reveal" style="max-width:400px; margin:0 auto;">
-        <div class="aw-waitlist-card">
-          <div class="aw-badge">
-            <span class="dot"></span>
-            <span>ALPHAWALK · WAITLIST</span>
-          </div>
-          <h3 class="aw-waitlist-title">Follow the <span>walk</span></h3>
-          <div class="aw-waitlist-desc">
-            Reserve your spot. First to hear when Alpha calls.
-          </div>
-          <div class="aw-form-group">
-            <div class="aw-input-wrapper">
-              <input type="email" id="aw-email" placeholder="you@domain.com" autocomplete="email">
-              <button id="aw-submit-btn">Join →</button>
-            </div>
-          </div>
-          <div id="aw-message" class="aw-message"></div>
-          <div class="aw-stats">
-            <div>📬 Already on the list</div>
-            <div><span id="aw-count">loading...</span></div>
-          </div>
+      <div class="reach-radar-wrap reveal">
+        <div class="reach-radar" aria-label="A radar sweep scanning the messengers Alpha reaches you through">
+          <svg viewBox="0 0 540 540">
+            <defs>
+              <!-- Sweep wedge — bright leading edge, fading trail -->
+              <radialGradient id="rdrSweep" cx="270" cy="270" r="240" gradientUnits="userSpaceOnUse">
+                <stop offset="0%"   stop-color="#5fe8ff" stop-opacity=".55"/>
+                <stop offset="60%"  stop-color="#5fe8ff" stop-opacity=".18"/>
+                <stop offset="100%" stop-color="#5fe8ff" stop-opacity="0"/>
+              </radialGradient>
+              <linearGradient id="rdrLead" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+                <stop offset="0%"   stop-color="#eaf7ff" stop-opacity=".95"/>
+                <stop offset="100%" stop-color="#5fe8ff" stop-opacity="0"/>
+              </linearGradient>
+              <radialGradient id="rdrYou" cx="50%" cy="50%" r="50%">
+                <stop offset="0%"  stop-color="#ffffff" stop-opacity=".95"/>
+                <stop offset="35%" stop-color="#cfe7ff" stop-opacity=".7"/>
+                <stop offset="70%" stop-color="#5fe8ff" stop-opacity=".35"/>
+                <stop offset="100%" stop-color="#2b5dff" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="rdrBlipGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%"   stop-color="#cfe7ff" stop-opacity=".85"/>
+                <stop offset="60%"  stop-color="#5fe8ff" stop-opacity=".25"/>
+                <stop offset="100%" stop-color="#2b5dff" stop-opacity="0"/>
+              </radialGradient>
+              <filter id="rdrGlow" x="-40%" y="-40%" width="180%" height="180%">
+                <feGaussianBlur stdDeviation="1.6"/>
+              </filter>
+            </defs>
+
+            <!-- Range rings (outer to inner) -->
+            <g class="radar-rings">
+              <circle class="outer" cx="270" cy="270" r="240"/>
+              <circle cx="270" cy="270" r="180"/>
+              <circle cx="270" cy="270" r="120"/>
+              <circle cx="270" cy="270" r="60"/>
+            </g>
+
+            <!-- Crosshair lines -->
+            <g class="radar-cross" fill="none">
+              <line x1="30"  y1="270" x2="510" y2="270"/>
+              <line x1="270" y1="30"  x2="270" y2="510"/>
+            </g>
+
+            <!-- Bearing letters N E S W -->
+            <g class="radar-bearing" text-anchor="middle" dominant-baseline="middle">
+              <text x="270" y="22">N</text>
+              <text x="518" y="270">E</text>
+              <text x="270" y="520">S</text>
+              <text x="22"  y="270">W</text>
+            </g>
+
+            <!-- Ambient twinkling returns (background noise) -->
+            <g class="radar-ambient">
+              <circle class="a-1" cx="110" cy="170" r="1.2"/>
+              <circle class="a-2" cx="430" cy="210" r="1"/>
+              <circle class="a-3" cx="205" cy="420" r="1.1"/>
+              <circle class="a-4" cx="355" cy="455" r=".9"/>
+              <circle class="a-1" cx="470" cy="340" r="1"/>
+              <circle class="a-2" cx="95"  cy="385" r="1.1"/>
+              <circle class="a-3" cx="320" cy="95"  r="1"/>
+            </g>
+
+            <!-- Sweep wedge — rotates CW, 6s period. Starts pointing north. -->
+            <g class="radar-sweep">
+              <!-- wedge: center → north edge → arc 60° CW to 1 o'clock -->
+              <path d="M 270 270 L 270 30 A 240 240 0 0 1 477.85 150 Z"
+                    fill="url(#rdrSweep)"/>
+              <!-- bright leading edge line (north ray) -->
+              <line x1="270" y1="270" x2="270" y2="30"
+                    stroke="url(#rdrLead)" stroke-width="1.4" stroke-linecap="round"
+                    filter="url(#rdrGlow)"/>
+            </g>
+
+            <!-- YOU — glowing center, the walker -->
+            <g class="radar-you">
+              <circle cx="270" cy="270" r="34" fill="url(#rdrYou)" opacity=".75"/>
+              <circle cx="270" cy="270" r="10" fill="#ffffff" opacity=".85"/>
+              <circle cx="270" cy="270" r="4"  fill="#5fe8ff"/>
+              <text x="270" y="306" class="radar-label" text-anchor="middle">you</text>
+            </g>
+
+            <!-- BLIP — Telegram (NE, bearing ~35°)
+                 Filter wraps ONLY the glow shapes so text stays crisp. -->
+            <g class="radar-blip">
+              <g filter="url(#rdrGlow)">
+                <!-- ping ring (expands when sweep crosses) -->
+                <circle cx="365" cy="135" r="6" fill="none" stroke="#5fe8ff" stroke-width="1.2" opacity="0">
+                  <animate attributeName="r"       values="6;28"   dur="1.4s" begin="0.58s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values=".9;0"   dur="1.4s" begin="0.58s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="365" cy="135" r="18" fill="url(#rdrBlipGlow)" opacity=".55"/>
+                <circle cx="365" cy="135" r="3.2" fill="#eaf7ff"/>
+              </g>
+              <text x="365" y="104" class="radar-label" text-anchor="middle">telegram</text>
+              <text x="365" y="119" class="radar-hint"  text-anchor="middle">voice · text</text>
+            </g>
+
+            <!-- BLIP — WhatsApp (SE, bearing ~127°) -->
+            <g class="radar-blip">
+              <g filter="url(#rdrGlow)">
+                <circle cx="410" cy="375" r="6" fill="none" stroke="#5fe8ff" stroke-width="1.2" opacity="0">
+                  <animate attributeName="r"       values="6;30"   dur="1.4s" begin="2.10s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values=".9;0"   dur="1.4s" begin="2.10s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="410" cy="375" r="18" fill="url(#rdrBlipGlow)" opacity=".55"/>
+                <circle cx="410" cy="375" r="3.2" fill="#eaf7ff"/>
+              </g>
+              <text x="410" y="410" class="radar-label" text-anchor="middle">whatsapp</text>
+              <text x="410" y="425" class="radar-hint"  text-anchor="middle">e2e · secure</text>
+            </g>
+
+            <!-- BLIP — Voice note (SW, bearing ~240°) -->
+            <g class="radar-blip">
+              <g filter="url(#rdrGlow)">
+                <circle cx="140" cy="345" r="6" fill="none" stroke="#5fe8ff" stroke-width="1.2" opacity="0">
+                  <animate attributeName="r"       values="6;32"   dur="1.4s" begin="4.00s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values=".9;0"   dur="1.4s" begin="4.00s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="140" cy="345" r="18" fill="url(#rdrBlipGlow)" opacity=".55"/>
+                <circle cx="140" cy="345" r="3.2" fill="#eaf7ff"/>
+              </g>
+              <text x="140" y="380" class="radar-label" text-anchor="middle">voice</text>
+              <text x="140" y="395" class="radar-hint"  text-anchor="middle">reply with your ear</text>
+            </g>
+
+            <!-- Preview card — a quiet incoming message from Alpha.
+                 Styled as a radar readout: mono type, crosshair-bracket
+                 corners, hairline divider, pulsing cyan signal dot. -->
+            <g class="radar-preview">
+              <!-- crosshair-style corner bracket (top-left) -->
+              <path d="M 316 44 L 316 34 L 326 34"
+                    fill="none" stroke="rgba(95,232,255,.7)"
+                    stroke-width="1.2" stroke-linecap="round"/>
+              <!-- crosshair-style corner bracket (bottom-right) -->
+              <path d="M 526 86 L 536 86 L 536 76"
+                    fill="none" stroke="rgba(95,232,255,.7)"
+                    stroke-width="1.2" stroke-linecap="round"/>
+
+              <!-- pill body — slightly translucent so sweep ghosts through -->
+              <rect x="316" y="34" width="220" height="52" rx="4"
+                    fill="rgba(8,14,32,.78)"
+                    stroke="rgba(95,232,255,.26)" stroke-width="1"/>
+
+              <!-- hairline divider between meta and copy -->
+              <line x1="328" y1="56" x2="524" y2="56"
+                    stroke="rgba(95,232,255,.18)" stroke-width=".8"/>
+
+              <!-- live incoming signal dot -->
+              <circle cx="332" cy="47" r="2.6" fill="#5fe8ff">
+                <animate attributeName="opacity"
+                         values=".25;1;.25" dur="1.9s" repeatCount="indefinite"/>
+              </circle>
+
+              <!-- meta header -->
+              <text x="342" y="50" class="radar-meta">ALPHA · TELEGRAM</text>
+              <!-- copy -->
+              <text x="328" y="75" class="radar-copy">morning's quiet. we hold.</text>
+            </g>
+          </svg>
         </div>
       </div>
 
     </div>
   </div>
 </section>
-
-<!-- Waitlist Script — submits BOTH the hero form and the waitlist card to API Gateway -->
-<script>
-(function() {
-  // ============================================================
-  // 配置区域 - 请替换为您的 API Gateway URL
-  // ============================================================
-  const API_URL = 'https://ctxcwa79ii.execute-api.us-east-1.amazonaws.com/prod/subscribe';
-  const STORAGE_KEY = 'alphawalk_waitlist_count';
-
-  // Waitlist card form
-  const awEmailInput = document.getElementById('aw-email');
-  const awSubmitBtn = document.getElementById('aw-submit-btn');
-  const messageDiv = document.getElementById('aw-message');
-  const countSpan = document.getElementById('aw-count');
-
-  // Hero form at the top of the page
-  const heroForm = document.querySelector('.hero-email-form');
-  const heroEmailInput = heroForm ? heroForm.querySelector('.hero-email-input') : null;
-  const heroSubmitBtn = heroForm ? heroForm.querySelector('.hero-email-submit') : null;
-
-  function showMessage(text, type) {
-    if (!messageDiv) {
-      console[type === 'error' ? 'error' : 'log'](text);
-      return;
-    }
-    messageDiv.className = `aw-message show ${type}`;
-    messageDiv.textContent = text;
-    setTimeout(() => {
-      messageDiv.classList.remove('show');
-    }, 4000);
-  }
-
-  function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
-    return emailRegex.test(email);
-  }
-
-  function updateCountDisplay() {
-    if (!countSpan) return;
-    const saved = localStorage.getItem(STORAGE_KEY);
-    countSpan.textContent = saved || '2,971';
-  }
-
-  function incrementLocalCount() {
-    if (!countSpan) return;
-    const current = localStorage.getItem(STORAGE_KEY);
-    let newCount;
-    if (current) {
-      newCount = parseInt(current.replace(/,/g, ''), 10) + 1;
-    } else {
-      newCount = 2972;
-    }
-    countSpan.textContent = newCount.toLocaleString();
-    localStorage.setItem(STORAGE_KEY, countSpan.textContent);
-  }
-
-  async function parseResponseSafely(response) {
-    const text = await response.text();
-    if (!text) return {};
-    try {
-      return JSON.parse(text);
-    } catch (_) {
-      return { message: text };
-    }
-  }
-
-  async function submitEmail(email, sourceInput, sourceButton) {
-    const originalButtonHTML = sourceButton ? sourceButton.innerHTML : '';
-    const isAwButton = sourceButton && sourceButton.id === 'aw-submit-btn';
-
-    if (sourceButton) {
-      sourceButton.disabled = true;
-      sourceButton.setAttribute('aria-busy', 'true');
-      if (isAwButton) sourceButton.textContent = 'Submitting...';
-    }
-
-    try {
-      const response = await fetch(API_URL, {
-        method: 'POST',
-        mode: 'cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim().toLowerCase() })
-      });
-
-      const data = await parseResponseSafely(response);
-
-      if (response.ok) {
-        showMessage(data.message || '✓ Successfully joined the waitlist!', 'success');
-        if (sourceInput) sourceInput.value = '';
-        incrementLocalCount();
-        return true;
-      }
-
-      if (response.status === 400 || response.status === 409) {
-        showMessage(data.message || 'This email is already subscribed', 'error');
-      } else {
-        showMessage(data.message || `Server error (${response.status})`, 'error');
-      }
-      return false;
-    } catch (error) {
-      console.error('Fetch error:', error);
-      showMessage(
-        error.message === 'Failed to fetch'
-          ? 'Unable to connect. Please check API Gateway CORS / URL.'
-          : `Request failed: ${error.message}`,
-        'error'
-      );
-      return false;
-    } finally {
-      if (sourceButton) {
-        sourceButton.disabled = false;
-        sourceButton.removeAttribute('aria-busy');
-        if (isAwButton) {
-          sourceButton.textContent = 'Join →';
-        } else {
-          sourceButton.innerHTML = originalButtonHTML;
-        }
-      }
-    }
-  }
-
-  async function handleEmailSubmit(inputEl, buttonEl) {
-    if (!inputEl) return;
-    const email = inputEl.value.trim();
-
-    if (!email) {
-      showMessage('Please enter your email address', 'error');
-      inputEl.focus();
-      return;
-    }
-
-    if (!isValidEmail(email)) {
-      showMessage('Please enter a valid email address', 'error');
-      inputEl.focus();
-      return;
-    }
-
-    await submitEmail(email, inputEl, buttonEl);
-  }
-
-  // Waitlist card: click + Enter key
-  if (awSubmitBtn) {
-    awSubmitBtn.addEventListener('click', () => handleEmailSubmit(awEmailInput, awSubmitBtn));
-  }
-
-  if (awEmailInput) {
-    awEmailInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        handleEmailSubmit(awEmailInput, awSubmitBtn);
-      }
-    });
-  }
-
-  // Hero form: submit event. This is the part missing in the updated file.
-  if (heroForm) {
-    heroForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      handleEmailSubmit(heroEmailInput, heroSubmitBtn);
-    });
-  }
-
-  updateCountDisplay();
-})();
-</script>
 
 <!-- ============================================================
      VOICES — labeled beta previews
@@ -8300,7 +8128,7 @@ p + p{ margin-top:1em; }
 
       <details class="faq-item">
         <summary>Is this investment advice?</summary>
-        <div class="faq-body"><b>No.</b> alphawalk is an information and learning tool — nothing the crew says is a recommendation. Markets carry real risk of loss. You decide. See <a href="disclosures.html">full disclosures</a>.</div>
+        <div class="faq-body"><b>No.</b> alphawalk is an information and learning tool — nothing the crew says is a recommendation. Markets carry real risk. You decide. See <a href="disclosures.html">full disclosures</a>.</div>
       </details>
 
       <details class="faq-item">
@@ -8962,5 +8790,105 @@ p + p{ margin-top:1em; }
 
 </script>
 
+
+<script>
+(function () {
+  const API_URL = 'https://ctxcwa79ii.execute-api.us-east-1.amazonaws.com/prod/subscribe';
+
+  const form = document.querySelector('.hero-email-form');
+  if (!form) {
+    console.error('Email form not found: .hero-email-form');
+    return;
+  }
+
+  const emailInput = form.querySelector('input[type="email"], input[name="email"]');
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const toast = document.getElementById('emailSubmitToast');
+
+  function showToast(message, type) {
+    if (!toast) {
+      alert(message);
+      return;
+    }
+    toast.textContent = message;
+    toast.className = 'email-submit-toast show ' + (type || '');
+    window.clearTimeout(showToast._timer);
+    showToast._timer = window.setTimeout(function () {
+      toast.classList.remove('show');
+    }, 4200);
+  }
+
+  function isValidEmail(email) {
+    return /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/.test(email);
+  }
+
+  form.addEventListener('submit', async function (event) {
+    event.preventDefault();
+
+    const email = (emailInput && emailInput.value ? emailInput.value : '').trim().toLowerCase();
+
+    if (!email) {
+      showToast('Please enter your email address.', 'error');
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      showToast('Please enter a valid email address.', 'error');
+      return;
+    }
+
+    const originalHTML = submitBtn ? submitBtn.innerHTML : '';
+
+    try {
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.setAttribute('aria-busy', 'true');
+        const label = submitBtn.querySelector('.hero-email-submit-label');
+        if (label) label.textContent = 'Submitting';
+      }
+
+      console.log('Submitting email to API:', API_URL);
+
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email: email })
+      });
+
+      let data = {};
+      const text = await response.text();
+      try {
+        data = text ? JSON.parse(text) : {};
+      } catch (parseError) {
+        data = { message: text };
+      }
+
+      console.log('API response:', response.status, data);
+
+      if (response.ok) {
+        showToast(data.message || 'Subscription successful! Thank you.', 'success');
+        emailInput.value = '';
+      } else {
+        showToast(data.message || ('Server error (' + response.status + ').'), 'error');
+      }
+    } catch (error) {
+      console.error('Fetch error:', error);
+      showToast('Unable to submit. Please check API Gateway, Lambda logs, and CORS.', 'error');
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.removeAttribute('aria-busy');
+        submitBtn.innerHTML = originalHTML;
+      }
+    }
+  });
+
+  console.log('Email submit handler attached. API endpoint:', API_URL);
+})();
+</script>
+
+<div id="emailSubmitToast" class="email-submit-toast" aria-live="polite"></div>
 </body>
 </html>
