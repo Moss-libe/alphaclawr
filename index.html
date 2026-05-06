@@ -8045,7 +8045,7 @@ p + p{ margin-top:1em; }
   </div>
 </section>
 
-<!-- Waitlist Script (unchanged except API URL) -->
+<!-- Waitlist Script — submits BOTH the hero form and the waitlist card to API Gateway -->
 <script>
 (function() {
   // ============================================================
@@ -8053,120 +8053,160 @@ p + p{ margin-top:1em; }
   // ============================================================
   const API_URL = 'https://ctxcwa79ii.execute-api.us-east-1.amazonaws.com/prod/subscribe';
   const STORAGE_KEY = 'alphawalk_waitlist_count';
-  
-  const emailInput = document.getElementById('aw-email');
-  const submitBtn = document.getElementById('aw-submit-btn');
+
+  // Waitlist card form
+  const awEmailInput = document.getElementById('aw-email');
+  const awSubmitBtn = document.getElementById('aw-submit-btn');
   const messageDiv = document.getElementById('aw-message');
   const countSpan = document.getElementById('aw-count');
-  
+
+  // Hero form at the top of the page
+  const heroForm = document.querySelector('.hero-email-form');
+  const heroEmailInput = heroForm ? heroForm.querySelector('.hero-email-input') : null;
+  const heroSubmitBtn = heroForm ? heroForm.querySelector('.hero-email-submit') : null;
+
   function showMessage(text, type) {
+    if (!messageDiv) {
+      console[type === 'error' ? 'error' : 'log'](text);
+      return;
+    }
     messageDiv.className = `aw-message show ${type}`;
     messageDiv.textContent = text;
     setTimeout(() => {
       messageDiv.classList.remove('show');
     }, 4000);
   }
-  
+
   function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
     return emailRegex.test(email);
   }
-  
+
   function updateCountDisplay() {
+    if (!countSpan) return;
     const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      countSpan.textContent = saved;
-    } else {
-      countSpan.textContent = '2,971';
-    }
+    countSpan.textContent = saved || '2,971';
   }
-  
+
   function incrementLocalCount() {
+    if (!countSpan) return;
     const current = localStorage.getItem(STORAGE_KEY);
     let newCount;
     if (current) {
-      newCount = parseInt(current.replace(/,/g, '')) + 1;
-      countSpan.textContent = newCount.toLocaleString();
-      localStorage.setItem(STORAGE_KEY, countSpan.textContent);
+      newCount = parseInt(current.replace(/,/g, ''), 10) + 1;
     } else {
       newCount = 2972;
-      countSpan.textContent = '2,972';
-      localStorage.setItem(STORAGE_KEY, '2,972');
+    }
+    countSpan.textContent = newCount.toLocaleString();
+    localStorage.setItem(STORAGE_KEY, countSpan.textContent);
+  }
+
+  async function parseResponseSafely(response) {
+    const text = await response.text();
+    if (!text) return {};
+    try {
+      return JSON.parse(text);
+    } catch (_) {
+      return { message: text };
     }
   }
-  
-  async function submitEmail(email) {
-    if (submitBtn) submitBtn.disabled = true;
-    const originalText = submitBtn ? submitBtn.textContent : 'Submit';
-    if (submitBtn) submitBtn.textContent = 'Submitting...';
-    
+
+  async function submitEmail(email, sourceInput, sourceButton) {
+    const originalButtonHTML = sourceButton ? sourceButton.innerHTML : '';
+    const isAwButton = sourceButton && sourceButton.id === 'aw-submit-btn';
+
+    if (sourceButton) {
+      sourceButton.disabled = true;
+      sourceButton.setAttribute('aria-busy', 'true');
+      if (isAwButton) sourceButton.textContent = 'Submitting...';
+    }
+
     try {
       const response = await fetch(API_URL, {
         method: 'POST',
+        mode: 'cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email.trim().toLowerCase() })
       });
-      
-      const data = await response.json();
-      
-      if (response.status === 200) {
+
+      const data = await parseResponseSafely(response);
+
+      if (response.ok) {
         showMessage(data.message || '✓ Successfully joined the waitlist!', 'success');
-        if (emailInput) emailInput.value = '';
+        if (sourceInput) sourceInput.value = '';
         incrementLocalCount();
         return true;
-      } else if (response.status === 400) {
+      }
+
+      if (response.status === 400 || response.status === 409) {
         showMessage(data.message || 'This email is already subscribed', 'error');
-        return false;
       } else {
         showMessage(data.message || `Server error (${response.status})`, 'error');
-        return false;
-      }
-    } catch (error) {
-      console.error('Fetch error:', error);
-      if (error.message === 'Failed to fetch') {
-        showMessage('Unable to connect. Please check your connection.', 'error');
-      } else {
-        showMessage(`Request failed: ${error.message}`, 'error');
       }
       return false;
+    } catch (error) {
+      console.error('Fetch error:', error);
+      showMessage(
+        error.message === 'Failed to fetch'
+          ? 'Unable to connect. Please check API Gateway CORS / URL.'
+          : `Request failed: ${error.message}`,
+        'error'
+      );
+      return false;
     } finally {
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalText;
+      if (sourceButton) {
+        sourceButton.disabled = false;
+        sourceButton.removeAttribute('aria-busy');
+        if (isAwButton) {
+          sourceButton.textContent = 'Join →';
+        } else {
+          sourceButton.innerHTML = originalButtonHTML;
+        }
       }
     }
   }
-  
-  async function handleSubmit() {
-    if (!emailInput) return;
-    const email = emailInput.value.trim();
-    
+
+  async function handleEmailSubmit(inputEl, buttonEl) {
+    if (!inputEl) return;
+    const email = inputEl.value.trim();
+
     if (!email) {
       showMessage('Please enter your email address', 'error');
+      inputEl.focus();
       return;
     }
-    
+
     if (!isValidEmail(email)) {
       showMessage('Please enter a valid email address', 'error');
+      inputEl.focus();
       return;
     }
-    
-    await submitEmail(email);
+
+    await submitEmail(email, inputEl, buttonEl);
   }
-  
-  if (submitBtn) {
-    submitBtn.addEventListener('click', handleSubmit);
+
+  // Waitlist card: click + Enter key
+  if (awSubmitBtn) {
+    awSubmitBtn.addEventListener('click', () => handleEmailSubmit(awEmailInput, awSubmitBtn));
   }
-  
-  if (emailInput) {
-    emailInput.addEventListener('keypress', (e) => {
+
+  if (awEmailInput) {
+    awEmailInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         e.preventDefault();
-        handleSubmit();
+        handleEmailSubmit(awEmailInput, awSubmitBtn);
       }
     });
   }
-  
+
+  // Hero form: submit event. This is the part missing in the updated file.
+  if (heroForm) {
+    heroForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      handleEmailSubmit(heroEmailInput, heroSubmitBtn);
+    });
+  }
+
   updateCountDisplay();
 })();
 </script>
