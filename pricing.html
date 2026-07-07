@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Credits &amp; Pricing · ALPHAWALK</title>
+<meta name="description" content="ALPHAWALK runs on credits. Subscribe monthly for your credit allowance, and top up anytime you need more." />
+<meta name="theme-color" content="#F4F1EA" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   ALPHAWALK · pricing · Vol.03 brand system
+   COMPLIANCE NOTE: pack prices, the beta small print, and the
+   footnote are Stripe-review copy. Style freely; do not edit
+   the words. Prices must match the Stripe dashboard.
+   ============================================================ */
+:root{
+  --paper: oklch(.972 .006 85);
+  --card: oklch(.995 .003 85);
+  --ink-900: oklch(.17 .006 280);
+  --ink-700: oklch(.34 .006 280);
+  --ink-500: oklch(.52 .005 280);
+  --ink-300: oklch(.72 .004 285);
+  --ink-200: oklch(.88 .003 90);
+  --ink-100: oklch(.93 .004 90);
+  --ink-50:  oklch(.965 .004 90);
+  --on-brand: oklch(.985 .004 85);
+  --accent: oklch(.52 .165 278);
+  --accent-2: oklch(.585 .155 308);
+  --accent-soft: oklch(.955 .028 290);
+  --on-accent: oklch(.99 .004 290);
+  --d-paper: oklch(.135 .006 281);
+  --d-ink-900: oklch(.96 .004 85);
+  --d-ink-500: oklch(.68 .007 285);
+  --d-ink-300: oklch(.54 .007 285);
+  --d-ink-100: oklch(.29 .008 281);
+  --bone: #F1ECE3;
+  --brass: #9C7536;
+  --brass-d: #C8A25B;
+  --font-display:"Newsreader","Noto Serif TC","Songti TC",Georgia,serif;
+  --font-sans:"IBM Plex Sans","Noto Sans TC","PingFang TC",system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,monospace;
+  --tracking-label:.16em;
+  --tracking-kicker:.18em;
+  --tracking-logo:.28em;
+  --ease-out-quint: cubic-bezier(.22,1,.36,1);
+  --dur-2: 220ms;
+  --shell: 1140px;
+  --gut: clamp(20px,4vw,40px);
+}
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink-900);
+  font-family:var(--font-sans);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+body::after{
+  content:"";
+  position:fixed; inset:0;
+  pointer-events:none; z-index:9999; opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+h1,h2,h3,h4{ margin:0; font-weight:400; }
+p{ margin:0; color:var(--ink-700); }
+a{ color:inherit; text-decoration:none; }
+svg{ display:block; }
+::selection{ background:var(--accent-soft); }
+:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; border-radius:6px; }
+.shell{ max-width:var(--shell); margin:0 auto; padding:0 var(--gut); }
+.kicker{
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:var(--font-mono);
+  font-size:11px; font-weight:500;
+  letter-spacing:var(--tracking-kicker);
+  text-transform:uppercase;
+  color:var(--ink-500);
+}
+.kicker .dot{ width:5px;height:5px;border-radius:999px;background:var(--accent); }
+
+/* nav */
+.nav{
+  position:sticky; top:0; z-index:100;
+  background:oklch(.972 .006 85 / .88);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--ink-200);
+}
+.nav-row{ display:flex; align-items:center; justify-content:space-between; height:68px; }
+.wordmark{ display:inline-flex; align-items:center; gap:12px; }
+.wordmark .mark{ width:24px;height:24px; }
+.wordmark .logotype{
+  font-family:var(--font-sans);
+  font-size:12.5px; font-weight:500;
+  letter-spacing:var(--tracking-logo);
+  text-transform:uppercase;
+  color:var(--ink-900);
+  transform:translateX(2px);
+}
+.nav-links{ display:flex; align-items:center; gap:32px; }
+.nav-links a{ font-size:14px; color:var(--ink-500); transition:color var(--dur-2) var(--ease-out-quint); }
+.nav-links a:hover,.nav-links a[aria-current]{ color:var(--ink-900); }
+.btn{
+  display:inline-flex; align-items:center; gap:10px;
+  padding:10px 18px;
+  border-radius:8px; border:1px solid transparent;
+  font-size:13.5px; font-weight:500; line-height:1;
+  transition:filter var(--dur-2) var(--ease-out-quint);
+}
+.btn-ink{ background:var(--ink-900); color:var(--on-brand); }
+.btn-ink:hover{ filter:brightness(1.18); }
+@media (max-width:880px){ .nav-links{ display:none; } }
+
+/* page head */
+.page{ padding:clamp(56px,8vw,96px) 0 clamp(64px,9vw,110px); }
+.page-head{ text-align:center; margin-bottom:clamp(44px,6vw,72px); }
+.page-head .kicker{ margin-bottom:20px; justify-content:center; }
+.page-head h1{
+  font-family:var(--font-display);
+  font-size:clamp(34px,4.2vw,50px);
+  line-height:1.08;
+  letter-spacing:-.012em;
+  margin-bottom:18px;
+}
+.page-head .lede{
+  margin:0 auto;
+  font-size:clamp(16px,1.6vw,18.5px);
+  line-height:1.65;
+  color:var(--ink-500);
+  max-width:54ch;
+}
+
+/* the rate card · one printed artifact, not twin cards */
+.ratecard-wrap{ position:relative; max-width:880px; }
+.ratecard-wrap::before{
+  content:"";
+  position:absolute;
+  inset:16px -10px -12px 18px;
+  background:oklch(.94 .005 85);
+  border:1px solid var(--ink-200);
+  border-radius:8px;
+  transform:rotate(1.2deg);
+  z-index:0;
+}
+.ratecard{
+  position:relative;
+  z-index:1;
+  background:var(--card);
+  border:1px solid var(--ink-200);
+  border-radius:8px;
+  overflow:hidden;
+  box-shadow:0 1px 0 oklch(1 0 0 / .7) inset, 0 34px 66px -42px oklch(.17 .006 280 / .55);
+}
+.rc-head{
+  display:flex; align-items:center; justify-content:space-between; gap:14px;
+  padding:16px clamp(22px,3vw,32px) 12px;
+  border-bottom:1.5px solid var(--ink-300);
+}
+.rc-head .kicker{ font-size:10px; gap:8px; }
+.rc-head .kicker svg{ width:14px;height:14px; }
+.rc-beta{
+  font-family:var(--font-mono);
+  font-size:9.5px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink-300);
+  white-space:nowrap;
+}
+.rc-cols{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+}
+.rc-col{
+  padding:clamp(26px,3.2vw,40px) clamp(24px,3.2vw,38px);
+}
+.rc-col + .rc-col{ border-left:1px solid var(--ink-200); }
+.rc-kind{
+  font-family:var(--font-mono);
+  font-size:10px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink-500);
+  margin-bottom:12px;
+}
+.rc-name{
+  font-family:var(--font-display);
+  font-size:clamp(23px,2.3vw,29px);
+  display:flex; align-items:center; gap:12px;
+  margin-bottom:20px;
+}
+.rc-tag{
+  font-family:var(--font-mono);
+  font-size:9px; font-weight:500;
+  letter-spacing:.16em; text-transform:uppercase;
+  color:var(--brass);
+  transform:translateY(-2px);
+}
+.rc-fig{ display:flex; align-items:baseline; gap:9px; margin-bottom:8px; }
+.rc-fig .amount{
+  font-family:var(--font-display);
+  font-size:clamp(46px,4.8vw,60px);
+  line-height:1;
+  letter-spacing:-.012em;
+  font-variant-numeric:tabular-nums;
+  color:var(--ink-900);
+}
+.rc-fig .amount .cur{
+  font-size:.5em;
+  vertical-align:.56em;
+  color:var(--ink-500);
+  margin-right:2px;
+}
+.rc-fig .cycle{ font-size:14px; color:var(--ink-500); }
+.rc-credits{
+  font-size:16.5px; font-weight:500;
+  color:var(--ink-900);
+  margin-bottom:14px;
+}
+.rc-sub{ font-size:14px; color:var(--ink-500); line-height:1.6; margin-bottom:22px; }
+.rc-note{
+  font-family:var(--font-mono);
+  font-size:10.5px; letter-spacing:.03em;
+  color:var(--ink-300);
+  padding-top:14px;
+  border-top:1px solid var(--ink-100);
+}
+/* pro · the inverted column */
+.rc-col.is-pro{ background:var(--d-paper); }
+.is-pro .rc-kind{ color:var(--d-ink-300); }
+.is-pro .rc-name{ color:var(--bone); }
+.is-pro .rc-tag{ color:var(--brass-d); border-color:oklch(.7 .1 80 / .5); }
+.is-pro .rc-fig .amount{ color:var(--bone); }
+.is-pro .rc-fig .amount .cur,.is-pro .rc-fig .cycle{ color:var(--d-ink-500); }
+.is-pro .rc-credits{ color:var(--d-ink-900); }
+.is-pro .rc-sub{ color:var(--d-ink-500); }
+.is-pro .rc-note{ color:var(--d-ink-300); border-top-color:var(--d-ink-100); }
+/* the coupon · perforated top-up strip */
+.rc-coupon{
+  position:relative;
+  display:flex; align-items:center; gap:clamp(16px,3vw,36px);
+  padding:20px clamp(22px,3vw,32px);
+  border-top:2px dashed var(--ink-200);
+}
+.rc-coupon .scissors{
+  position:absolute;
+  top:-11px; left:clamp(18px,2.6vw,28px);
+  width:20px; height:20px;
+  color:var(--ink-300);
+  background:var(--card);
+  padding:0 2px;
+}
+.rc-coupon .c-copy{ flex:1; min-width:0; }
+.rc-coupon .rc-kind{ margin-bottom:4px; }
+.rc-coupon .c-name{
+  font-family:var(--font-display);
+  font-size:19px;
+}
+.rc-coupon .c-name .c-sub{
+  font-family:var(--font-sans);
+  font-size:13px;
+  color:var(--ink-500);
+}
+.rc-coupon .c-fig{
+  font-family:var(--font-display);
+  font-size:32px;
+  font-variant-numeric:tabular-nums;
+  white-space:nowrap;
+}
+.rc-coupon .c-fig .cur{ font-size:.55em; vertical-align:.5em; color:var(--ink-500); }
+.rc-coupon .c-credits{ font-size:14.5px; font-weight:500; white-space:nowrap; }
+@media (max-width:760px){
+  .rc-cols{ grid-template-columns:1fr; }
+  .rc-col + .rc-col{ border-left:none; }
+  .rc-coupon{ flex-wrap:wrap; gap:8px 20px; }
+}
+
+
+/* required small print + reset note */
+.fineprint{
+  text-align:center;
+  margin:clamp(26px,3.4vw,36px) auto 0;
+  max-width:70ch;
+}
+.fineprint .must{
+  font-size:14px;
+  color:var(--ink-700);
+}
+.fineprint .reset{
+  margin-top:6px;
+  font-size:13px;
+  color:var(--ink-500);
+}
+
+/* footnote · Stripe key sentence · verbatim */
+.footnote{
+  max-width:760px;
+  margin:clamp(40px,5vw,60px) auto 0;
+  padding-top:26px;
+  border-top:1px solid var(--ink-200);
+  font-size:13.5px;
+  line-height:1.75;
+  color:var(--ink-500);
+}
+.footnote a{
+  color:var(--ink-700);
+  text-decoration:underline;
+  text-underline-offset:3px;
+  text-decoration-color:var(--ink-300);
+  transition:color var(--dur-2) var(--ease-out-quint);
+}
+.footnote a:hover{ color:var(--accent); }
+
+/* footer */
+.footer{ border-top:1px solid var(--ink-200); padding:clamp(40px,5vw,56px) 0 36px; }
+.footer-row{
+  display:flex; flex-wrap:wrap; justify-content:space-between; gap:24px;
+  align-items:flex-start;
+  padding-bottom:28px;
+}
+.footer-links{ display:flex; flex-wrap:wrap; gap:6px 24px; }
+.footer-links a{ font-size:13.5px; color:var(--ink-500); }
+.footer-links a:hover{ color:var(--ink-900); }
+.footer-legal{
+  font-size:12px; line-height:1.7; color:var(--ink-500); max-width:78ch;
+  padding-top:20px;
+  border-top:1px solid var(--ink-100);
+}
+.footer-meta{
+  margin-top:16px;
+  font-family:var(--font-mono);
+  font-size:10.5px; letter-spacing:.06em; color:var(--ink-300);
+}
+
+@media (max-width:760px){
+  .plans{ grid-template-columns:1fr; max-width:480px; }
+  .topup{ grid-template-columns:1fr; gap:10px; max-width:480px; text-align:left; }
+}
+@media (max-width:480px){
+  .rc-fig .amount{ font-size:38px; }
+  .page-head h1{ font-size:30px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Top">
+  <div class="shell nav-row">
+    <a href="index.html" class="wordmark" aria-label="ALPHAWALK home">
+      <svg class="mark" viewBox="0 0 120 120" aria-hidden="true"><g transform="translate(60,60) scale(0.9473684210526315) translate(-50,-48.5)"><path d="M18,96 L41.46,76.94 Q50,70 58.54,76.94 L82,96" stroke="#1B1B1F" fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M18,62 L41.46,42.94 Q50,36 58.54,42.94 L82,62" stroke="#1B1B1F" fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M18,28 L41.46,8.94 Q50,2 58.54,8.94 L82,28" stroke="#9C7536" fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></g></svg>
+      <span class="logotype">ALPHAWALK</span>
+    </a>
+    <div class="nav-links" aria-label="Primary">
+      <a href="index.html#floor">The floor</a>
+      <a href="index.html#engine">How it works</a>
+      <a href="pricing.html" aria-current="page">Pricing</a>
+      <a href="index.html#faq">FAQ</a>
+    </div>
+    <a href="index.html#cta" class="btn btn-ink">Open the app</a>
+  </div>
+</nav>
+
+<main class="page">
+  <div class="shell">
+
+    <header class="page-head">
+      <span class="kicker"><span class="dot"></span>Pricing</span>
+      <h1>Credits &amp; Pricing</h1>
+      <!-- 说明段 · verbatim from checklist -->
+      <p class="lede">ALPHAWALK runs on credits. Subscribe monthly for your credit allowance, and top up anytime you need more.</p>
+    </header>
+
+    <!-- RATE CARD · prices match Stripe dashboard -->
+    <div class="ratecard-wrap">
+      <div class="ratecard">
+        <div class="rc-head">
+          <span class="kicker"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21 L12 15.5 L19 21" stroke="currentColor"/><path d="M5 14 L12 8.5 L19 14" stroke="currentColor"/><path d="M5 7 L12 1.5 L19 7" stroke="#9C7536"/></svg>Rate card</span>
+          <span class="rc-beta">Coming soon</span>
+        </div>
+        <div class="rc-cols">
+          <div class="rc-col">
+            <div class="rc-kind">Monthly subscription</div>
+            <h3 class="rc-name">Basic</h3>
+            <div class="rc-fig">
+              <span class="amount"><span class="cur">$</span>10</span>
+              <span class="cycle">USD / month</span>
+            </div>
+            <div class="rc-credits">2,200 credits per month</div>
+            <p class="rc-sub">Your monthly allowance for running agents: briefs, chats, and scheduled runs.</p>
+            <div class="rc-note">Billed monthly · cancel anytime</div>
+          </div>
+          <div class="rc-col is-pro">
+            <div class="rc-kind">Monthly subscription</div>
+            <h3 class="rc-name">Pro <span class="rc-tag">The full desk</span></h3>
+            <div class="rc-fig">
+              <span class="amount"><span class="cur">$</span>20</span>
+              <span class="cycle">USD / month</span>
+            </div>
+            <div class="rc-credits">4,400 credits per month</div>
+            <p class="rc-sub">Double the allowance: more agents, more beats, more questions.</p>
+            <div class="rc-note">Billed monthly · cancel anytime</div>
+          </div>
+        </div>
+        <div class="rc-coupon">
+          <svg class="scissors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2.6"/><circle cx="6" cy="18" r="2.6"/><path d="M8.2 7.8 L20 18M8.2 16.2 L20 6"/></svg>
+          <div class="c-copy">
+            <div class="rc-kind">Additional credits</div>
+            <div class="c-name">Credits top-up <span class="c-sub">· one-time purchase, for subscribers</span></div>
+          </div>
+          <div class="c-fig"><span class="cur">$</span>5</div>
+          <div class="c-credits">1,000 credits</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- required small print (verbatim) + confirmed reset note -->
+    <div class="fineprint">
+      <p class="must">Beta pricing — subject to change before general availability.</p>
+      <p class="reset">Monthly subscription credits reset at each billing cycle; top-up credits do not reset monthly.</p>
+    </div>
+
+    <!-- FOOTNOTE · Stripe review key sentence · VERBATIM · do not edit -->
+    <p class="footnote">
+      Credits are prepaid usage units for running agents on ALPHAWALK. Credits are non-refundable except where required by law, non-transferable, cannot be redeemed for cash, and may expire 24 months after purchase. Payments are processed securely by Stripe. See the Section, “<a href="terms.html#refunds">Refund Policy</a>”, under our <a href="terms.html">Terms of Service</a> for further details.
+    </p>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="shell">
+    <div class="footer-row">
+      <a href="index.html" class="wordmark" aria-label="ALPHAWALK">
+        <svg class="mark" viewBox="0 0 120 120" aria-hidden="true"><g transform="translate(60,60) scale(0.9473684210526315) translate(-50,-48.5)"><path d="M18,96 L41.46,76.94 Q50,70 58.54,76.94 L82,96" stroke="#1B1B1F" fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M18,62 L41.46,42.94 Q50,36 58.54,42.94 L82,62" stroke="#1B1B1F" fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M18,28 L41.46,8.94 Q50,2 58.54,8.94 L82,28" stroke="#9C7536" fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></g></svg>
+        <span class="logotype">ALPHAWALK</span>
+      </a>
+      <div class="footer-links">
+        <a href="index.html#floor">The floor</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="terms.html">Terms</a>
+        <a href="terms.html#refunds">Refund policy</a>
+        <a href="disclosures.html">Disclosures</a>
+        <a href="mailto:support@alphawalk.ai">Support</a>
+      </div>
+    </div>
+    <div class="footer-legal">
+      ALPHAWALK is operated by QUANTUMMIND SOLUTIONS HONG KONG LIMITED. ALPHAWALK is not a broker, adviser, or fiduciary. Analysts are AI agents, not human advisors; their filings are information, not investment advice. Markets carry risk of loss, and past performance does not indicate future results.
+    </div>
+    <div class="footer-meta">© 2026 ALPHAWALK · all rights reserved</div>
+  </div>
+</footer>
+
+</body>
+</html>

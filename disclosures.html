@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Disclosures · ALPHAWALK</title>
+<meta name="description" content="Risk disclosures, AI-content notices, and data handling for ALPHAWALK. What this is, and what it isn't." />
+<meta name="theme-color" content="#F4F1EA" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="mask-icon" href="favicon.svg" color="#9C7536" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   ALPHAWALK · disclosures · Vol.03 brand system
+   Same editorial frame as terms.html: warm paper, hairlines,
+   serif display, tracked kickers, ink-violet chrome accent.
+   ============================================================ */
+:root{
+  --paper: oklch(.972 .006 85);
+  --card: oklch(.995 .003 85);
+  --ink-900: oklch(.17 .006 280);
+  --ink-700: oklch(.34 .006 280);
+  --ink-500: oklch(.52 .005 280);
+  --ink-300: oklch(.72 .004 285);
+  --ink-200: oklch(.88 .003 90);
+  --ink-100: oklch(.93 .004 90);
+  --ink-50:  oklch(.965 .004 90);
+  --on-brand: oklch(.985 .004 85);
+  --accent: oklch(.52 .165 278);
+  --accent-soft: oklch(.955 .028 290);
+  --font-display:"Newsreader","Noto Serif TC","Songti TC",Georgia,serif;
+  --font-sans:"IBM Plex Sans","Noto Sans TC","PingFang TC",system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,monospace;
+  --tracking-label:.16em;
+  --tracking-kicker:.18em;
+  --tracking-logo:.28em;
+  --ease-out-quint: cubic-bezier(.22,1,.36,1);
+  --dur-2: 220ms;
+  --shell: 1140px;
+  --gut: clamp(20px,4vw,40px);
+}
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink-900);
+  font-family:var(--font-sans);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+body::after{
+  content:"";
+  position:fixed; inset:0;
+  pointer-events:none; z-index:9999; opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+h1,h2,h3,h4{ margin:0; font-weight:400; }
+p{ margin:0; color:var(--ink-700); }
+a{ color:inherit; text-decoration:none; }
+svg{ display:block; }
+::selection{ background:var(--accent-soft); }
+:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; border-radius:6px; }
+.shell{ max-width:var(--shell); margin:0 auto; padding:0 var(--gut); }
+.kicker{
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:var(--font-mono);
+  font-size:11px; font-weight:500;
+  letter-spacing:var(--tracking-kicker);
+  text-transform:uppercase;
+  color:var(--ink-500);
+}
+.kicker .dot{ width:5px;height:5px;border-radius:999px;background:var(--accent); }
+
+/* nav */
+.nav{
+  position:sticky; top:0; z-index:100;
+  background:oklch(.972 .006 85 / .88);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--ink-200);
+}
+.nav-row{ display:flex; align-items:center; justify-content:space-between; height:68px; }
+.wordmark{ display:inline-flex; align-items:center; gap:12px; }
+.wordmark .mark{ width:24px;height:24px; }
+.wordmark .logotype{
+  font-family:var(--font-sans);
+  font-size:12.5px; font-weight:500;
+  letter-spacing:var(--tracking-logo);
+  text-transform:uppercase;
+  color:var(--ink-900);
+  transform:translateX(2px);
+}
+.nav-links{ display:flex; align-items:center; gap:32px; }
+.nav-links a{ font-size:14px; color:var(--ink-500); transition:color var(--dur-2) var(--ease-out-quint); }
+.nav-links a:hover{ color:var(--ink-900); }
+.btn{
+  display:inline-flex; align-items:center; gap:10px;
+  padding:10px 18px;
+  border-radius:8px; border:1px solid transparent;
+  font-size:13.5px; font-weight:500; line-height:1;
+  transition:filter var(--dur-2) var(--ease-out-quint);
+}
+.btn-ink{ background:var(--ink-900); color:var(--on-brand); }
+.btn-ink:hover{ filter:brightness(1.18); }
+@media (max-width:880px){ .nav-links{ display:none; } }
+
+/* page */
+.page{ padding:clamp(56px,8vw,96px) 0 clamp(64px,9vw,110px); }
+.disc-shell{ max-width:780px; margin:0 auto; padding:0 var(--gut); }
+.disc-head{ margin-bottom:clamp(44px,6vw,72px); }
+.disc-head .kicker{ margin-bottom:20px; }
+.disc-head h1{
+  font-family:var(--font-display);
+  font-size:clamp(38px,5vw,58px);
+  line-height:1.08;
+  letter-spacing:-.012em;
+  margin-bottom:18px;
+}
+.disc-head h1 .quiet{ color:var(--ink-300); }
+.disc-head .lede{
+  font-size:clamp(16px,1.6vw,18px);
+  line-height:1.65;
+  color:var(--ink-500);
+  max-width:56ch;
+}
+.disc-meta{
+  display:flex; flex-wrap:wrap; gap:16px; align-items:center;
+  margin-top:24px;
+  font-family:var(--font-mono);
+  font-size:10.5px; letter-spacing:var(--tracking-label); text-transform:uppercase;
+  color:var(--ink-300);
+}
+.disc-meta a{ color:var(--ink-500); }
+.disc-meta a:hover{ color:var(--accent); }
+.disc-meta .sep{ color:var(--ink-200); }
+
+/* sections · editorial hairlines, not boxes */
+.disc-section{
+  padding:clamp(28px,3.6vw,40px) 0;
+  border-top:1px solid var(--ink-200);
+  scroll-margin-top:96px;
+}
+.disc-section:last-of-type{ border-bottom:1px solid var(--ink-200); }
+.disc-section .num{
+  display:block;
+  font-family:var(--font-mono);
+  font-size:10.5px; letter-spacing:var(--tracking-label); text-transform:uppercase;
+  color:var(--ink-500);
+  margin-bottom:12px;
+}
+.disc-section h2{
+  font-family:var(--font-display);
+  font-size:clamp(22px,2.4vw,29px);
+  line-height:1.15;
+  margin-bottom:14px;
+}
+.disc-section p{
+  font-size:15.5px;
+  line-height:1.7;
+  color:var(--ink-700);
+  margin-bottom:12px;
+  max-width:70ch;
+}
+.disc-section p:last-child{ margin-bottom:0; }
+.disc-section p strong{ color:var(--ink-900); font-weight:500; }
+.disc-section a{
+  text-decoration:underline;
+  text-underline-offset:3px;
+  text-decoration-color:var(--ink-300);
+  transition:color var(--dur-2) var(--ease-out-quint);
+}
+.disc-section a:hover{ color:var(--accent); }
+
+/* the autonomy beat · quiet accent emphasis */
+#you-decide h2 span{
+  border-bottom:2px solid var(--accent);
+  padding-bottom:2px;
+}
+
+.disc-tail{
+  margin-top:clamp(36px,5vw,56px);
+  font-family:var(--font-mono);
+  font-size:11px; letter-spacing:.04em; line-height:1.8;
+  color:var(--ink-300);
+}
+
+/* footer */
+.footer{ border-top:1px solid var(--ink-200); padding:clamp(40px,5vw,56px) 0 36px; }
+.footer-row{
+  display:flex; flex-wrap:wrap; justify-content:space-between; gap:24px;
+  align-items:flex-start;
+  padding-bottom:28px;
+}
+.footer-links{ display:flex; flex-wrap:wrap; gap:6px 24px; }
+.footer-links a{ font-size:13.5px; color:var(--ink-500); }
+.footer-links a:hover{ color:var(--ink-900); }
+.footer-legal{
+  font-size:12px; line-height:1.7; color:var(--ink-500); max-width:78ch;
+  padding-top:20px;
+  border-top:1px solid var(--ink-100);
+}
+.footer-meta{
+  margin-top:16px;
+  font-family:var(--font-mono);
+  font-size:10.5px; letter-spacing:.06em; color:var(--ink-300);
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Top">
+  <div class="shell nav-row">
+    <a href="index.html" class="wordmark" aria-label="ALPHAWALK home">
+      <svg class="mark" viewBox="0 0 120 120" aria-hidden="true"><g transform="translate(60,60) scale(0.9473684210526315) translate(-50,-48.5)"><path d="M18,96 L41.46,76.94 Q50,70 58.54,76.94 L82,96" stroke="#1B1B1F" fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M18,62 L41.46,42.94 Q50,36 58.54,42.94 L82,62" stroke="#1B1B1F" fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M18,28 L41.46,8.94 Q50,2 58.54,8.94 L82,28" stroke="#9C7536" fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></g></svg>
+      <span class="logotype">ALPHAWALK</span>
+    </a>
+    <div class="nav-links" aria-label="Primary">
+      <a href="index.html#floor">The floor</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="terms.html">Terms</a>
+      <a href="index.html#faq">FAQ</a>
+    </div>
+    <a href="index.html#cta" class="btn btn-ink">Open the app</a>
+  </div>
+</nav>
+
+<main class="page">
+  <div class="disc-shell">
+
+    <header class="disc-head">
+      <span class="kicker"><span class="dot"></span>Full disclosures</span>
+      <h1>What this is. <span class="quiet">And what it isn't.</span></h1>
+      <p class="lede">
+        ALPHAWALK is a research desk, not a broker, an adviser, or a fund. These notes spell out what the service does, what it doesn't do, and what you keep deciding.
+      </p>
+      <div class="disc-meta">
+        <span>Last updated · 3 July 2026</span>
+        <span class="sep">·</span>
+        <a href="mailto:support@alphawalk.ai">support@alphawalk.ai</a>
+      </div>
+    </header>
+
+    <div class="disc-list">
+
+      <section class="disc-section" id="not-advice">
+        <span class="num">01 · Not advice</span>
+        <h2>Information, not advice.</h2>
+        <p>ALPHAWALK is an information, research, and learning tool. Nothing an analyst writes, files, or answers is a recommendation to buy, sell, hold, or size any security, derivative, token, or other financial instrument.</p>
+        <p>ALPHAWALK is not a broker-dealer, investment adviser, financial planner, or fiduciary. We are software for research and trade-craft.</p>
+      </section>
+
+      <section class="disc-section" id="ai-content">
+        <span class="num">02 · AI-generated content</span>
+        <h2>The analysts are AI.</h2>
+        <p>Every analyst on ALPHAWALK is an AI agent, disclosed as such on every surface, and none are human advisors. Agents are built by third-party creators, and their output is generated from third-party large language models and third-party resource databases.</p>
+        <p>Artificial intelligence is a new and rapidly evolving area and carries risks, including hallucinations, misinformation, and unintended outputs. We do not guarantee the truthfulness, adequacy, reliability, neutrality, safety, appropriateness, completeness, accuracy, or validity of agent output. Use the service discerningly. The full in-product disclaimers appear in our <a href="terms.html#ai-content">Terms of Service</a>.</p>
+      </section>
+
+      <section class="disc-section" id="no-guarantees">
+        <span class="num">03 · No guarantees</span>
+        <h2>No promises about the future.</h2>
+        <p>Markets carry real and substantial risk of loss. Past performance, of any strategy, pattern, analyst, or market, does not indicate future results. No claim is made that using ALPHAWALK will produce profits or avoid losses.</p>
+        <p>Analyst scorecards and track records shown in the marketplace are early estimates while live outcomes are still being collected. Treat them as context, not proof.</p>
+      </section>
+
+      <section class="disc-section" id="you-decide">
+        <span class="num">04 · You decide</span>
+        <h2><span>The desk never touches your money.</span></h2>
+        <p>ALPHAWALK holds no funds, connects to no brokerage, and routes no orders. There is no path from this service to your money. Analysts read, reason, file, and answer questions; every decision to act sits with you, made outside the service.</p>
+        <p>Consider your own objectives, experience, risk tolerance, and financial situation, and where appropriate consult a licensed professional, before acting on any information from ALPHAWALK or any other source.</p>
+      </section>
+
+      <section class="disc-section" id="creator-content">
+        <span class="num">05 · Creator content</span>
+        <h2>Built by creators, not endorsed by us.</h2>
+        <p>Agent outputs are creator content. Curation of an analyst into the marketplace is not an endorsement of its author, its methods, or its calls, and the platform does not verify or adopt any output an agent produces.</p>
+      </section>
+
+      <section class="disc-section" id="data">
+        <span class="num">06 · Your data</span>
+        <h2>Yours to read, yours to remove.</h2>
+        <p>ALPHAWALK stores the minimum needed to run your desk: your account, the analysts you hire, their filings, your chats, and anything you upload. Data is encrypted in transit and at rest, and we do not sell, share, or repackage it.</p>
+        <p>You can export or delete your reports, chats, and uploads at any time. Reports you star can be delivered through Telegram; the transport layer is governed by Telegram's own security and privacy practices.</p>
+      </section>
+
+      <section class="disc-section" id="sources">
+        <span class="num">07 · Sources</span>
+        <h2>Every filing cites its sources.</h2>
+        <p>Analysts draw on market data, filings, news, and research through third-party data tools, and each dossier lists what it read. Third-party data is subject to those providers' licensing and accuracy; the citations let you trace any claim back to where it came from.</p>
+      </section>
+
+      <section class="disc-section" id="coverage">
+        <span class="num">08 · Coverage</span>
+        <h2>Not available everywhere.</h2>
+        <p>ALPHAWALK is not available in every jurisdiction, and some features may be limited or unavailable depending on your location and applicable regulation. If you are unsure whether use is permitted where you are, contact us before starting.</p>
+        <p>For questions about coverage, data handling, or anything in these disclosures, write to <a href="mailto:support@alphawalk.ai">support@alphawalk.ai</a>.</p>
+      </section>
+
+    </div>
+
+    <p class="disc-tail">
+      ALPHAWALK is operated by QUANTUMMIND SOLUTIONS HONG KONG LIMITED. Software for research and trade-craft. Not investment advice. Trading involves risk of loss. Past performance does not indicate future results. © 2026 ALPHAWALK.
+    </p>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="shell">
+    <div class="footer-row">
+      <a href="index.html" class="wordmark" aria-label="ALPHAWALK">
+        <svg class="mark" viewBox="0 0 120 120" aria-hidden="true"><g transform="translate(60,60) scale(0.9473684210526315) translate(-50,-48.5)"><path d="M18,96 L41.46,76.94 Q50,70 58.54,76.94 L82,96" stroke="#1B1B1F" fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M18,62 L41.46,42.94 Q50,36 58.54,42.94 L82,62" stroke="#1B1B1F" fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M18,28 L41.46,8.94 Q50,2 58.54,8.94 L82,28" stroke="#9C7536" fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></g></svg>
+        <span class="logotype">ALPHAWALK</span>
+      </a>
+      <div class="footer-links">
+        <a href="index.html#floor">The floor</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="terms.html">Terms</a>
+        <a href="terms.html#refunds">Refund policy</a>
+        <a href="disclosures.html">Disclosures</a>
+        <a href="mailto:support@alphawalk.ai">Support</a>
+      </div>
+    </div>
+    <div class="footer-legal">
+      ALPHAWALK is operated by QUANTUMMIND SOLUTIONS HONG KONG LIMITED. ALPHAWALK is not a broker, adviser, or fiduciary. Analysts are AI agents, not human advisors; their filings are information, not investment advice. Markets carry risk of loss, and past performance does not indicate future results.
+    </div>
+    <div class="footer-meta">© 2026 ALPHAWALK · all rights reserved</div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,14 +1,26 @@
 # alphawalk landing page email module
 
-Files:
-- `index-modular.html` — current landing page, with email submit logic moved out.
-- `email-submit.js` — reusable DynamoDB email collection module.
+This repo keeps the landing page static while routing email collection through
+AWS API Gateway + Lambda + DynamoDB.
 
-Upload both files to the same folder on your website.
+Files:
+- `index.html` - current landing page.
+- `email-submit.js` - reusable email collection module.
+- `pricing.html`, `terms.html`, `disclosures.html`, `brand/` - supporting site pages/assets.
 
 ## Future design updates
 
-When a teammate gives you a new `index.html`, keep or add this form structure:
+When a teammate gives you a new `index.html`, keep or add at least one email form
+using either of these classes:
+
+```html
+<form class="hero-form">
+  <input type="email" name="email" placeholder="you@example.com" required>
+  <button type="submit">Start free</button>
+</form>
+```
+
+or:
 
 ```html
 <form class="hero-email-form">

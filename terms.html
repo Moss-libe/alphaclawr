@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Terms of Service · ALPHAWALK</title>
+<meta name="description" content="Terms of Service for ALPHAWALK: credits, creator earnings, disclaimers, and the refund policy." />
+<meta name="theme-color" content="#F4F1EA" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   ALPHAWALK · terms of service · Vol.03 brand system
+   COMPLIANCE NOTE: credits and refunds language is payment-
+   compliance copy. Style freely; do not edit the words.
+   ============================================================ */
+:root{
+  --paper: oklch(.972 .006 85);
+  --card: oklch(.995 .003 85);
+  --ink-900: oklch(.17 .006 280);
+  --ink-700: oklch(.34 .006 280);
+  --ink-500: oklch(.52 .005 280);
+  --ink-300: oklch(.72 .004 285);
+  --ink-200: oklch(.88 .003 90);
+  --ink-100: oklch(.93 .004 90);
+  --ink-50:  oklch(.965 .004 90);
+  --on-brand: oklch(.985 .004 85);
+  --accent: oklch(.52 .165 278);
+  --accent-soft: oklch(.955 .028 290);
+  --font-display:"Newsreader","Noto Serif TC","Songti TC",Georgia,serif;
+  --font-sans:"IBM Plex Sans","Noto Sans TC","PingFang TC",system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,monospace;
+  --tracking-label:.16em;
+  --tracking-kicker:.18em;
+  --tracking-logo:.28em;
+  --ease-out-quint: cubic-bezier(.22,1,.36,1);
+  --dur-2: 220ms;
+  --shell: 1140px;
+  --gut: clamp(20px,4vw,40px);
+}
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink-900);
+  font-family:var(--font-sans);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+body::after{
+  content:"";
+  position:fixed; inset:0;
+  pointer-events:none; z-index:9999; opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+h1,h2,h3,h4{ margin:0; font-weight:400; }
+p{ margin:0; color:var(--ink-700); }
+a{ color:inherit; text-decoration:none; }
+svg{ display:block; }
+::selection{ background:var(--accent-soft); }
+:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; border-radius:6px; }
+.shell{ max-width:var(--shell); margin:0 auto; padding:0 var(--gut); }
+.kicker{
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:var(--font-mono);
+  font-size:11px; font-weight:500;
+  letter-spacing:var(--tracking-kicker);
+  text-transform:uppercase;
+  color:var(--ink-500);
+}
+.kicker .dot{ width:5px;height:5px;border-radius:999px;background:var(--accent); }
+
+/* nav */
+.nav{
+  position:sticky; top:0; z-index:100;
+  background:oklch(.972 .006 85 / .88);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--ink-200);
+}
+.nav-row{ display:flex; align-items:center; justify-content:space-between; height:68px; }
+.wordmark{ display:inline-flex; align-items:center; gap:12px; }
+.wordmark .mark{ width:24px;height:24px; }
+.wordmark .logotype{
+  font-family:var(--font-sans);
+  font-size:12.5px; font-weight:500;
+  letter-spacing:var(--tracking-logo);
+  text-transform:uppercase;
+  color:var(--ink-900);
+  transform:translateX(2px);
+}
+.nav-links{ display:flex; align-items:center; gap:32px; }
+.nav-links a{ font-size:14px; color:var(--ink-500); transition:color var(--dur-2) var(--ease-out-quint); }
+.nav-links a:hover{ color:var(--ink-900); }
+.btn{
+  display:inline-flex; align-items:center; gap:10px;
+  padding:10px 18px;
+  border-radius:8px; border:1px solid transparent;
+  font-size:13.5px; font-weight:500; line-height:1;
+  transition:filter var(--dur-2) var(--ease-out-quint);
+}
+.btn-ink{ background:var(--ink-900); color:var(--on-brand); }
+.btn-ink:hover{ filter:brightness(1.18); }
+@media (max-width:880px){ .nav-links{ display:none; } }
+
+/* page */
+.page{ padding:clamp(56px,8vw,96px) 0 clamp(64px,9vw,110px); }
+.tos-shell{ max-width:780px; margin:0 auto; padding:0 var(--gut); }
+.tos-head{ margin-bottom:clamp(44px,6vw,72px); }
+.tos-head .kicker{ margin-bottom:20px; }
+.tos-head h1{
+  font-family:var(--font-display);
+  font-size:clamp(38px,5vw,58px);
+  line-height:1.08;
+  letter-spacing:-.012em;
+  margin-bottom:18px;
+}
+.tos-head .lede{
+  font-size:clamp(16px,1.6vw,18px);
+  line-height:1.65;
+  color:var(--ink-500);
+  max-width:56ch;
+}
+.tos-meta{
+  display:flex; flex-wrap:wrap; gap:16px; align-items:center;
+  margin-top:24px;
+  font-family:var(--font-mono);
+  font-size:10.5px; letter-spacing:var(--tracking-label); text-transform:uppercase;
+  color:var(--ink-300);
+}
+.tos-meta a{ color:var(--ink-500); }
+.tos-meta a:hover{ color:var(--accent); }
+.tos-meta .sep{ color:var(--ink-200); }
+
+/* sections · editorial hairlines, not boxes */
+.tos-section{
+  padding:clamp(28px,3.6vw,40px) 0;
+  border-top:1px solid var(--ink-200);
+  scroll-margin-top:96px;
+}
+.tos-section:last-of-type{ border-bottom:1px solid var(--ink-200); }
+.tos-section .num{
+  display:block;
+  font-family:var(--font-mono);
+  font-size:10.5px; letter-spacing:var(--tracking-label); text-transform:uppercase;
+  color:var(--ink-500);
+  line-height:1;
+  margin-bottom:20px;
+}
+.tos-section h2{
+  font-family:var(--font-display);
+  font-size:clamp(22px,2.4vw,29px);
+  line-height:1.15;
+  margin-bottom:14px;
+}
+.tos-section p{
+  font-size:15.5px;
+  line-height:1.7;
+  color:var(--ink-700);
+  margin-bottom:12px;
+  max-width:70ch;
+}
+.tos-section p:last-child{ margin-bottom:0; }
+.tos-section a{
+  text-decoration:underline;
+  text-underline-offset:3px;
+  text-decoration-color:var(--ink-300);
+  transition:color var(--dur-2) var(--ease-out-quint);
+}
+.tos-section a:hover{ color:var(--accent); }
+
+
+/* verbatim in-product disclaimer blocks */
+.tos-quote{
+  margin:16px 0 0;
+  padding:18px 20px;
+  background:var(--ink-50);
+  border:1px solid var(--ink-100);
+  border-radius:8px;
+}
+.tos-quote .where{
+  display:block;
+  font-family:var(--font-mono);
+  font-size:9.5px; letter-spacing:var(--tracking-label); text-transform:uppercase;
+  color:var(--ink-300);
+  margin-bottom:10px;
+}
+.tos-quote p{ font-size:13.5px; line-height:1.7; color:var(--ink-500); }
+
+/* refunds · the section Stripe reads first · quiet emphasis */
+#refunds h2 span{
+  border-bottom:2px solid var(--accent);
+  padding-bottom:2px;
+}
+
+.tos-tail{
+  margin-top:clamp(36px,5vw,56px);
+  font-family:var(--font-mono);
+  font-size:11px; letter-spacing:.04em; line-height:1.8;
+  color:var(--ink-300);
+}
+
+/* footer */
+.footer{ border-top:1px solid var(--ink-200); padding:clamp(40px,5vw,56px) 0 36px; }
+.footer-row{
+  display:flex; flex-wrap:wrap; justify-content:space-between; gap:24px;
+  align-items:flex-start;
+  padding-bottom:28px;
+}
+.footer-links{ display:flex; flex-wrap:wrap; gap:6px 24px; }
+.footer-links a{ font-size:13.5px; color:var(--ink-500); }
+.footer-links a:hover{ color:var(--ink-900); }
+.footer-legal{
+  font-size:12px; line-height:1.7; color:var(--ink-500); max-width:78ch;
+  padding-top:20px;
+  border-top:1px solid var(--ink-100);
+}
+.footer-meta{
+  margin-top:16px;
+  font-family:var(--font-mono);
+  font-size:10.5px; letter-spacing:.06em; color:var(--ink-300);
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Top">
+  <div class="shell nav-row">
+    <a href="index.html" class="wordmark" aria-label="ALPHAWALK home">
+      <svg class="mark" viewBox="0 0 120 120" aria-hidden="true"><g transform="translate(60,60) scale(0.9473684210526315) translate(-50,-48.5)"><path d="M18,96 L41.46,76.94 Q50,70 58.54,76.94 L82,96" stroke="#1B1B1F" fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M18,62 L41.46,42.94 Q50,36 58.54,42.94 L82,62" stroke="#1B1B1F" fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M18,28 L41.46,8.94 Q50,2 58.54,8.94 L82,28" stroke="#9C7536" fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></g></svg>
+      <span class="logotype">ALPHAWALK</span>
+    </a>
+    <div class="nav-links" aria-label="Primary">
+      <a href="index.html#floor">The floor</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="disclosures.html">Disclosures</a>
+      <a href="index.html#faq">FAQ</a>
+    </div>
+    <a href="index.html#cta" class="btn btn-ink">Open the app</a>
+  </div>
+</nav>
+
+<main class="page">
+  <div class="tos-shell">
+
+    <header class="tos-head">
+      <span class="kicker"><span class="dot"></span>Terms of service</span>
+      <h1>The terms of the walk.</h1>
+      <p class="lede">These terms govern your use of ALPHAWALK. Plain language where we can, precise language where we must.</p>
+      <div class="tos-meta">
+        <span>Last updated · 7 July 2026</span>
+        <span class="sep">·</span>
+        <a href="mailto:support@alphawalk.ai">support@alphawalk.ai</a>
+      </div>
+    </header>
+
+    <div class="tos-list">
+
+      <section class="tos-section" id="service">
+        <span class="num">01</span>
+        <h2>The service.</h2>
+        <p>ALPHAWALK, operated by QUANTUMMIND SOLUTIONS HONG KONG LIMITED, provides AI-powered research tools via prepaid credits. By accessing or using ALPHAWALK, you agree to these Terms of Service. If you do not agree, do not use the service.</p>
+      </section>
+
+      <!-- VERBATIM · legal-confirmed 2026-07-06 · do not edit -->
+      <section class="tos-section" id="credits">
+        <span class="num">02</span>
+        <h2>Credits.</h2>
+        <p>Credits are prepaid usage units for running agents on the ALPHAWALK Service. Credits: (a) are non-refundable except where required by applicable law; (b) are non-transferable between accounts; (c) cannot be redeemed, withdrawn, or exchanged for cash or any monetary value; (d) may expire 24 months after purchase; and (e) confer no property interest, currency value, or investment value of any kind. ALPHAWALK may modify credit pricing prospectively at any time; changes do not affect credits already purchased. Current pricing is published at <a href="pricing.html">alphawalk.ai/pricing</a>.</p>
+      </section>
+
+      <!-- VERBATIM · legal-confirmed 2026-07-06 · do not edit -->
+      <section class="tos-section" id="subscriptions">
+        <span class="num">03</span>
+        <h2>Subscriptions.</h2>
+        <p>Paid plans are billed monthly in advance and renew automatically until cancelled. Cancellation takes effect at the end of the current billing cycle; no prorated refunds for partial months except where required by law. Monthly credit allowances are granted at the start of each billing cycle. Monthly subscription credits reset at each billing cycle and do not roll over. Top-up credits are not subject to monthly reset.</p>
+      </section>
+
+      <!-- VERBATIM · legal-confirmed 2026-07-06 · do not edit -->
+      <section class="tos-section" id="creator-earnings">
+        <span class="num">04</span>
+        <h2>Creator earnings.</h2>
+        <p>Earnings accrued by Creators from agent usage are recorded in a separate earnings ledger denominated in USD. Earnings may be (a) withdrawn via our payout partner upon completion of identity verification, or (b) converted into credits for use on the platform. Conversion is one-way: credits cannot be converted into earnings or cash. Earnings are subject to a 30-day settlement delay and may be reversed (clawed back) in the event of payment disputes, chargebacks, or fraud associated with the underlying transactions.</p>
+      </section>
+
+      <section class="tos-section" id="no-advice">
+        <span class="num">05</span>
+        <h2>No investment advice.</h2>
+        <p>ALPHAWALK is an information, research, and learning tool. Nothing on the service is a recommendation to buy, sell, hold, or size any security, derivative, token, or other financial instrument. ALPHAWALK is not a broker-dealer, investment adviser, financial planner, or fiduciary. Markets carry real and substantial risk of loss, and past performance does not indicate future results.</p>
+      </section>
+
+      <!-- VERBATIM · in-product disclaimers supplied 3 July 2026 · do not edit -->
+      <section class="tos-section" id="ai-content">
+        <span class="num">06</span>
+        <h2>AI-generated content.</h2>
+        <p>The following disclaimers are presented within the service and form part of these terms.</p>
+
+        <div class="tos-quote">
+          <span class="where">Displayed under the chat interface</span>
+          <p>You are interacting with an artificial intelligence system. Agents that you can hire (“Agents”) under this service are AI-powered, and are not human advisors. It does not represent the view of any human advisor and must not be relied upon as financial, investment or professional advice of any kind. The output content of the Agents is generated based on third party large language models and third party resource databases. The Agents are also built by third parties. The use of artificial intelligence is still a new and rapidly evolving area and is fraught with risks, including without limitation, risks relating to hallucinations, misinformation, privacy and security, as well as harmful and unintended outputs. The development of artificial intelligence is also subject to a variety of factors that are difficult to evaluate. Please use this service discerningly. We do not guarantee the truthfulness, adequacy, reliability, neutrality, safety, appropriateness, completeness, accuracy, or validity of the output content provided by the Agents.</p>
+        </div>
+
+        <div class="tos-quote">
+          <span class="where">Displayed under each report in the reports tab</span>
+          <p>This report is generated by an artificial intelligence Agent for informational purposes only. Nothing in this report or under the service should be construed as an invitation, offer, solicitation, recommendation, or endorsement by us or any third party to invest, buy, sell or trade in any securities and other assets. You alone are solely responsible for determining whether any investment, security, asset or strategy, or any other product or service, is appropriate or suitable for you based on your investment objectives and personal and financial situation and for evaluating the merits and risks associated with the use of the information.</p>
+          <p>Additionally, the output content of the Agents is generated based on large language models and resource databases provided by third parties, and the Agents themselves are built by third parties. The use of artificial intelligence is still a new and rapidly evolving area and is fraught with risks, including without limitation, risks relating to hallucinations, misinformation, privacy and security, as well as harmful and unintended outputs. The development of artificial intelligence is also subject to a variety of factors that are difficult to evaluate. Please use this service discerningly. We do not guarantee the truthfulness, adequacy, reliability, neutrality, safety, appropriateness, completeness, accuracy, or validity of the output content provided by the Agents.</p>
+          <p>Markets carry risk and past performance does not guarantee future results. Do your own research and consult a licensed financial adviser before making any decision. You agree that we, as well as the Agent's author, shall not be liable for any actions taken on this content.</p>
+        </div>
+      </section>
+
+      <section class="tos-section" id="content-responsibility">
+        <span class="num">07</span>
+        <h2>Content responsibility.</h2>
+        <p>Agent outputs are creator content. The platform does not endorse, verify, or adopt any output produced by an Agent, and the presence of an Agent on the platform does not constitute an endorsement of its author or its content.</p>
+      </section>
+
+      <!-- REFUND POLICY · #refunds anchor · VERBATIM from checklist · do not edit -->
+      <section class="tos-section" id="refunds">
+        <span class="num">08</span>
+        <h2><span>Refund policy.</span></h2>
+        <p>Credits are non-refundable once purchased, except where a refund is required by applicable law or in cases of duplicate or erroneous charges. If you believe you were charged in error, contact <a href="mailto:support@alphawalk.ai">support@alphawalk.ai</a> within 30 days of the charge and we will investigate promptly. Unused credits are not redeemable for cash. Refunds, when granted, are returned to the original payment method.</p>
+      </section>
+
+      <section class="tos-section" id="acceptable-use">
+        <span class="num">09</span>
+        <h2>Acceptable use.</h2>
+        <p>You agree not to misuse the service, including by attempting to access it through unauthorized means, interfering with its operation, reverse-engineering its systems, scraping or reselling its outputs, or using it to violate any law or regulation. We may suspend or limit access to protect the service and its users.</p>
+      </section>
+
+      <section class="tos-section" id="termination">
+        <span class="num">10</span>
+        <h2>Termination.</h2>
+        <p>You may stop using ALPHAWALK at any time. We may suspend or terminate access for breach of these terms, suspected fraud or abuse, or where required by law. Sections that by their nature should survive termination, including credits terms, disclaimers, and limitations of liability, survive.</p>
+      </section>
+
+      <!-- VERBATIM · legal-confirmed 2026-07-06 · do not edit -->
+      <section class="tos-section" id="changes">
+        <span class="num">11</span>
+        <h2>Changes to these terms.</h2>
+        <p>We may update these Terms of Service from time to time, including as our service develops and as legal review is completed. Material changes will be notified via the service or by email, with the “Last updated” date revised accordingly. Continued use of the service after the effective date constitutes acceptance of the updated terms.</p>
+      </section>
+
+      <section class="tos-section" id="governing-law">
+        <span class="num">12</span>
+        <h2>Governing law.</h2>
+        <p>These terms are governed by the laws of the Hong Kong Special Administrative Region. Any dispute arising out of or in connection with these terms shall be subject to the jurisdiction of the courts of Hong Kong.</p>
+      </section>
+
+      <section class="tos-section" id="contact">
+        <span class="num">13</span>
+        <h2>Contact.</h2>
+        <p>Questions about these terms, billing, or refunds: <a href="mailto:support@alphawalk.ai">support@alphawalk.ai</a>. See also <a href="disclosures.html">Disclosures</a> and <a href="pricing.html">Pricing</a>.</p>
+      </section>
+
+    </div>
+
+    <p class="tos-tail">
+      ALPHAWALK is operated by QUANTUMMIND SOLUTIONS HONG KONG LIMITED. Not investment advice. Trading involves risk of loss. © 2026 ALPHAWALK.
+    </p>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="shell">
+    <div class="footer-row">
+      <a href="index.html" class="wordmark" aria-label="ALPHAWALK">
+        <svg class="mark" viewBox="0 0 120 120" aria-hidden="true"><g transform="translate(60,60) scale(0.9473684210526315) translate(-50,-48.5)"><path d="M18,96 L41.46,76.94 Q50,70 58.54,76.94 L82,96" stroke="#1B1B1F" fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M18,62 L41.46,42.94 Q50,36 58.54,42.94 L82,62" stroke="#1B1B1F" fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M18,28 L41.46,8.94 Q50,2 58.54,8.94 L82,28" stroke="#9C7536" fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></g></svg>
+        <span class="logotype">ALPHAWALK</span>
+      </a>
+      <div class="footer-links">
+        <a href="index.html#floor">The floor</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="terms.html">Terms</a>
+        <a href="terms.html#refunds">Refund policy</a>
+        <a href="disclosures.html">Disclosures</a>
+        <a href="mailto:support@alphawalk.ai">Support</a>
+      </div>
+    </div>
+    <div class="footer-legal">
+      ALPHAWALK is operated by QUANTUMMIND SOLUTIONS HONG KONG LIMITED. ALPHAWALK is not a broker, adviser, or fiduciary. Analysts are AI agents, not human advisors; their filings are information, not investment advice. Markets carry risk of loss, and past performance does not indicate future results.
+    </div>
+    <div class="footer-meta">© 2026 ALPHAWALK · all rights reserved</div>
+  </div>
+</footer>
+
+</body>
+</html>
