@@ -90,7 +90,7 @@
     check.textContent = '✓';
 
     const text = document.createElement('span');
-    text.textContent = "You're on the list - we'll email your invite.";
+    text.textContent = "You're on the list - your beta request has been received.";
 
     el.appendChild(check);
     el.appendChild(text);
