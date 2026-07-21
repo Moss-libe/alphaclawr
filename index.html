@@ -434,10 +434,30 @@ button{ font:inherit; cursor:pointer; }
   font-size:12px;
   letter-spacing:.08em;
   color:var(--d-ink-900);
+  text-align:center;
+}
+.hero-form .form-done.is-success{
+  border-color:oklch(.74 .14 150 / .56);
+  background:oklch(.74 .14 150 / .12);
+  color:var(--d-ink-900);
 }
 .hero-form .form-done .live{
   width:6px;height:6px;border-radius:999px;flex:none;
   background:var(--accent-d);
+}
+.hero-form .form-done .check{
+  width:20px;
+  height:20px;
+  border-radius:999px;
+  display:grid;
+  place-items:center;
+  flex:none;
+  background:oklch(.74 .14 150 / .2);
+  color:oklch(.82 .14 150);
+  font-family:var(--font-sans);
+  font-size:14px;
+  font-weight:600;
+  letter-spacing:0;
 }
 .email-submit-toast{
   position:fixed;
@@ -2911,7 +2931,7 @@ button{ font:inherit; cursor:pointer; }
       <a href="#faq">FAQ</a>
     </div>
     <div class="nav-cta">
-      <a href="#cta" class="btn">Open the app</a>
+      <a href="#cta" class="btn">Join the beta</a>
       <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-drawer">
         <span></span><span></span><span></span>
       </button>
@@ -2925,7 +2945,7 @@ button{ font:inherit; cursor:pointer; }
   <a href="#pricing">Pricing</a>
   <a href="#faq">FAQ</a>
   <a href="disclosures.html">Disclosures</a>
-  <div class="drawer-cta"><a href="#cta" class="btn btn-ink">Open the app</a></div>
+  <div class="drawer-cta"><a href="#cta" class="btn btn-ink">Join the beta</a></div>
 </div>
 
 <main>

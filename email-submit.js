@@ -78,6 +78,30 @@
     return /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/.test(email);
   }
 
+  function showInlineSuccess(form) {
+    const el = document.createElement('div');
+    el.className = 'form-done is-success';
+    el.setAttribute('role', 'status');
+    el.setAttribute('aria-live', 'polite');
+
+    const check = document.createElement('span');
+    check.className = 'check';
+    check.setAttribute('aria-hidden', 'true');
+    check.textContent = '✓';
+
+    const text = document.createElement('span');
+    text.textContent = "You're on the list - we'll email your invite.";
+
+    el.appendChild(check);
+    el.appendChild(text);
+
+    while (form.firstChild) {
+      form.removeChild(form.firstChild);
+    }
+
+    form.appendChild(el);
+  }
+
   function attachForm(form) {
     const emailInput = form.querySelector('input[type="email"], input[name="email"]');
     const submitBtn = form.querySelector('button[type="submit"]');
@@ -130,8 +154,7 @@
         }
 
         if (response.ok) {
-          showToast(data.message || 'Subscription successful. Thank you.', 'success');
-          emailInput.value = '';
+          showInlineSuccess(form);
         } else {
           showToast(data.message || ('Server error (' + response.status + ').'), 'error');
         }
