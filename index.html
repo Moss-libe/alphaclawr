@@ -336,6 +336,116 @@ button{ font:inherit; cursor:pointer; }
   border-color:oklch(.72 .04 82 / .48);
 }
 
+/* ---------- app access gate ---------- */
+.app-access-modal{
+  position:fixed;
+  inset:0;
+  z-index:300;
+  display:grid;
+  place-items:center;
+  padding:24px;
+  color:var(--bone);
+}
+.app-access-modal[hidden]{ display:none; }
+.app-access-backdrop{
+  position:absolute;
+  inset:0;
+  background:oklch(.105 .006 281 / .76);
+  backdrop-filter:blur(12px);
+}
+.app-access-panel{
+  position:relative;
+  width:min(460px, 100%);
+  padding:28px;
+  border:1px solid oklch(.62 .08 82 / .42);
+  border-radius:8px;
+  background:
+    linear-gradient(145deg, oklch(.205 .009 282 / .98), oklch(.135 .006 281 / .98));
+  box-shadow:0 36px 90px -42px oklch(.08 .006 281 / .86);
+}
+.app-access-close{
+  position:absolute;
+  top:14px;
+  right:14px;
+  width:34px;
+  height:34px;
+  border:1px solid oklch(.62 .08 82 / .24);
+  border-radius:999px;
+  display:grid;
+  place-items:center;
+  background:oklch(.24 .01 282 / .42);
+  color:var(--d-ink-500);
+}
+.app-access-close:hover{
+  color:var(--bone);
+  border-color:oklch(.62 .08 82 / .46);
+}
+.app-access-panel .kicker{ color:var(--accent-d); }
+.app-access-panel h2{
+  margin:12px 42px 10px 0;
+  font-family:var(--font-display);
+  font-size:clamp(30px, 5vw, 42px);
+  line-height:1;
+  font-weight:400;
+  color:var(--bone);
+}
+.app-access-copy{
+  margin-bottom:22px;
+  max-width:38ch;
+  color:var(--d-ink-500);
+  font-size:14.5px;
+  line-height:1.55;
+}
+.app-access-form label{
+  display:block;
+  margin-bottom:8px;
+  font-family:var(--font-mono);
+  font-size:11px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--d-ink-500);
+}
+.app-access-row{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:10px;
+}
+.app-access-row input{
+  width:100%;
+  min-width:0;
+  border:1px solid var(--d-ink-200);
+  border-radius:8px;
+  padding:0 14px;
+  min-height:48px;
+  background:oklch(.11 .006 281 / .62);
+  color:var(--bone);
+  font-family:var(--font-sans);
+  font-size:15px;
+}
+.app-access-row input::placeholder{ color:var(--d-ink-300); }
+.app-access-row input:focus{
+  outline:2px solid var(--accent-d);
+  outline-offset:0;
+  border-color:transparent;
+}
+.app-access-row .btn{
+  min-height:48px;
+  padding:0 18px;
+  border-radius:8px;
+  white-space:nowrap;
+}
+.app-access-error{
+  margin-top:10px;
+  color:var(--danger-d);
+  font-size:13px;
+}
+@media (max-width:560px){
+  .app-access-modal{ padding:18px; align-items:end; }
+  .app-access-panel{ padding:24px 20px; }
+  .app-access-row{ grid-template-columns:1fr; }
+  .app-access-row .btn{ justify-content:center; width:100%; }
+}
+
 /* ============================================================
    HERO · the obsidian cover · a printed dossier on a dark desk
    ============================================================ */
@@ -2970,7 +3080,7 @@ button{ font:inherit; cursor:pointer; }
     </div>
     <div class="nav-cta">
       <a href="#cta" class="btn btn-beta">Join the beta</a>
-      <a href="https://xtrader.xterio.net/" class="btn btn-app">Open the app</a>
+      <a href="https://xtrader.xterio.net/" class="btn btn-app" data-app-gate>Open the app</a>
       <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-drawer">
         <span></span><span></span><span></span>
       </button>
@@ -2985,7 +3095,7 @@ button{ font:inherit; cursor:pointer; }
   <a href="#faq">FAQ</a>
   <a href="disclosures.html">Disclosures</a>
   <div class="drawer-cta">
-    <a href="https://xtrader.xterio.net/" class="btn btn-app">Open the app</a>
+    <a href="https://xtrader.xterio.net/" class="btn btn-app" data-app-gate>Open the app</a>
     <a href="#cta" class="btn btn-beta">Join the beta</a>
   </div>
 </div>
@@ -3504,7 +3614,7 @@ button{ font:inherit; cursor:pointer; }
         <span class="h">Company</span>
         <a href="disclosures.html">Security</a>
         <a href="mailto:support@alphawalk.ai">Support</a>
-        <a href="https://xtrader.xterio.net/">Open the app</a>
+        <a href="https://xtrader.xterio.net/" data-app-gate>Open the app</a>
         <a href="#cta">Beta access</a>
       </div>
     </div>
@@ -3522,6 +3632,26 @@ button{ font:inherit; cursor:pointer; }
 </footer>
 
 </main>
+
+<div class="app-access-modal" id="app-access-modal" role="dialog" aria-modal="true" aria-labelledby="app-access-title" hidden>
+  <div class="app-access-backdrop" data-app-access-close></div>
+  <div class="app-access-panel">
+    <button type="button" class="app-access-close" aria-label="Close access code dialog" data-app-access-close>
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <span class="kicker">Beta entrance</span>
+    <h2 id="app-access-title">Enter access code</h2>
+    <p class="app-access-copy">Use the access code provided by the ALPHAWALK team to continue to the app.</p>
+    <form class="app-access-form" id="app-access-form" novalidate>
+      <label for="app-access-code">Access code</label>
+      <div class="app-access-row">
+        <input id="app-access-code" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Access code" aria-describedby="app-access-error" />
+        <button type="submit" class="btn btn-accent">Continue</button>
+      </div>
+      <p class="app-access-error" id="app-access-error" role="alert" hidden>Incorrect code. Please check and try again.</p>
+    </form>
+  </div>
+</div>
 
 <script>
 /* mobile drawer */
@@ -3650,6 +3780,100 @@ button{ font:inherit; cursor:pointer; }
       var open = item.classList.toggle('open');
       q.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
+  });
+})();
+
+/* app access gate */
+(function(){
+  var ACCESS_CODE_HASH = '4e1a4c806b9abc0f15994dcd639a9604aa70c97ede63d39e018abe841bbc8f70';
+  var FALLBACK_URL = 'https://xtrader.xterio.net/';
+  var modal = document.getElementById('app-access-modal');
+  var form = document.getElementById('app-access-form');
+  var input = document.getElementById('app-access-code');
+  var error = document.getElementById('app-access-error');
+  var submitButton = form ? form.querySelector('button[type="submit"]') : null;
+  var closeButtons = modal ? modal.querySelectorAll('[data-app-access-close]') : [];
+  var lastFocus = null;
+  var targetUrl = FALLBACK_URL;
+  var previousOverflow = '';
+  if (!modal || !form || !input) return;
+
+  function hideError(){
+    if (error) error.hidden = true;
+    input.removeAttribute('aria-invalid');
+  }
+
+  function openGate(url){
+    targetUrl = url || FALLBACK_URL;
+    lastFocus = document.activeElement;
+    previousOverflow = document.body.style.overflow;
+    input.value = '';
+    hideError();
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    window.setTimeout(function(){ input.focus(); }, 30);
+  }
+
+  function closeGate(){
+    modal.hidden = true;
+    document.body.style.overflow = previousOverflow;
+    hideError();
+    if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+  }
+
+  function toHex(buffer){
+    return Array.prototype.map.call(new Uint8Array(buffer), function(byte){
+      return byte.toString(16).padStart(2, '0');
+    }).join('');
+  }
+
+  function hashAccessCode(value){
+    if (!window.crypto || !window.crypto.subtle || !window.TextEncoder){
+      return Promise.resolve('');
+    }
+    return window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(value)).then(toHex);
+  }
+
+  function setBusy(isBusy){
+    if (!submitButton) return;
+    submitButton.disabled = isBusy;
+    submitButton.textContent = isBusy ? 'Checking' : 'Continue';
+  }
+
+  document.querySelectorAll('[data-app-gate]').forEach(function(link){
+    link.addEventListener('click', function(event){
+      event.preventDefault();
+      openGate(link.getAttribute('href'));
+    });
+  });
+
+  form.addEventListener('submit', function(event){
+    event.preventDefault();
+    hideError();
+    setBusy(true);
+    hashAccessCode(input.value).then(function(hash){
+      setBusy(false);
+      if (hash === ACCESS_CODE_HASH){
+        window.location.href = targetUrl || FALLBACK_URL;
+        return;
+      }
+      if (error) error.hidden = false;
+      input.setAttribute('aria-invalid', 'true');
+      input.select();
+    }).catch(function(){
+      setBusy(false);
+      if (error) error.hidden = false;
+      input.setAttribute('aria-invalid', 'true');
+      input.select();
+    });
+  });
+
+  input.addEventListener('input', hideError);
+  closeButtons.forEach(function(button){
+    button.addEventListener('click', closeGate);
+  });
+  document.addEventListener('keydown', function(event){
+    if (event.key === 'Escape' && !modal.hidden) closeGate();
   });
 })();
 
