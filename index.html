@@ -259,6 +259,11 @@ button{ font:inherit; cursor:pointer; }
 .nav-links a:hover{ color:var(--d-ink-900); }
 .nav-cta{ display:flex; align-items:center; gap:16px; }
 .nav-cta .btn{ padding:10px 18px; font-size:13.5px; background:var(--bone); color:var(--d-paper); }
+.nav-cta .btn-ghost{
+  background:transparent;
+  color:var(--d-ink-700);
+  border-color:var(--d-ink-200);
+}
 .nav-cta .btn:hover{ filter:brightness(1.05); }
 /* past the cover, the nav turns to paper */
 .nav.past-hero{
@@ -269,6 +274,11 @@ button{ font:inherit; cursor:pointer; }
 .nav.past-hero .nav-links a{ color:var(--ink-500); }
 .nav.past-hero .nav-links a:hover{ color:var(--ink-900); }
 .nav.past-hero .nav-cta .btn{ background:var(--ink-900); color:var(--on-brand); }
+.nav.past-hero .nav-cta .btn-ghost{
+  background:transparent;
+  color:var(--ink-700);
+  border-color:var(--ink-200);
+}
 .nav.past-hero .mark path{ stroke:#1B1B1F; }
 .nav.past-hero .mark path.brass{ stroke:#9C7536; }
 .nav-toggle{
@@ -296,7 +306,14 @@ button{ font:inherit; cursor:pointer; }
   font-size:22px;
   color:var(--ink-900);
 }
-.nav-drawer .drawer-cta{ margin-top:28px; }
+.nav-drawer .drawer-cta{ display:grid; gap:12px; margin-top:28px; }
+.nav-drawer .drawer-cta a{
+  justify-content:center;
+  padding:14px 18px;
+  border-bottom:0;
+  font-family:var(--font-sans);
+  font-size:15px;
+}
 
 /* ============================================================
    HERO · the obsidian cover · a printed dossier on a dark desk
@@ -2931,7 +2948,8 @@ button{ font:inherit; cursor:pointer; }
       <a href="#faq">FAQ</a>
     </div>
     <div class="nav-cta">
-      <a href="#cta" class="btn">Join the beta</a>
+      <a href="#cta" class="btn btn-ghost">Join the beta</a>
+      <a href="https://xtrader.xterio.net/" class="btn">Open the app</a>
       <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-drawer">
         <span></span><span></span><span></span>
       </button>
@@ -2945,7 +2963,10 @@ button{ font:inherit; cursor:pointer; }
   <a href="#pricing">Pricing</a>
   <a href="#faq">FAQ</a>
   <a href="disclosures.html">Disclosures</a>
-  <div class="drawer-cta"><a href="#cta" class="btn btn-ink">Join the beta</a></div>
+  <div class="drawer-cta">
+    <a href="https://xtrader.xterio.net/" class="btn btn-ink">Open the app</a>
+    <a href="#cta" class="btn btn-ghost">Join the beta</a>
+  </div>
 </div>
 
 <main>
@@ -3462,6 +3483,7 @@ button{ font:inherit; cursor:pointer; }
         <span class="h">Company</span>
         <a href="disclosures.html">Security</a>
         <a href="mailto:support@alphawalk.ai">Support</a>
+        <a href="https://xtrader.xterio.net/">Open the app</a>
         <a href="#cta">Beta access</a>
       </div>
     </div>
