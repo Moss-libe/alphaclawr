@@ -258,11 +258,17 @@ button{ font:inherit; cursor:pointer; }
 }
 .nav-links a:hover{ color:var(--d-ink-900); }
 .nav-cta{ display:flex; align-items:center; gap:16px; }
-.nav-cta .btn{ padding:10px 18px; font-size:13.5px; background:var(--bone); color:var(--d-paper); }
-.nav-cta .btn-ghost{
-  background:transparent;
+.nav-cta .btn{ padding:10px 18px; font-size:13.5px; }
+.nav-cta .btn-app{
+  background:linear-gradient(135deg, var(--bone), oklch(.82 .08 82));
+  color:var(--d-paper);
+  border-color:oklch(.78 .08 82 / .72);
+  box-shadow:0 1px 0 oklch(1 0 0 / .46) inset, 0 16px 34px -24px oklch(.7 .1 82 / .9);
+}
+.nav-cta .btn-beta{
+  background:oklch(.195 .008 282 / .46);
   color:var(--d-ink-700);
-  border-color:var(--d-ink-200);
+  border-color:oklch(.74 .08 82 / .34);
 }
 .nav-cta .btn:hover{ filter:brightness(1.05); }
 /* past the cover, the nav turns to paper */
@@ -273,11 +279,16 @@ button{ font:inherit; cursor:pointer; }
 .nav.past-hero .logotype{ color:var(--ink-900); }
 .nav.past-hero .nav-links a{ color:var(--ink-500); }
 .nav.past-hero .nav-links a:hover{ color:var(--ink-900); }
-.nav.past-hero .nav-cta .btn{ background:var(--ink-900); color:var(--on-brand); }
-.nav.past-hero .nav-cta .btn-ghost{
+.nav.past-hero .nav-cta .btn-app{
+  background:linear-gradient(135deg, var(--ink-900), oklch(.24 .012 282));
+  color:var(--bone);
+  border-color:oklch(.58 .08 82 / .52);
+  box-shadow:0 1px 0 oklch(1 0 0 / .12) inset, 0 16px 34px -28px oklch(.17 .006 280 / .7);
+}
+.nav.past-hero .nav-cta .btn-beta{
   background:transparent;
   color:var(--ink-700);
-  border-color:var(--ink-200);
+  border-color:oklch(.72 .04 82 / .48);
 }
 .nav.past-hero .mark path{ stroke:#1B1B1F; }
 .nav.past-hero .mark path.brass{ stroke:#9C7536; }
@@ -313,6 +324,16 @@ button{ font:inherit; cursor:pointer; }
   border-bottom:0;
   font-family:var(--font-sans);
   font-size:15px;
+}
+.nav-drawer .drawer-cta .btn-app{
+  background:linear-gradient(135deg, var(--ink-900), oklch(.25 .012 282));
+  color:var(--bone);
+  border-color:oklch(.58 .08 82 / .52);
+}
+.nav-drawer .drawer-cta .btn-beta{
+  background:transparent;
+  color:var(--ink-700);
+  border-color:oklch(.72 .04 82 / .48);
 }
 
 /* ============================================================
@@ -2948,8 +2969,8 @@ button{ font:inherit; cursor:pointer; }
       <a href="#faq">FAQ</a>
     </div>
     <div class="nav-cta">
-      <a href="#cta" class="btn btn-ghost">Join the beta</a>
-      <a href="https://xtrader.xterio.net/" class="btn">Open the app</a>
+      <a href="#cta" class="btn btn-beta">Join the beta</a>
+      <a href="https://xtrader.xterio.net/" class="btn btn-app">Open the app</a>
       <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-drawer">
         <span></span><span></span><span></span>
       </button>
@@ -2964,8 +2985,8 @@ button{ font:inherit; cursor:pointer; }
   <a href="#faq">FAQ</a>
   <a href="disclosures.html">Disclosures</a>
   <div class="drawer-cta">
-    <a href="https://xtrader.xterio.net/" class="btn btn-ink">Open the app</a>
-    <a href="#cta" class="btn btn-ghost">Join the beta</a>
+    <a href="https://xtrader.xterio.net/" class="btn btn-app">Open the app</a>
+    <a href="#cta" class="btn btn-beta">Join the beta</a>
   </div>
 </div>
 
