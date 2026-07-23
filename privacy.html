@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Privacy Policy &middot; ALPHAWALK</title>
+<meta name="description" content="Privacy Policy for ALPHAWALK: what personal data we collect, how we use it, how we share it, and your rights." />
+<meta name="theme-color" content="#F4F1EA" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+
+/* ============================================================
+   ALPHAWALK · privacy policy · Vol.03 brand system
+   COMPLIANCE NOTE: privacy policy language is legal-confirmed.
+   Style freely; do not edit the words.
+   ============================================================ */
+:root{
+  --paper: oklch(.972 .006 85);
+  --card: oklch(.995 .003 85);
+  --ink-900: oklch(.17 .006 280);
+  --ink-700: oklch(.34 .006 280);
+  --ink-500: oklch(.52 .005 280);
+  --ink-300: oklch(.72 .004 285);
+  --ink-200: oklch(.88 .003 90);
+  --ink-100: oklch(.93 .004 90);
+  --ink-50:  oklch(.965 .004 90);
+  --on-brand: oklch(.985 .004 85);
+  --accent: oklch(.52 .165 278);
+  --accent-soft: oklch(.955 .028 290);
+  --font-display:"Newsreader","Noto Serif TC","Songti TC",Georgia,serif;
+  --font-sans:"IBM Plex Sans","Noto Sans TC","PingFang TC",system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,monospace;
+  --tracking-label:.16em;
+  --tracking-kicker:.18em;
+  --tracking-logo:.28em;
+  --ease-out-quint: cubic-bezier(.22,1,.36,1);
+  --dur-2: 220ms;
+  --shell: 1140px;
+  --gut: clamp(20px,4vw,40px);
+}
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink-900);
+  font-family:var(--font-sans);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+body::after{
+  content:"";
+  position:fixed; inset:0;
+  pointer-events:none; z-index:9999; opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+h1,h2,h3,h4{ margin:0; font-weight:400; }
+p{ margin:0; color:var(--ink-700); }
+a{ color:inherit; text-decoration:none; }
+svg{ display:block; }
+::selection{ background:var(--accent-soft); }
+:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; border-radius:6px; }
+.shell{ max-width:var(--shell); margin:0 auto; padding:0 var(--gut); }
+.kicker{
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:var(--font-mono);
+  font-size:11px; font-weight:500;
+  letter-spacing:var(--tracking-kicker);
+  text-transform:uppercase;
+  color:var(--ink-500);
+}
+.kicker .dot{ width:5px;height:5px;border-radius:999px;background:var(--accent); }
+
+/* nav */
+.nav{
+  position:sticky; top:0; z-index:100;
+  background:oklch(.972 .006 85 / .88);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--ink-200);
+}
+.nav-row{ display:flex; align-items:center; justify-content:space-between; height:68px; }
+.wordmark{ display:inline-flex; align-items:center; gap:12px; }
+.wordmark .mark{ width:24px;height:24px; }
+.wordmark .logotype{
+  font-family:var(--font-sans);
+  font-size:12.5px; font-weight:500;
+  letter-spacing:var(--tracking-logo);
+  text-transform:uppercase;
+  color:var(--ink-900);
+  transform:translateX(2px);
+}
+.nav-links{ display:flex; align-items:center; gap:32px; }
+.nav-links a{ font-size:14px; color:var(--ink-500); transition:color var(--dur-2) var(--ease-out-quint); }
+.nav-links a:hover{ color:var(--ink-900); }
+.btn{
+  display:inline-flex; align-items:center; gap:10px;
+  padding:10px 18px;
+  border-radius:8px; border:1px solid transparent;
+  font-size:13.5px; font-weight:500; line-height:1;
+  transition:filter var(--dur-2) var(--ease-out-quint);
+}
+.btn-ink{ background:var(--ink-900); color:var(--on-brand); }
+.btn-ink:hover{ filter:brightness(1.18); }
+@media (max-width:880px){ .nav-links{ display:none; } }
+
+/* page */
+.page{ padding:clamp(56px,8vw,96px) 0 clamp(64px,9vw,110px); }
+.tos-shell{ max-width:780px; margin:0 auto; padding:0 var(--gut); }
+.tos-head{ margin-bottom:clamp(44px,6vw,72px); }
+.tos-head .kicker{ margin-bottom:20px; }
+.tos-head h1{
+  font-family:var(--font-display);
+  font-size:clamp(38px,5vw,58px);
+  line-height:1.08;
+  letter-spacing:-.012em;
+  margin-bottom:18px;
+}
+.tos-head .lede{
+  font-size:clamp(16px,1.6vw,18px);
+  line-height:1.65;
+  color:var(--ink-500);
+  max-width:56ch;
+}
+.tos-meta{
+  display:flex; flex-wrap:wrap; gap:16px; align-items:center;
+  margin-top:24px;
+  font-family:var(--font-mono);
+  font-size:10.5px; letter-spacing:var(--tracking-label); text-transform:uppercase;
+  color:var(--ink-300);
+}
+.tos-meta a{ color:var(--ink-500); }
+.tos-meta a:hover{ color:var(--accent); }
+.tos-meta .sep{ color:var(--ink-200); }
+
+/* sections · editorial hairlines, not boxes */
+.tos-section{
+  padding:clamp(28px,3.6vw,40px) 0;
+  border-top:1px solid var(--ink-200);
+  scroll-margin-top:96px;
+}
+.tos-section:last-of-type{ border-bottom:1px solid var(--ink-200); }
+.tos-section .num{
+  display:block;
+  font-family:var(--font-mono);
+  font-size:10.5px; letter-spacing:var(--tracking-label); text-transform:uppercase;
+  color:var(--ink-500);
+  line-height:1;
+  margin-bottom:20px;
+}
+.tos-section h2{
+  font-family:var(--font-display);
+  font-size:clamp(22px,2.4vw,29px);
+  line-height:1.15;
+  margin-bottom:14px;
+}
+.tos-section p{
+  font-size:15.5px;
+  line-height:1.7;
+  color:var(--ink-700);
+  margin-bottom:12px;
+  max-width:70ch;
+}
+.tos-section p:last-child{ margin-bottom:0; }
+.tos-section a{
+  text-decoration:underline;
+  text-underline-offset:3px;
+  text-decoration-color:var(--ink-300);
+  transition:color var(--dur-2) var(--ease-out-quint);
+}
+.tos-section a:hover{ color:var(--accent); }
+
+
+/* verbatim in-product disclaimer blocks */
+.tos-quote{
+  margin:16px 0 0;
+  padding:18px 20px;
+  background:var(--ink-50);
+  border:1px solid var(--ink-100);
+  border-radius:8px;
+}
+.tos-quote .where{
+  display:block;
+  font-family:var(--font-mono);
+  font-size:9.5px; letter-spacing:var(--tracking-label); text-transform:uppercase;
+  color:var(--ink-300);
+  margin-bottom:10px;
+}
+.tos-quote p{ font-size:13.5px; line-height:1.7; color:var(--ink-500); }
+
+/* refunds · the section Stripe reads first · quiet emphasis */
+#refunds h2 span{
+  border-bottom:2px solid var(--accent);
+  padding-bottom:2px;
+}
+
+.tos-tail{
+  margin-top:clamp(36px,5vw,56px);
+  font-family:var(--font-mono);
+  font-size:11px; letter-spacing:.04em; line-height:1.8;
+  color:var(--ink-300);
+}
+
+/* footer */
+.footer{ border-top:1px solid var(--ink-200); padding:clamp(40px,5vw,56px) 0 36px; }
+.footer-row{
+  display:flex; flex-wrap:wrap; justify-content:space-between; gap:24px;
+  align-items:flex-start;
+  padding-bottom:28px;
+}
+.footer-links{ display:flex; flex-wrap:wrap; gap:6px 24px; }
+.footer-links a{ font-size:13.5px; color:var(--ink-500); }
+.footer-links a:hover{ color:var(--ink-900); }
+.footer-legal{
+  font-size:12px; line-height:1.7; color:var(--ink-500); max-width:78ch;
+  padding-top:20px;
+  border-top:1px solid var(--ink-100);
+}
+.footer-meta{
+  margin-top:16px;
+  font-family:var(--font-mono);
+  font-size:10.5px; letter-spacing:.06em; color:var(--ink-300);
+}
+
+
+.policy-intro{ padding-top:0; }
+.tos-section h3{
+  margin:18px 0 10px;
+  font-family:var(--font-sans);
+  font-size:15px;
+  line-height:1.45;
+  font-weight:600;
+  color:var(--ink-900);
+}
+.policy-list{
+  margin:0 0 14px 0;
+  padding-left:22px;
+  color:var(--ink-700);
+}
+.policy-list li{
+  margin-bottom:8px;
+  font-size:15.5px;
+  line-height:1.65;
+}
+.policy-table-wrap{
+  width:100%;
+  overflow-x:auto;
+  margin:18px 0 16px;
+}
+.policy-table{
+  width:100%;
+  min-width:620px;
+  border-collapse:collapse;
+  border:1px solid var(--ink-200);
+  background:var(--card);
+}
+.policy-table th,
+.policy-table td{
+  vertical-align:top;
+  padding:14px 16px;
+  border:1px solid var(--ink-200);
+  font-size:13.5px;
+  line-height:1.55;
+  color:var(--ink-700);
+}
+.policy-table th{
+  background:var(--ink-50);
+  color:var(--ink-900);
+  font-weight:600;
+  text-align:left;
+}
+.policy-table td:first-child{
+  width:26%;
+  color:var(--ink-900);
+  font-weight:600;
+}
+.policy-table p{ margin:0 0 8px; font-size:13.5px; line-height:1.55; }
+.policy-table p:last-child{ margin-bottom:0; }
+.policy-table .policy-list{ margin:8px 0 0; padding-left:18px; }
+.policy-table .policy-list li{ margin-bottom:6px; font-size:13.5px; line-height:1.5; }
+@media (max-width:700px){
+  .policy-table{ min-width:540px; }
+  .policy-table th,
+  .policy-table td{ padding:12px; }
+}
+
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Top">
+  <div class="shell nav-row">
+    <a href="index.html" class="wordmark" aria-label="ALPHAWALK home">
+      <svg class="mark" viewBox="0 0 120 120" aria-hidden="true"><g transform="translate(60,60) scale(0.9473684210526315) translate(-50,-48.5)"><path d="M18,96 L41.46,76.94 Q50,70 58.54,76.94 L82,96" stroke="#1B1B1F" fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M18,62 L41.46,42.94 Q50,36 58.54,42.94 L82,62" stroke="#1B1B1F" fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M18,28 L41.46,8.94 Q50,2 58.54,8.94 L82,28" stroke="#9C7536" fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></g></svg>
+      <span class="logotype">ALPHAWALK</span>
+    </a>
+    <div class="nav-links" aria-label="Primary">
+      <a href="index.html#floor">The floor</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="terms.html">Terms</a>
+      <a href="disclosures.html">Disclosures</a>
+    </div>
+    <a href="index.html#cta" class="btn btn-ink">Open the app</a>
+  </div>
+</nav>
+
+<main class="page">
+  <div class="tos-shell">
+
+    <header class="tos-head">
+      <span class="kicker"><span class="dot"></span>Privacy policy</span>
+      <h1>ALPHAWALK PRIVACY POLICY</h1>
+      <p class="lede">This privacy policy (“Policy”) applies to personal information we hold on our users, people who visit our websites (including without limitation, <a href="https://alphawalk.ai">https://alphawalk.ai</a>), and anyone else whose personal data we hold.</p>
+      <div class="tos-meta">
+        <span>Last updated &middot; 23 July 2026</span>
+        <span class="sep">&middot;</span>
+        <a href="mailto:support@alphawalk.ai">support@alphawalk.ai</a>
+      </div>
+    </header>
+
+    <div class="tos-list">
+
+      <section class="tos-section policy-intro" id="overview">
+        <p>In this Policy, “we,” “us,” and “our” means Quantummind Solutions Hong Kong Limited. This Policy deals with where we are acting as a ‘data controller’ under the data protection legislation: which essentially means where we are responsible for deciding what personal data we collect and how we use it. We may at times operate as a ‘data processor’, meaning that we are processing personal data on behalf of another entity. When we refer to “personal data”, we mean data relating to you personally or from which you can be identified. Some of the information mentioned in this Policy is not “personal data” as is meant under data protection legislation, but we may refer to it to help you understand what we do.</p>
+        <p>We are committed to protecting and respecting the personal information of everyone we deal with – that is important to us and we know it is important to you. In this Policy you will find information about what types of personal data we hold about you, how and why we collect it, how we use it, and how we keep it secure. You will also find the information about your rights and how you may exercise them.</p>
+        <p>If you are younger than 18 years of age (or age of majority otherwise determined in your country of residency if the age of majority in your country of residency is older than 18 years old), you are not allowed to access our website, mobile app, products and services.</p>
+        <p>Please read this Policy carefully and if you need to contact us about anything that is in here, or for anything else related to your personal data, you can reach us by email at <a href="mailto:support@alphawalk.ai">support@alphawalk.ai</a>.</p>
+      </section>
+
+      <section class="tos-section" id="what-information-do-we-collect-about-you">
+        <span class="num">01</span>
+        <h2>WHAT INFORMATION DO WE COLLECT ABOUT YOU?</h2>
+        <p>The type of personal data we collect about you depends on your relationship with us. In general, we collect the following information:</p>
+        <h3>A. Personal data that you provide directly to us:</h3>
+<ol class="policy-list">
+          <li>your contact information such as your name and email address;</li>
+          <li>your account / display name and password;</li>
+          <li>your login credentials when you register with us;</li>
+          <li>data that you provided to us to verify your account;</li>
+          <li>other data you choose to provide us, such as data to identify a lost or lapsed account or the answer to a special question we may ask you in order to permit you to unlock or recover a lost or lapsed account;</li>
+          <li>information about your purchases and payments (in addition, exclusively our payment service providers will collect your payment details in connection with any purchases you make in our products or services);</li>
+          <li>personal data you provide in connection with surveys, promotions, sweepstakes, competitions, activities, campaigns and other events; and</li>
+          <li>other personal data that may be collected based on your explicit consent or our legitimate business interest for a specific purpose.</li>
+</ol>
+        <h3>B. Personal data that we collect automatically when you access our products or services:</h3>
+<ol class="policy-list">
+          <li>your profile in our services, including your profile picture and any information needed for the relevant service to function, such as an inventory of service credits;</li>
+          <li>your product / service user ID(s) – product / service-specific ID(s) generated by our server for you;</li>
+          <li>Analytics ID – a randomly generated anonymous identifier used to distinguish activity from one service / product account versus another in our analytics data;</li>
+          <li>your account ID and its related account and profile information (including without limitation the profile picture) from third party platforms (e.g. Google, Apple), including when such account details is used in connection with our products or services, or used in connection with surveys, promotions, sweepstakes, competitions, activities, campaigns and other events arranged, administered, facilitated, managed or organized by us (whether solely or jointly with others);</li>
+          <li>your payment and credit card/bank account details, when such payment and credit card/bank account details is used in connection with our products or services, or used in connection with surveys, promotions, sweepstakes, competitions, activities, campaigns and other events arranged, administered, facilitated, managed or organized by us (whether solely or jointly with others). We do not currently automatically collect this data under our ALPHAWALK service and only limited transaction data is received by us through Stripe, but we may choose to automatically collect this in the future;</li>
+          <li>your internet protocol (IP) address;</li>
+          <li>your country, time zone, and locale/region settings (we do not currently automatically collect this data, but may access and collect it as and when required by us. We may also choose to automatically collect it in the future);</li>
+          <li>data to fight fraud (such as refund abuse in products or services, or click fraud in advertising);</li>
+          <li>usage data including usage logs, and information about how you use our website, products, and services;</li>
+          <li>service data including in the context of our ALPHAWALK service, your watchlist, preferences and settings; the prompts you submit to agents and the reports/outputs generated for you; your agent hire history and credit balance and usage;</li>
+          <li>data about your device, such as device name and operating system, browser type, and language; and</li>
+          <li>marketing and communications data including your preferences in receiving marketing from us and our third parties and your communication preferences and it is at your full own discretion and control to adjust the settings on your device to turn off the function.</li>
+</ol>
+        <h3>C. Personal data that we collect from third parties:</h3>
+<ol class="policy-list">
+          <li>third party account ID and related account and profile information (including without limitation the profile picture), as well as payment and credit card/bank account details, when such account and/or payment and credit card/bank account details is used in connection with our products or services, or used in connection with surveys, promotions, sweepstakes, competitions, activities, campaigns and other events arranged, administered, facilitated, managed or organized by us (whether solely or jointly with others);</li>
+          <li>if you connect the ALPHAWALK service through Telegram, Lark and/or third party email, we receive and store, as applicable: for Telegram, the chat ID of the chat you connect (obtained when Telegram delivers back the one-time binding code during QR-based setup; for group chats we also briefly process the chat type and group title); for Lark, the incoming-webhook URL (and optional signing secret) you supply; and for email, the recipient address you supply, verified via a confirmation email;</li>
+          <li>payment confirmation details, including the purchases you make and the amount you spend. Specifically in relation to the ALPHAWALK service, payments under the ALPHAWALK service are processed by Stripe. We receive limited transaction data (amount, currency, last four card digits, transaction status) for payments which you make for the ALPHAWALK service - we never receive or store your full card number, and Stripe&#x27;s processing is governed by its own privacy policy; and</li>
+          <li>if you are a Creator receiving earnings under the ALPHAWALK service, our payout partner(s) will collect identity-verification (KYC) and bank/tax information directly from you; we receive verification status and the information needed from our payout partner(s) to account for your earnings.</li>
+</ol>
+      </section>
+
+      <section class="tos-section" id="how-we-collect-information-about-you">
+        <span class="num">02</span>
+        <h2>HOW WE COLLECT INFORMATION ABOUT YOU</h2>
+        <p>We will collect this information in a variety of ways depending on how we interact with you.</p>
+        <div class="policy-table-wrap">
+          <table class="policy-table">
+            <tbody>
+              <tr>
+                <td><p>Direct interactions</p></td>
+                <td><p>You may give us your identity, contact or other information by filling in online forms or by corresponding with us by post, phone, within our app or website, email or otherwise. This includes personal data you provide when you:</p><p>● use our products or services;</p><p>● create an account under one of our products or services or on our website, if any;</p><p>● interact with our Customer Service, if any;</p><p>● subscribe to our mailing lists;</p><p>● enter, or take steps to enter, a competition, promotion, sweepstake, activity, campaign, event or survey;</p><p>● give us feedback; or</p><p>● otherwise communicate or interact with us.</p></td>
+              </tr>
+              <tr>
+                <td><p>Third parties</p></td>
+                <td><p>We may receive personal data from third parties. This includes personal data we receive from the following:</p><p>● if you link your account(s) with such third party with our products or services or otherwise make it available to us via your privacy settings;</p><p>● if you enter, or take steps to enter, a competition, promotion, sweepstake, activity, campaign, event or survey managed, arranged, administered, facilitated or organized by third parties in which we are also involved;</p><p>● technical data from advertising networks; and</p><p>● search information providers.</p></td>
+              </tr>
+              <tr>
+                <td><p>Automated</p><p>technologies or interactions</p><p>(optional)</p></td>
+                <td><p>As you interact with our website, services or our products we may automatically collect technical data about your equipment, browsing actions and patterns. We collect this personal data by using cookies, pixels, server logs, analytics tools and other similar technologies. We may also receive technical data about you if you visit other websites employing our cookies. You can reject our collection of cookies through individual browser settings. Please see our Section 4 for further details.</p></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="tos-section" id="how-we-use-your-personal-data">
+        <span class="num">03</span>
+        <h2>HOW WE USE YOUR PERSONAL DATA</h2>
+        <p>We use different personal data in different ways:</p>
+<ul class="policy-list">
+          <li>to send you communications related to our products and services, answer your enquiries or deal with your complaints;</li>
+          <li>providing, operating and managing our products and services. In the context of ALPHAWALK service, this would include running the AI Agents and maintaining users’ credit and earnings ledgers;</li>
+          <li>allowing you to participate in our website features;</li>
+          <li>verifying, confirming and processing payments (where relevant interacting with third party payment providers);</li>
+          <li>account verification and clearance;</li>
+          <li>securing our products and services (including payment fraud screening by third party partners);</li>
+          <li>direct marketing, letting you know about products and services that may be of particular interest to you;</li>
+          <li>administering surveys and opinion polls;</li>
+          <li>managing, arranging, administering, facilitating and organizing competitions, surveys, sweepstakes, activities, campaigns, events and/or promotions and your registration for the same;</li>
+          <li>technical and usage information/analytics to help us develop products and services that our users want to use and to improve them and to detect activities that ruin the experience of users using our products and services, security risks, fraud and other unlawful activity;</li>
+          <li>business and website analysis and improvement;</li>
+          <li>the provision of social features as part of our services;</li>
+          <li>customising your personal experience;</li>
+          <li>to improve our products and services;</li>
+          <li>to send you related information such as notices, updates, security alerts, receipts and support messages;</li>
+          <li>on-site and in-app advertising and promotion of our goods and services and those of our service providers and trusted third parties;</li>
+          <li>website, system administration and account verification;</li>
+          <li>to moderate communications between users either automatically or manually, if relevant;</li>
+          <li>to answer or satisfy legal or regulatory requirements;</li>
+          <li>to comply with legal obligations, including sanctions screening and financial record-keeping;</li>
+          <li>when you interact with third party social networking features to serve you with advertisements and engage with you on third party social networks (we encourage you to review the privacy notices/policies of these social networks to enable you to opt out of such activities); and</li>
+          <li>when you interact with other third party service providers who serve you with advertisements and engage with you on third party platforms (we encourage you to review the privacy notices/policies of these platforms and service providers).</li>
+</ul>
+        <p>Please note that in relation to the ALPHAWALK service, we do NOT use the content of your prompts or input for advertising purposes, unless such data is anonymized. We may use the content of the reports you have generated and/or the artificial intelligence agents you have built for advertising purposes provided that we do not identify you as the creator of the report or artificial intelligence agent without your permission. Our third-party AI providers (including our LLM and embedding providers) process your content only to provide their service and do not use it to train their models.</p>
+      </section>
+
+      <section class="tos-section" id="cookies">
+        <span class="num">04</span>
+        <h2>COOKIES</h2>
+<ul class="policy-list">
+          <li>Like most online services, we and our partners may use cookies and similar technologies to provide and personalize our services, and analyze service / product usage. Cookies are small text files stored by browser(s) on your desktop computer or mobile device. You can modify browser setting to decline cookies if you wish so. In that case, some aspects of the relevant service may then not function properly.</li>
+          <li>We and our partners may use tracking technologies such as cookies, beacons, tags and scripts. These technologies are used in analyzing trends, administering the websites, tracking users’ movements around the websites and, should we choose to enable such feature with our analytics provider, to gather demographic information about our user base as a whole. We may receive reports based on the use of these technologies by these companies on an individual as well as aggregated basis.</li>
+          <li>We use strictly necessary cookies for login sessions and security. If you disable these strictly necessary cookies, this may break your login sessions and security.</li>
+          <li>Users can control the use of cookies at the individual browser level. If you reject cookies, you may still use our websites and services, but your ability to use some features or areas of our websites or services may be limited.</li>
+</ul>
+      </section>
+
+      <section class="tos-section" id="legal-basis-for-processing">
+        <span class="num">05</span>
+        <h2>LEGAL BASIS FOR PROCESSING</h2>
+        <p>There are a number of different legal grounds for processing personal data. Which one is applicable will depend on how we are using your data and for what purpose. In the majority of cases this condition will be that:</p>
+<ul class="policy-list">
+          <li>you have provided your consent to us using your personal data in that way (for example where you provide us with consent to send you marketing communications about our products and services);</li>
+          <li>our use of your personal information is in our legitimate interest as a commercial organisation. For example, we may use cookies to track information about how our website is used in order to continually improve its layout based on how you and other users interact with its content, and to personalise it to the user (for example, by showing content or a language which is relevant to your geographic location), provided it is conducted at all times in a way that is proportionate, and that respects your privacy rights;</li>
+          <li>our use of your personal information is necessary to perform a contract or take steps to enter into a contract with you (e.g. to manage your account); and/or</li>
+          <li>our use of your personal information is necessary to comply with a relevant legal or regulatory obligation.</li>
+</ul>
+        <p>We generally do not collect or process any ‘special categories’ of personal data (including information regarding your health, religious or political beliefs, ethnic background, sexual life and sexual orientation). If this would apply, we will generally rely on obtaining additional specific consent from you at the time we collect the information unless there is a legal requirement or other justification for processing that information.</p>
+      </section>
+
+      <section class="tos-section" id="children">
+        <span class="num">06</span>
+        <h2>CHILDREN</h2>
+        <p>Protecting children’s privacy is of high importance for us. Our websites and our products and services are not intended for individuals younger than 18 years of age (or age of majority otherwise determined in your country of residency if the age of majority in your country of residency is older than 18 years old), and we do not knowingly collect data relating to children.</p>
+      </section>
+
+      <section class="tos-section" id="sharing-your-information">
+        <span class="num">07</span>
+        <h2>SHARING YOUR INFORMATION</h2>
+        <p>The personal data you provide to us may be shared with third party companies, agents, contractors, service providers or our affiliated companies if this is necessary to provide you with our services, respond to your inquiries or for any of the purposes described in this Policy, or if this is required to work with our service providers for purposes of our business operations and the advertising, marketing and promotion of our website, services and products. This may include:</p>
+<ul class="policy-list">
+          <li>Our business partners, service providers (including service providers that operate the products and services on our behalf, such as our payments partner, payout partner, cloud hosting service provider, and third party large language model providers), and suppliers (including for the avoidance of doubt, partners and suppliers whom we work with in relation to or in connection with surveys, promotions, sweepstakes, competitions, activities, campaigns and other events);</li>
+          <li>Sub-processors who store or process information on our behalf, in particular data analytics providers and data storage providers. Information shared with our data analytics and data storage providers is, wherever practicable, supplied in an anonymised or aggregated format such that the data cannot be linked to any particular individual and is therefore not considered to be ‘personal data’;</li>
+          <li>Our auditors, insurers, lawyers and other professional advisers;</li>
+          <li>Messaging and communication platforms which you choose to connect with (e.g., Telegram / Lark / third party email);</li>
+          <li>Law enforcement agencies, other governmental agencies, authorities or third parties, if we are required by law or court order to do so, or to protect the rights, safety and integrity of our products and services;</li>
+          <li>Successor entity(ies) in a merger, acquisition or asset sale, or if we undergo a re-organisation with that entity(ies);</li>
+          <li>Service providers whom we engage for advertising, marketing, promotion and other business operation purposes. Your data may be shared with them (whether through us or through other third parties) in accordance with this Policy and such service provider’s policies.</li>
+</ul>
+        <p>From time to time, we may disclose the personal information of recipients who are selected to receive rewards as part of competitions, promotions, sweepstakes, activities, campaigns, events or surveys that are managed, arranged, administered, facilitated or organized by us, or by third parties but which we are also involved in. This disclosure may occur publicly (e.g., on our website, social media accounts, social media channels, or within our apps or services) or privately (e.g., via direct communication with participants or third-party partners) for the purposes of the reward process. By participating in such competitions, promotions, sweepstakes, activities, campaigns, events or surveys, you acknowledge and agree that your personal information may be disclosed in this manner.</p>
+        <p>Our products and services may also let you share information with other people, and you have control over how you share. Remember, when you share information publicly, your content may become accessible through search engines, including Google Search. When you leave a review of an artificial intelligence agent under our ALPHAWALK service, your username will appear next to your review, and both are publicly available.</p>
+      </section>
+
+      <section class="tos-section" id="social-features">
+        <span class="num">08</span>
+        <h2>SOCIAL FEATURES</h2>
+        <p>Where social features are a component of our products or services, other users may, for example, see your profile data, see your activities within the app or website, and read the messages you have posted.</p>
+        <p>Our products and services may include features from our partners, if any, such as social media interaction tools (and albeit not currently, in the future may also relate to in-app or in-website advertising). These partners, if any, may in such case, following your consent, access your data and operate under their own privacy policies. We encourage you to check their privacy policies to learn more about their data processing practices and opt out where you deem relevant.</p>
+      </section>
+
+      <section class="tos-section" id="international-data-transfers">
+        <span class="num">09</span>
+        <h2>INTERNATIONAL DATA TRANSFERS</h2>
+        <p>Due to the nature of our services, you are aware and agree that your personal data may be transferred to, stored in, and processed by affiliated companies, subcontractors, service providers, suppliers, and/or our partners, located in countries outside the country where you live or work. Because different countries may have different data protection laws than your own country, and they may not provide you with protection of the same level to your personal information as the data protection law in the country where you live or work, in which case, we will take steps according to applicable laws and regulations in your country to ensure adequate safeguards are in place and that your personal information is adequately protected within the data process location.</p>
+      </section>
+
+      <section class="tos-section" id="your-rights">
+        <span class="num">10</span>
+        <h2>YOUR RIGHTS</h2>
+        <p>Under applicable data protection laws in your country of residency you have a number of rights in relation to your personal data. We respect and honour these rights and will help you to exercise them insofar as we are able.</p>
+        <p>The following rights may apply to you:</p>
+<ul class="policy-list">
+          <li>to request access to or a copy of any personal data which we hold about you;</li>
+          <li>to request the rectification of your personal data, if you consider that the personal data we are holding is inaccurate;</li>
+          <li>to request to delete your personal data, or object to the processing of your personal data;</li>
+          <li>to ask us to delete your personal data, if you consider that we do not have the right to hold it;</li>
+          <li>to withdraw consent to our processing of your personal data (to the extent such processing is based on previously obtained consent);</li>
+          <li>to ask us to stop or start sending you marketing messages as described below in the marketing Section;</li>
+          <li>to restrict processing of your personal data;</li>
+          <li>to data portability (moving some of your personal data elsewhere) in certain circumstances;</li>
+          <li>to object to your personal data being processed in certain circumstances; and</li>
+          <li>to not be subject to a decision based on automated processing and to have safeguards put in place if you are being profiled based on your personal data.</li>
+</ul>
+        <p>Please note that these rights are not absolute – in some cases they will not apply to you, or to the particular use that we are making of your data, and there are exceptions (for example if we have to process the data to comply with our own legal obligations) but if that is the case we will let you know if you make a request that we believe we cannot comply with.</p>
+        <p>Any request from you for access to or a copy of your personal data must be in writing to <a href="mailto:support@alphawalk.ai">support@alphawalk.ai</a> and we will endeavour to respond within a reasonable period and in any event within one month in compliance with data protection legislation. We will comply with our legal obligations as regards your rights as a data subject. If you have used a third-party messaging service to connect to our product or service, and you want information about the data that they store about you, you should contact that messaging platform directly.</p>
+        <p>You understand and agree that in accordance with applicable laws, we may have the right to charge you for a certain amount of fee depending on the complexity of your requests to cover our operational expenditure. We may verify your identity by asking you to submit a request through your account with us and by providing us with other proof of your identity.</p>
+        <p>If there are other special provisions provided by applicable laws and regulations in the country where you live or work, we will process your personal data in accordance with applicable laws.</p>
+      </section>
+
+      <section class="tos-section" id="marketing">
+        <span class="num">11</span>
+        <h2>MARKETING</h2>
+        <p>We do not currently use your personal data to send you tailored suggestions or offers about our services or products. However, we may opt to do so in the future.</p>
+      </section>
+
+      <section class="tos-section" id="how-long-will-we-keep-your-information">
+        <span class="num">12</span>
+        <h2>HOW LONG WILL WE KEEP YOUR INFORMATION?</h2>
+        <p>We retain personal information we collect from you where we have an ongoing legitimate business need to do so (for example, to provide you with a service you have requested, for any purposes set out in this policy, or to comply with applicable legal, tax or accounting requirements). This will involve us periodically reviewing our files to check that information is accurate, up-to-date and still required. Payment records are retained for ~ 7 years to meet financial record-keeping requirements.</p>
+        <p>In some circumstances you can ask us to delete your data: see “Your Rights” for further information.</p>
+        <p>You acknowledge and agree that to improve the quality of our services, sometimes we may need your user data for research or statistical purposes, in which case we will make sure your personal data has been desensitized, de-identified and anonymized first (so that it can no longer be associated with you) and we may use this information without further notice to you.</p>
+        <p>If you opt out from marketing, we may retain the necessary information to enable us to respect your wishes to not be contacted for marketing purposes.</p>
+      </section>
+
+      <section class="tos-section" id="data-security">
+        <span class="num">13</span>
+        <h2>DATA SECURITY</h2>
+        <p>We are committed to ensuring that your personal data is secure. In order to prevent unauthorised access or disclosure, we have put in place suitable physical, electronic and managerial procedures to safeguard and secure the personal data we collect, including encryption in transit, access controls, and secrets management. Such measures will be appropriate to the nature of the data concerned and the level of risk.</p>
+        <p>If you have been provided with a password to access any of our services or products you should not share that password with anyone else. Please keep your access credentials confidential.</p>
+        <p>However, no security measures are perfect and can be 100% secure. We cannot guarantee our security measures but we will do our best to protect your personal data in accordance with the applicable data protection laws and international security standards.</p>
+      </section>
+
+      <section class="tos-section" id="links-to-other-sites">
+        <span class="num">14</span>
+        <h2>LINKS TO OTHER SITES</h2>
+        <p>Our websites may contain links to other sites, including via our social media buttons. We are not responsible for the content, security, or privacy practices employed by other websites and a link does not constitute an endorsement of that website. Once you link to another website from our website you are subject to the terms and conditions of that website, including, but not limited to, its internet privacy policy and practices. Please check these policies before you submit any data to these websites.</p>
+      </section>
+
+      <section class="tos-section" id="contact">
+        <span class="num">15</span>
+        <h2>CONTACT</h2>
+        <p>Questions, comments and requests regarding this policy are welcomed and should be addressed to us by email at <a href="mailto:support@alphawalk.ai">support@alphawalk.ai</a>.</p>
+      </section>
+
+      <section class="tos-section" id="changes-to-this-privacy-policy">
+        <span class="num">16</span>
+        <h2>CHANGES TO THIS PRIVACY POLICY</h2>
+        <p>Any changes we make to our policy in the future will be posted on this page and, where material and appropriate, notified to you by in-app message or message on our website. We urge you to check regularly to see any updates or changes to our policy. All changes to the Privacy Policy will be effective when posted unless otherwise regulated by applicable laws, and your continuous use of any of our services after the update will be deemed as your acceptance for the updated Privacy Policy.</p>
+      </section>
+
+      <section class="tos-section" id="additional-information-for-california-united-states-residents">
+        <span class="num">17</span>
+        <h2>ADDITIONAL INFORMATION FOR CALIFORNIA; UNITED STATES RESIDENTS</h2>
+        <p>In this Section, we provide additional information about how we handle personal data about California residents as required by the California Consumer Privacy Act of 2018 (CCPA) as amended by the California Privacy Rights Act (CPRA). The information enumerated in this Section is in addition to and does not replace the information under this Policy. Quantummind Solutions Hong Kong Limited is incorporated in Hong Kong and is therefore subject to the Personal Data (Privacy) Ordinance, to the extent applicable.</p>
+        <h3>A. No sale of personal data: We do NOT sell your personal data to any third party to provide the services or products described in this Policy. We also do NOT sell personal data of users who we know are younger than 16 years old.</h3>
+        <h3>B. Personal data disclosure: We may share your personal data with third parties as described in Section 7. Our third-party companies, agents, contractors, service providers, or our affiliated companies who work with us may have access to your personal data in order to provide you with the services within the time limits and throughout the duration of the agreements. We ensure that our service providers cannot use your personal data for any other purposes than what has been instructed by us.</h3>
+        <h3>C. Look back disclosure: In the preceding 12 months, we have collected and disclosed the following categories of personal data as part of our services:</h3>
+        <div class="policy-table-wrap">
+          <table class="policy-table">
+            <tbody>
+              <tr>
+                <th scope="col"><p>Category of Personal Data Collected based on Section 1798.140</p></th>
+                <th scope="col"><p>Example of Personal Data Collected by us</p></th>
+                <th scope="col"><p>Category of Third Parties Receiving the Personal Data for Business Purposes</p></th>
+              </tr>
+              <tr>
+                <td><p>Identifiers</p></td>
+                <td><p>Email, username, user IDs, IP address, analytics provider client ID, channel identifiers</p></td>
+                <td><p>Other users: username only, with reviews you choose to post under the ALPHAWALK Service</p></td>
+              </tr>
+              <tr>
+                <td><p>Personal data categories listed in the California Customer Records statute (Cal. Civ. Code § 1798.80(e)).</p></td>
+                <td><p>Email, username, user IDs, IP address, analytics provider client ID, channel identifiers</p></td>
+                <td><p>Same as “Identifiers” above.</p></td>
+              </tr>
+              <tr>
+                <td><p>Commercial information</p></td>
+                <td><p>Subscriptions, purchases, credit usage, hire history, watchlist</p></td>
+                <td><p>Other users: note that posting a public review under our ALPHAWALK Service implies the fact that the reviewer hired that AI agent.</p><p>Service providers</p></td>
+              </tr>
+              <tr>
+                <td><p>Internet or other electronic network activity</p></td>
+                <td><p>Server logs, usage data, browsing/interaction data</p></td>
+                <td><p>Service providers</p></td>
+              </tr>
+              <tr>
+                <td><p>Geolocation data</p></td>
+                <td><p>IP addresses</p></td>
+                <td><p>Service providers</p></td>
+              </tr>
+              <tr>
+                <td><p>Inferences</p></td>
+                <td><p>Aggregate usage patterns only</p></td>
+                <td><p>Service providers</p></td>
+              </tr>
+              <tr>
+                <td><p>Sensitive personal information</p></td>
+                <td><p>ALPHAWALK Service account login credentials only (hashed; authentication use only)</p></td>
+                <td><p>None. Not disclosed to any third party; stored only as one-way hashes on our cloud infrastructure. Hosting provider holds the encrypted storage, but credentials are never provided to any party for its own use.</p></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>The details of how the above categories of personal data are collected, used, and disclosed are set out in Sections 2, 3 and 7 respectively.</p>
+        <h3>D. California Resident rights: If you are a California resident, you may exercise the following rights:</h3>
+<ul class="policy-list">
+          <li>The right to request a copy of the personal data that we have collected about you in the prior 12 months.</li>
+          <li>The right to request details about the categories of personal data we collect, the categories of sources, the business or commercial purposes for collecting information, and the categories of third parties with which we share information.</li>
+          <li>The right to request deletion of the personal data that we have collected about you, subject to certain exemptions.</li>
+          <li>The right not to receive discriminatory treatment for the exercise of your CCPA privacy rights, subject to certain limitations.</li>
+</ul>
+        <p>An authorised agent may submit an access or deletion request on your behalf by sending a written authorization signed by you using the contact information in Section 15. We may still require you to directly verify your identity or confirm that you provided the authorised agent permission to submit the request.</p>
+      </section>
+
+    </div>
+
+    <p class="tos-tail">
+      ALPHAWALK is operated by QUANTUMMIND SOLUTIONS HONG KONG LIMITED. Not investment advice. Trading involves risk of loss. &copy; 2026 ALPHAWALK.
+    </p>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="shell">
+    <div class="footer-row">
+      <a href="index.html" class="wordmark" aria-label="ALPHAWALK">
+        <svg class="mark" viewBox="0 0 120 120" aria-hidden="true"><g transform="translate(60,60) scale(0.9473684210526315) translate(-50,-48.5)"><path d="M18,96 L41.46,76.94 Q50,70 58.54,76.94 L82,96" stroke="#1B1B1F" fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M18,62 L41.46,42.94 Q50,36 58.54,42.94 L82,62" stroke="#1B1B1F" fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M18,28 L41.46,8.94 Q50,2 58.54,8.94 L82,28" stroke="#9C7536" fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></g></svg>
+        <span class="logotype">ALPHAWALK</span>
+      </a>
+      <div class="footer-links">
+        <a href="index.html#floor">The floor</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="terms.html">Terms</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html#refunds">Refund policy</a>
+        <a href="disclosures.html">Disclosures</a>
+        <a href="mailto:support@alphawalk.ai">Support</a>
+      </div>
+    </div>
+    <div class="footer-legal">
+      ALPHAWALK is operated by QUANTUMMIND SOLUTIONS HONG KONG LIMITED. ALPHAWALK is not a broker, adviser, or fiduciary. Analysts are AI agents, not human advisors; their filings are information, not investment advice. Markets carry risk of loss, and past performance does not indicate future results.
+    </div>
+    <div class="footer-meta">&copy; 2026 ALPHAWALK &middot; all rights reserved</div>
+  </div>
+</footer>
+
+</body>
+</html>
