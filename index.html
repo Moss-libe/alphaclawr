@@ -146,17 +146,14 @@ button{ font:inherit; cursor:pointer; }
 .section{ padding:clamp(72px,10vw,120px) 0; position:relative; }
 .section-head{ position:relative; margin-bottom:clamp(44px,6vw,72px); }
 .section-head .folio{
-  position:absolute;
-  top:-.34em; left:-.02em;
+  display:block;
   font-family:var(--font-display);
   font-weight:300;
-  font-size:clamp(96px,13vw,180px);
-  line-height:1;
-  color:var(--ink-900);
-  opacity:.05;
-  letter-spacing:-.03em;
-  pointer-events:none;
-  user-select:none;
+  font-size:clamp(40px,5vw,64px);
+  line-height:.9;
+  color:var(--ink-200);
+  letter-spacing:-.02em;
+  margin-bottom:clamp(14px,1.8vw,20px);
 }
 .section-head .kicker{ margin-bottom:18px; }
 .section-head h2{
@@ -2181,7 +2178,7 @@ button{ font:inherit; cursor:pointer; }
 .spec-stats .hire-chip{ margin-top:6px; }
 .idx{ border-top:1px solid var(--ink-200); }
 .idx-live{
-  display:flex; align-items:center; justify-content:flex-end; gap:8px;
+  display:flex; align-items:center; justify-content:flex-start; gap:8px;
   padding:6px 0 10px;
   font-family:var(--font-mono);
   font-size:9.5px;
@@ -2729,7 +2726,7 @@ button{ font:inherit; cursor:pointer; }
   max-width:760px;
   margin-top:clamp(28px,3.6vw,40px);
   padding-top:22px;
-  border-top:1px solid var(--ink-200);
+  border-top:1px solid var(--ink-100);
   font-size:13px;
   line-height:1.75;
   color:var(--ink-500);
@@ -2760,13 +2757,14 @@ button{ font:inherit; cursor:pointer; }
 .reach-line b{ font-weight:500; color:var(--ink-900); }
 
 /* ---------- faq ---------- */
-.faq-list{ border-top:1px solid var(--ink-200); max-width:840px; }
-.faq-item{ border-bottom:1px solid var(--ink-200); }
+.faq-list{ }
+.faq-item{ border-bottom:1px solid var(--ink-100); }
+.faq-item:last-child{ border-bottom:none; }
 .faq-q{
   width:100%;
   display:flex; align-items:center; justify-content:space-between; gap:20px;
   background:none; border:none;
-  padding:21px 0;
+  padding:24px 0;
   text-align:left;
   font-size:16px;
   font-weight:500;
@@ -2778,7 +2776,7 @@ button{ font:inherit; cursor:pointer; }
   font-size:10.5px;
   letter-spacing:var(--tracking-label);
   color:var(--ink-300);
-  margin-right:16px;
+  width:46px; margin-right:16px;
   flex:none;
   white-space:nowrap;
 }
@@ -2803,6 +2801,7 @@ button{ font:inherit; cursor:pointer; }
   font-size:15px;
   color:var(--ink-500);
   line-height:1.65;
+  max-width:66ch;
 }
 .faq-item.open .faq-a-inner{ padding-bottom:24px; }
 
@@ -3059,6 +3058,194 @@ button{ font:inherit; cursor:pointer; }
   .stamp{ right:4px; }
   .scorecard .cell{ padding:0 14px; }
 }
+
+/* ============================================================
+   PORTED FROM v22 · house read demo, desk case, swipe rails
+   ============================================================ */
+.idx-links{ display:none; }
+.idx-rail{ display:contents; }
+
+/* ============================================================
+   THE HOUSE READ · compact extracts · clippings from one read
+   ============================================================ */
+.hr-demo{ display:grid; grid-template-columns:minmax(0,1fr) minmax(300px,380px); gap:clamp(40px,6.5vw,96px); align-items:start; }
+.hr-lead{ max-width:none; }
+.hr-lead > p{ font-size:16px; color:var(--ink-700); line-height:1.62; max-width:62ch; }
+.hr-lead > p strong{ color:var(--ink-900); font-weight:500; }
+.hr-steps{ margin-top:clamp(30px,3.6vw,46px); display:grid; grid-template-columns:1fr; gap:clamp(30px,3.8vw,44px); }
+.hr-steps .st{ display:block; }
+@media (max-width:760px){ .hr-steps{ grid-template-columns:1fr; gap:22px; } }
+
+.hr-steps .st .n{ display:block; color:var(--ink-400); margin-bottom:15px; }
+.hr-steps .st .n svg{ width:24px; height:22px; display:block; }
+.hr-steps .st .n .br{ stroke:var(--brass); }
+.hr-steps .st .h{ display:block; font-size:16px; font-weight:500; color:var(--ink-900); margin-bottom:6px; }
+.hr-steps .st .s{ display:block; font-size:14px; color:var(--ink-500); line-height:1.55; }
+.hr-cap{ margin-top:22px; font-family:var(--font-mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-300); }
+/* why the floor · aside folded into the House Read section */
+.hr-why{ margin-top:clamp(36px,4.6vw,56px); padding-top:clamp(24px,3vw,34px); border-top:1px solid var(--ink-100); display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); gap:clamp(24px,4vw,52px); align-items:center; }
+.hr-why .w-k{ display:block; font-family:var(--font-mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-500); margin-bottom:12px; }
+.hr-why h3{ font-family:var(--font-display); font-weight:400; font-size:clamp(23px,2.5vw,31px); line-height:1.16; letter-spacing:-.012em; color:var(--ink-900); }
+.hr-why h3 strong{ font-weight:500; }
+.hr-why > p{ font-size:14.5px; line-height:1.65; color:var(--ink-500); max-width:56ch; }
+@media (max-width:760px){ .hr-why{ grid-template-columns:1fr; gap:14px; } }
+.hr-cap b{ color:var(--accent); font-weight:500; }
+.hr-engine{ display:flex; align-items:center; gap:10px; margin:2px 0 18px; font-family:var(--font-mono); font-size:11px; letter-spacing:.13em; text-transform:uppercase; color:var(--ink-500); }
+.hr-engine svg{ width:15px; height:13px; flex:none; }
+.hr-engine .br{ stroke:var(--brass); }
+/* the extract cluster · clippings on the right, set a beat lower */
+.hr-extracts{ position:relative; display:flex; flex-direction:column; gap:14px; width:100%; max-width:380px; justify-self:end; margin-top:clamp(30px,4.2vw,60px); }
+.hr-extracts .ex-lbl{ display:flex; align-items:center; gap:10px; font-family:var(--font-mono); font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-300); }
+
+.ex-rail{ display:contents; }
+.rail-gauge{ display:none; }
+.ex-card{ background:var(--card); border:1px solid var(--ink-200); border-radius:11px; opacity:0; transform:translateY(14px); }
+.hr-extracts.is-revealed .ex-card{ animation:card-in .6s var(--ease-out-quint) forwards; animation-delay:calc(var(--i,0)*110ms); }
+@keyframes card-in{ to{ opacity:1; transform:none; } }
+.ex-card.off,.ex-card.off2{ align-self:stretch; }
+/* verdict extract (dark) */
+.ex-verdict{ background:var(--d-paper); border-color:transparent; color:var(--bone); padding:15px 17px; }
+.ex-verdict .vt{ display:flex; align-items:center; justify-content:space-between; gap:10px; font-family:var(--font-mono); font-size:8px; letter-spacing:.1em; text-transform:uppercase; color:var(--d-ink-500); margin-bottom:12px; }
+.ex-verdict .vt .brand{ display:inline-flex; align-items:center; gap:6px; color:var(--d-ink-700); }
+.ex-verdict .vt .brand svg{ width:12px;height:13px; }
+.ex-verdict .vr{ display:flex; align-items:flex-end; justify-content:space-between; gap:12px; margin-bottom:6px; }
+.ex-verdict .nm .tk2{ font-family:var(--font-mono); font-size:8px; letter-spacing:.12em; text-transform:uppercase; color:var(--d-ink-300); }
+.ex-verdict .nm .co2{ display:block; font-family:var(--font-display); font-size:20px; color:var(--bone); line-height:1.05; margin-top:3px; }
+.ex-verdict .rate-l{ font-family:var(--font-mono); font-size:8px; letter-spacing:.12em; text-transform:uppercase; color:var(--d-ink-300); margin-bottom:2px; }
+.ex-verdict .rate{ font-family:var(--font-display); font-size:26px; color:var(--bone); line-height:1; margin:0 0 12px; }
+.ex-verdict .px{ text-align:right; font-family:var(--font-mono); }
+.ex-verdict .px .v{ font-size:14px; color:var(--bone); }
+.ex-verdict .px .d{ display:block; font-size:10.5px; color:var(--success-d); margin-top:3px; }
+.ex-verdict .scale{ display:flex; gap:5px; }
+.ex-verdict .scale i{ flex:1;height:5px;border-radius:2px;background:var(--d-ink-100); }
+.ex-verdict .scale i.on{ background:linear-gradient(135deg,var(--accent-d),var(--accent-2-d)); }
+.ex-verdict .scale-lab{ display:flex; margin-top:6px; }
+.ex-verdict .scale-lab span{ flex:1; text-align:center; font-family:var(--font-mono); font-size:6px; letter-spacing:.03em; text-transform:uppercase; color:var(--d-ink-300); }
+.ex-verdict .scale-lab span.on{ color:var(--accent-2-d); }
+/* scorecard-lens extract */
+.ex-sc{ padding:13px 17px 15px; }
+.ex-sc .h{ display:flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:8.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-500); margin-bottom:4px; }
+.ex-sc .h svg{ width:12px;height:13px; color:var(--brass); }
+.ex-sc .row{ display:grid; grid-template-columns:1fr auto; gap:12px; align-items:center; padding:10px 0; border-top:1px solid var(--ink-100); }
+.ex-sc .lens{ font-family:var(--font-mono); font-size:8.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-500); }
+.ex-sc .val{ font-family:var(--font-display); font-size:15px; color:var(--ink-900); margin-top:3px; display:flex; align-items:center; gap:9px; }
+.ex-sc .watch{ font-family:var(--font-mono); font-size:8px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--brass); border:1px solid oklch(.7 .08 78/.55); border-radius:999px; padding:3px 8px; }
+.grade{ display:flex; gap:3px; flex:none; }
+.grade span{ width:17px;height:17px; display:grid;place-items:center; font-family:var(--font-mono); font-size:9px; font-weight:600; color:var(--ink-300); background:var(--ink-50); border-radius:4px; }
+.grade span.on{ background:var(--accent); color:var(--on-accent); }
+/* scorecard pages · six lenses on two leaves, turned on a slow beat */
+.ex-sc .h .sc-pg{ margin-left:auto; display:inline-flex; gap:4px; }
+.ex-sc .h .sc-pg i{ width:4px; height:4px; border-radius:999px; background:var(--ink-200); transition:background var(--dur-2) var(--ease-out-quint); }
+.ex-sc .h .sc-pg i.on{ background:var(--accent); }
+.sc-pages{ display:grid; }
+.sc-page{ grid-area:1 / 1; opacity:0; pointer-events:none; transition:opacity 360ms var(--ease-out-quint); }
+.sc-page.is-on{ opacity:1; pointer-events:auto; }
+/* house-view extract */
+.ex-hv{ padding:13px 17px 15px; }
+.ex-hv .h{ font-family:var(--font-mono); font-size:8.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-500); padding-bottom:8px; border-bottom:1px solid var(--ink-200); margin-bottom:11px; }
+.ex-hv .thesis{ font-family:var(--font-display); font-size:15px; line-height:1.4; color:var(--ink-900); }
+.ex-hv .variant{ border-left:2px solid var(--accent); padding-left:12px; font-size:11px; line-height:1.5; color:var(--ink-500); margin-top:11px; }
+.ex-hv .variant b{ color:var(--ink-900); font-weight:600; }
+@media (max-width:900px){ .hr-demo{ grid-template-columns:1fr; } .hr-extracts{ justify-self:start; max-width:400px; margin:28px auto 0; } .ex-card.off,.ex-card.off2{ align-self:auto; } }
+@media (prefers-reduced-motion: reduce){ .ex-card{ opacity:1; transform:none; } }
+/* mobile · same message, resequenced · scroll does what the grid did */
+@media (max-width:600px){
+  .pull p{ max-width:36ch; margin-left:auto; margin-right:auto; }
+  .hr-engine{ font-size:10px; letter-spacing:.1em; }
+  /* steps · a vertical rail, descriptions kept */
+  .hr-steps{ margin-top:22px; gap:0; }
+  .hr-steps .st{ display:grid; grid-template-columns:30px 1fr; gap:2px 16px; padding:15px 0; border-top:1px solid var(--ink-100); }
+  .hr-steps .st:first-child{ border-top:none; padding-top:4px; }
+  .hr-steps .st .n{ grid-row:1 / span 2; margin:3px 0 0; }
+  .hr-steps .st .h{ margin-bottom:2px; }
+  .hr-steps .st .s{ font-size:13.5px; }
+  /* extracts · swipeable clippings, all three kept */
+  .hr-demo{ grid-template-columns:minmax(0,1fr); }
+  .hr-extracts{ display:block; max-width:none; min-width:0; margin-top:34px; }
+  .hr-extracts .ex-lbl{ margin-bottom:12px; }
+  .ex-rail{
+    display:flex; gap:12px; align-items:stretch;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    margin:0 calc(-1 * var(--gut));
+    padding:2px var(--gut) 10px;
+  }
+  .ex-rail::-webkit-scrollbar{ display:none; }
+  .ex-rail .ex-card{ flex:0 0 84%; min-width:0; scroll-snap-align:center; display:flex; flex-direction:column; }
+  .ex-rail .ex-verdict .rate-l{ margin-top:auto; padding-top:14px; }
+  .ex-rail .ex-hv .variant{ margin-top:auto; }
+  .ex-rail .ex-hv .thesis{ margin-bottom:11px; }
+  /* rail gauge · a printer's rule that keeps the place */
+  .rail-gauge{ display:flex; align-items:center; gap:12px; margin-top:14px; }
+  .rail-gauge .rg-track{ position:relative; width:64px; height:1px; background:var(--ink-200); }
+  .rail-gauge .rg-track i{
+    position:absolute; top:-1px; left:0;
+    height:3px; width:33.4%;
+    background:var(--ink-900);
+    transition:transform 300ms var(--ease-out-quint);
+  }
+  .rail-gauge .rg-ix{ font-family:var(--font-mono); font-size:9px; letter-spacing:.14em; color:var(--ink-500); }
+  .hr-why{ margin-top:44px; padding-top:26px; }
+  .hr-why h3{ font-size:24px; }
+  .section-head .lede{ text-wrap:balance; }
+}
+/* the desk · the case for hiring, four hairline points */
+.desk-case{ display:grid; grid-template-columns:repeat(4,1fr); gap:34px; margin-bottom:46px; }
+.dc .claim{ font-family:var(--font-display); font-size:19px; line-height:1.28; color:var(--ink-900); margin-bottom:9px; }
+.dc .dc-k{ display:block; font-family:var(--font-mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-500); margin-bottom:13px; }
+.dc .body{ font-size:13.5px; line-height:1.6; color:var(--ink-500); }
+.dc{ position:relative; }
+.desk-case .dc{ transition:opacity var(--dur-3) var(--ease-out-quint); }
+.desk-case:has(.dc:hover) .dc{ opacity:.34; }
+.desk-case:has(.dc:hover) .dc:hover{ opacity:1; }
+.dc .dc-stride{ position:absolute; top:1px; right:0; width:22px; height:18px; color:var(--ink-300); opacity:0; transform:translateY(-6px); transition:opacity var(--dur-2) var(--ease-out-quint), transform var(--dur-2) var(--ease-out-quint); }
+.dc .dc-stride .br{ stroke:var(--brass); }
+.desk-case .dc:hover .dc-stride{ opacity:1; transform:none; }
+@media (hover:none){ .desk-case:has(.dc:hover) .dc{ opacity:1; } .dc .dc-stride{ display:none; } }
+@media (max-width: 880px){
+  .desk-case{ grid-template-columns:1fr 1fr; gap:24px; margin-bottom:36px; }
+}
+@media (max-width: 880px){
+  .desk-case{ grid-template-columns:1fr 1fr; gap:24px; margin-bottom:36px; }
+}
+@media (max-width: 600px){
+  .divider{ display:none; }
+  /* desk case · broadsheet columns, panned · column rules, no boxes */
+  .desk-case{
+    display:flex; gap:0; align-items:stretch;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    scroll-padding-left:var(--gut);
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    margin:0 calc(-1 * var(--gut)) 0;
+    padding:0 var(--gut);
+    counter-reset:dc;
+  }
+  .desk-case::-webkit-scrollbar{ display:none; }
+  .desk-case .dc{
+    flex:0 0 72%; min-width:0;
+    scroll-snap-align:start;
+    counter-increment:dc;
+    padding:2px 20px 6px 0;
+  }
+  .desk-case .dc + .dc{ border-left:1px solid var(--ink-200); padding-left:20px; }
+  .dc .dc-k::before{ content:"0" counter(dc) " · "; color:var(--ink-300); }
+  .desk-case + .rail-gauge{ margin-bottom:30px; }
+  .dc .dc-k{ margin-bottom:8px; }
+  .dc .claim{ font-size:18px; margin-bottom:6px; }
+  .desk-case + .rail-gauge{ margin-bottom:30px; }
+  .section-head .folio{ display:block; font-size:34px; margin-bottom:12px; }
+  .idx-live{ display:none; }
+  .idx-rail .idx-row{ display:none; }
+  #floorIdx .rail-gauge{ display:none; }
+  .idx-build{ grid-template-columns:44px 1fr; grid-template-rows:auto auto; gap:3px 16px; border-bottom:none; padding:8px 0 0; }
+  .idx-build .plus{ width:40px; height:40px; font-size:17px; grid-row:1 / span 2; align-self:start; }
+  .idx-build .arr{ grid-column:2; grid-row:2; justify-self:start; margin-top:8px; }
+}
+
 </style>
 </head>
 <body id="top">
@@ -3073,7 +3260,7 @@ button{ font:inherit; cursor:pointer; }
       <span class="logotype">ALPHAWALK</span>
     </a>
     <div class="nav-links" aria-label="Primary">
-      <a href="#loop">How it works</a>
+      <a href="#engine">How it works</a>
       <a href="#floor">The desk</a>
       <a href="#pricing">Pricing</a>
       <a href="#faq">FAQ</a>
@@ -3089,7 +3276,7 @@ button{ font:inherit; cursor:pointer; }
 </nav>
 
 <div class="nav-drawer" id="nav-drawer" aria-hidden="true">
-  <a href="#loop">How it works</a>
+  <a href="#engine">How it works</a>
   <a href="#floor">The desk</a>
   <a href="#pricing">Pricing</a>
   <a href="#faq">FAQ</a>
@@ -3118,7 +3305,7 @@ button{ font:inherit; cursor:pointer; }
     <span class="kicker"><svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 16.5 L12 9.5 L19 16.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>ALPHAWALK · Market intelligence, made mutual</span>
     <h1>One asks. <strong>Everyone gets smarter.</strong></h1>
     <p class="hero-sub">
-      You've been walking the market alone; the smart money never does. So we set a new standard: <strong>Mutual AI</strong>. Every ask becomes intelligence the whole floor shares, kept to one bar. Start with a ticker.
+      You've been walking the market alone; the smart money never does. So we set a new standard: <strong>Mutual AI</strong>. Every ask becomes one deep report the whole floor shares, free to read, kept to one bar. Start with a ticker.
     </p>
     <form class="hero-form" action="#" method="post" novalidate aria-label="Join the beta">
       <input type="email" name="email" required autocomplete="email" spellcheck="false" placeholder="your@email.com" aria-label="Email address" />
@@ -3150,12 +3337,101 @@ button{ font:inherit; cursor:pointer; }
 </section>
 
 <!-- ============================================================
-     WHAT THIS IS
+     THE HOUSE READ · one search, shown · opens the story
      ============================================================ -->
-<section class="section" id="what" style="padding-top:0">
+<section class="section" id="engine" style="padding-top:0">
   <div class="shell">
     <div class="section-head reveal">
-      <span class="folio" aria-hidden="true">01</span>
+      <span class="kicker"><svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 16.5 L12 9.5 L19 16.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Shared intelligence</span>
+      <h2>House Read</h2>
+      <p class="hr-engine"><svg viewBox="0 0 24 20" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18 L12 13 L20 18" stroke="currentColor"/><path d="M4 12 L12 7 L20 12" stroke="currentColor"/><path class="br" d="M4 6 L12 1 L20 6"/></svg>Powered by the ALPHAWALK Research House engine</p>
+      <p class="lede">One search opens the full case in seconds: thesis, risks, what moved, what to watch, graded across six lenses.</p>
+    </div>
+
+    <div class="hr-demo reveal">
+      <div class="hr-lead">
+        <div class="hr-steps">
+          <div class="st"><span class="n"><svg viewBox="0 0 24 26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 24 L12 18 L20 24"/></svg></span><span class="h">Search a ticker</span><span class="s">Covered or not, start there.</span></div>
+          <div class="st"><span class="n"><svg viewBox="0 0 24 26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 24 L12 18 L20 24"/><path d="M4 16 L12 10 L20 16"/></svg></span><span class="h">Pull the read</span><span class="s">Compiled once, from dozens of live sources.</span></div>
+          <div class="st"><span class="n"><svg viewBox="0 0 24 26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 24 L12 18 L20 24"/><path d="M4 16 L12 10 L20 16"/><path class="br" d="M4 8 L12 2 L20 8"/></svg></span><span class="h">Free for the floor</span><span class="s">Filed once, refreshed when the story moves.</span></div>
+        </div>
+      </div>
+
+      <!-- the extract cluster · clippings from one read -->
+      <div class="hr-extracts reveal" aria-hidden="true">
+        <span class="ex-lbl">From the AAPL House Read</span>
+        <div class="ex-rail" data-rail>
+        <div class="ex-card ex-verdict" style="--i:0">
+          <div class="vt"><span>House Rating</span><span class="brand"><svg viewBox="0 0 24 20" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18 L12 13 L20 18" stroke="currentColor"/><path d="M4 12 L12 7 L20 12" stroke="currentColor"/><path d="M4 6 L12 1 L20 6" stroke="#C8A25B"/></svg>Research House</span></div>
+          <div class="vr">
+            <div class="nm"><span class="tk2">AAPL · NASDAQ</span><span class="co2">Apple Inc</span></div>
+            <div class="px"><span class="v">$242.18</span><span class="d">&#9650; 1.4% today</span></div>
+          </div>
+          <div class="rate-l">House Rating</div>
+          <div class="rate">Buy</div>
+          <div class="scale"><i></i><i class="on"></i><i></i><i></i><i></i></div>
+          <div class="scale-lab"><span>Strong buy</span><span class="on">Buy</span><span>Hold</span><span>Sell</span><span>Strong sell</span></div>
+        </div>
+        <div class="ex-card ex-sc" style="--i:1">
+          <div class="h"><svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18 L12 13 L20 18"/><path d="M4 12 L12 7 L20 12"/><path d="M4 6 L12 1 L20 6"/></svg>House Scorecard · six lenses<span class="sc-pg" aria-hidden="true"><i class="on"></i><i></i></span></div>
+          <div class="sc-pages">
+            <div class="sc-page is-on">
+              <div class="row">
+                <div><div class="lens">Competitive Position &amp; Industry</div><div class="val">Fortress, widening</div></div>
+                <div class="grade"><span>F</span><span>D</span><span>C</span><span>B</span><span class="on">A</span></div>
+              </div>
+              <div class="row">
+                <div><div class="lens">Valuation</div><div class="val">Priced for perfection <span class="watch">Watch</span></div></div>
+                <div class="grade"><span>F</span><span>D</span><span class="on">C</span><span>B</span><span>A</span></div>
+              </div>
+              <div class="row">
+                <div><div class="lens">Financial Health</div><div class="val">A cash machine</div></div>
+                <div class="grade"><span>F</span><span>D</span><span>C</span><span>B</span><span class="on">A</span></div>
+              </div>
+            </div>
+            <div class="sc-page">
+              <div class="row">
+                <div><div class="lens">Stock Momentum</div><div class="val">Grinding higher, unhurried</div></div>
+                <div class="grade"><span>F</span><span>D</span><span>C</span><span class="on">B</span><span>A</span></div>
+              </div>
+              <div class="row">
+                <div><div class="lens">Management &amp; Governance</div><div class="val">Steady hands, long tenure</div></div>
+                <div class="grade"><span>F</span><span>D</span><span>C</span><span>B</span><span class="on">A</span></div>
+              </div>
+              <div class="row">
+                <div><div class="lens">Sentiment</div><div class="val">Warm, not euphoric</div></div>
+                <div class="grade"><span>F</span><span>D</span><span>C</span><span class="on">B</span><span>A</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ex-card ex-hv" style="--i:2">
+          <div class="h">The thesis, pressed</div>
+          <div class="thesis">Services and silicon keep compounding; the question is what's already in the price.</div>
+          <div class="variant"><b>What to watch:</b> ~30&#215; forward leaves little room for a stumble. Watch Greater China, not the keynote.</div>
+        </div>
+        </div>
+        <div class="rail-gauge" aria-hidden="true"><span class="rg-track"><i></i></span><span class="rg-ix">01 / 03</span></div>
+      </div>
+    </div>
+
+    <!-- why the floor · folded aside -->
+    <div class="hr-why reveal">
+      <div>
+        <span class="w-k">Why ALPHAWALK</span>
+        <h3>Anyone can prompt. <strong>Gurus make it sing.</strong></h3>
+      </div>
+      <p>A blank chat box returns only what you knew to ask, and bills you for every retry. Here there is no prompt to craft: ask in plain words and the Research House engine runs the whole hunt, filters the noise, and files one graded read that answers back. Tuned by credentialed pros, every credit goes to work, none wasted.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     WHAT THIS IS · the floor plan, recapped
+     ============================================================ -->
+<section class="section" id="what">
+  <div class="shell">
+    <div class="section-head reveal">
       <span class="kicker"><svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 16.5 L12 9.5 L19 16.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>What this is</span>
       <h2>Market intelligence, rebuilt as a commons.</h2>
       <p class="lede">Three tools, one quality bar, kept by ALPHAWALK.</p>
@@ -3163,152 +3439,28 @@ button{ font:inherit; cursor:pointer; }
 
     <div class="what-grid reveal">
       <div class="what-statement">
-        Created once. <strong>Read by all.</strong>
+                Created once. <strong>Read by all.</strong>
       </div>
       <div class="what-list">
         <div class="what-row">
-          <span class="label">The floor</span>
-          <span class="body"><strong>Shared intelligence.</strong> Search any stock and open its House Read: the floor's one deep report on a company, free once it exists. Not covered? Your credits create it for everyone after<span class="d-only">, and credit returns reader by reader</span>.</span>
+                    <span class="label">The floor</span>
+          <span class="body"><strong>Shared intelligence.</strong> Every stock's House Read, free once it exists; your credits create the missing ones.</span>
         </div>
         <div class="what-row">
-          <span class="label">The desk</span>
-          <span class="body"><strong>AI agents for hire.</strong> Curated watchers for filings, tape, and flows. One tap, no setup, no access to your data or device.</span>
+                    <span class="label">The desk</span>
+          <span class="body"><strong>AI agents for hire.</strong> They watch the market around the clock; one tap, no setup, no access to your data or device.</span>
         </div>
         <div class="what-row">
-          <span class="label">The studio</span>
-          <span class="body"><strong>Agents you build.</strong> Make your own, list it on the floor, earn credit as it's read.</span>
+                    <span class="label">The studio</span>
+          <span class="body"><strong>Agents you build.</strong> Make your own, list it on the floor, and earn credit as it's read.</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- broadsheet rule -->
-<div class="divider" aria-hidden="true">
-  <span class="rule"></span>
-  <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M5 21 L12 15.5 L19 21" stroke="oklch(.72 .004 285)"/>
-    <path d="M5 14 L12 8.5 L19 14" stroke="oklch(.72 .004 285)"/>
-    <path d="M5 7 L12 1.5 L19 7" stroke="oklch(.68 .08 78 / .8)"/>
-  </svg>
-  <span class="rule"></span>
-</div>
 
-<!-- ============================================================
-     THE LOOP · shared intelligence, the star
-     ============================================================ -->
-<section class="section" id="loop">
-  <div class="shell">
-    <div class="section-head reveal">
-      <span class="folio" aria-hidden="true">02</span>
-      <span class="kicker"><svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 16.5 L12 9.5 L19 16.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Shared intelligence</span>
-      <h2>One deep read beats <strong>a thousand shallow ones.</strong></h2>
-      <p class="lede"><span class="d-only">Alone, you pay full price for a one-shot answer that dies in the chat, never knowing what the deep version would have said. Here, </span><span class="m-only">One</span><span class="d-only">one</span> House Read is funded once, at full depth, then free for everyone after.</p>
-    </div>
 
-    <div class="loop reveal" aria-label="The generate loop">
-      <div class="loop-row">
-        <div class="lp">
-          <span class="lp-ix">01</span>
-          <h3>You ask</h3>
-          <p>A stock the floor hasn't read. Your credits fund the deep pass.</p>
-        </div>
-        <div class="lp">
-          <span class="lp-ix">02</span>
-          <h3>It generates</h3>
-          <p>ALPHAWALK's AI does the asking<span class="d-only">: sources, structure, a pressed thesis</span>. No prompt skill needed.</p>
-        </div>
-        <div class="lp">
-          <span class="lp-ix">03</span>
-          <h3>The floor reads</h3>
-          <p>Filed once, on the record, free to every member after you.</p>
-        </div>
-        <div class="lp">
-          <span class="lp-ix">04</span>
-          <h3>Credit returns</h3>
-          <p>Reader by reader, back to you.<span class="d-only"> Depth costs less every time it is shared.</span></p>
-        </div>
-      </div>
-      <div class="loop-return" aria-hidden="true">
-        <span class="rule"></span>
-        <span class="lbl">&#8635; and the next ask begins</span>
-        <span class="rule"></span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- broadsheet rule -->
-<div class="divider" aria-hidden="true">
-  <span class="rule"></span>
-  <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M5 21 L12 15.5 L19 21" stroke="oklch(.72 .004 285)"/>
-    <path d="M5 14 L12 8.5 L19 14" stroke="oklch(.72 .004 285)"/>
-    <path d="M5 7 L12 1.5 L19 7" stroke="oklch(.68 .08 78 / .8)"/>
-  </svg>
-  <span class="rule"></span>
-</div>
-
-<!-- ============================================================
-     THE UNKNOWNS · trial dossier demo
-     ============================================================ -->
-<section class="section" id="engine">
-  <div class="shell">
-    <div class="section-head reveal">
-      <span class="folio" aria-hidden="true">03</span>
-      <span class="kicker"><svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 16.5 L12 9.5 L19 16.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>The unknowns</span>
-      <h2>Being good at AI isn't prompts. <strong>It's knowing your unknowns.</strong></h2>
-      <p class="lede">The stronger the model, the more the bottleneck is what you haven't thought to ask.</p>
-    </div>
-
-    <div class="ondemand reveal">
-      <div>
-        <h3>Blind spots, spotted.</h3>
-        <p>One search surfaces the questions you didn't know you had, for a few credits, before the market charges more. <span class="od-x">Want the name watched from here on? Put an agent on the beat, one tap.</span></p>
-        <p class="od-sub">Every credit goes to work · nothing wasted</p>
-      </div>
-      <div class="od-mock" aria-hidden="true">
-        <div class="od-search">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
-          <span class="q"><b>NVDA</b> · NVIDIA Corp</span>
-          <span class="caret-line"></span>
-          <span class="kbd">↵</span>
-        </div>
-        <div class="od-link">
-          <span class="stem"></span>
-          <span class="od-note">Report ready · shared to the floor, free for every reader after</span>
-        </div>
-        <div class="od-doss">
-          <div class="od-mast">
-            <span class="lft"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9l-6-6z"/><path d="M14 3v6h6"/></svg>House Read</span>
-            <span class="rgt">Filed on the spot</span>
-          </div>
-          <div class="od-title">NVDA: where the story stands</div>
-          <p class="od-excerpt">What moved, what mattered, and what to watch next: the unknowns on this name, surfaced in one read.</p>
-          <div class="od-byline">
-            <span class="monogram"><svg viewBox="0 0 120 120" aria-hidden="true"><g transform="translate(60,60) scale(0.9473684210526315) translate(-50,-48.5)"><path d="M18,96 L41.46,76.94 Q50,70 58.54,76.94 L82,96" stroke="#1B1B1F" fill="none" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><path d="M18,62 L41.46,42.94 Q50,36 58.54,42.94 L82,62" stroke="#1B1B1F" fill="none" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><path d="M18,28 L41.46,8.94 Q50,2 58.54,8.94 L82,28" stroke="#9C7536" fill="none" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></g></svg></span>
-            <div class="who">
-              <b>By you, the first to ask</b>
-              <span>Filed to the floor · quality-kept by ALPHAWALK</span>
-            </div>
-            <a class="hire-chip" href="#cta">Try it<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- broadsheet rule -->
-<div class="divider" aria-hidden="true">
-  <span class="rule"></span>
-  <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M5 21 L12 15.5 L19 21" stroke="oklch(.72 .004 285)"/>
-    <path d="M5 14 L12 8.5 L19 14" stroke="oklch(.72 .004 285)"/>
-    <path d="M5 7 L12 1.5 L19 7" stroke="oklch(.68 .08 78 / .8)"/>
-  </svg>
-  <span class="rule"></span>
-</div>
 
 <!-- ============================================================
      THE FLOOR · marketplace showcase
@@ -3316,15 +3468,44 @@ button{ font:inherit; cursor:pointer; }
 <section class="section" id="floor">
   <div class="shell">
     <div class="section-head reveal">
-      <span class="folio" aria-hidden="true">04</span>
       <span class="kicker"><svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 16.5 L12 9.5 L19 16.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>The marketplace</span>
       <h2>Then put agents on your beats.</h2>
-      <p class="lede"><strong>Beyond one search: a standing desk.</strong> <span class="lede-x">Curated agents watch filings, tape, and flows. No setup, no access to your accounts, data, or computer.</span></p>
+      <p class="lede"><strong>Beyond one search: a standing desk.</strong> Curated agents walk the filings, tape, and flows around the clock and file only what moved: openings spotted early, noise left behind. No setup, no access to your accounts, data, or computer.</p>
     </div>
+
+    <!-- the case · why hire the desk -->
+    <div class="desk-case reveal" data-rail>
+      <div class="dc">
+        <span class="dc-stride" aria-hidden="true"><svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18 L12 13 L20 18"/><path d="M4 12 L12 7 L20 12"/><path class="br" d="M4 6 L12 1 L20 6"/></svg></span>
+        <span class="dc-k">Authorship</span>
+        <div class="claim">Built by credentialed pros.</div>
+        <p class="body">CFAs, CPAs, and career analysts author the agents; ALPHAWALK curates every listing.</p>
+      </div>
+      <div class="dc">
+        <span class="dc-stride" aria-hidden="true"><svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18 L12 13 L20 18"/><path d="M4 12 L12 7 L20 12"/><path class="br" d="M4 6 L12 1 L20 6"/></svg></span>
+        <span class="dc-k">Engine</span>
+        <div class="claim">A hybrid of frontier AI models.</div>
+        <p class="body">Every brief runs on the models best suited to the job, never just one.</p>
+      </div>
+      <div class="dc">
+        <span class="dc-stride" aria-hidden="true"><svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18 L12 13 L20 18"/><path d="M4 12 L12 7 L20 12"/><path class="br" d="M4 6 L12 1 L20 6"/></svg></span>
+        <span class="dc-k">Track record</span>
+        <div class="claim">Performance on the record.</div>
+        <p class="body">Every agent carries a public scorecard; watch it before you hire.</p>
+      </div>
+      <div class="dc">
+        <span class="dc-stride" aria-hidden="true"><svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18 L12 13 L20 18"/><path d="M4 12 L12 7 L20 12"/><path class="br" d="M4 6 L12 1 L20 6"/></svg></span>
+        <span class="dc-k">Reading</span>
+        <div class="claim">Every report, free to read.</div>
+        <p class="body">Filed briefs are open to all members; credits go to running agents, never to reading.</p>
+      </div>
+    </div>
+    <div class="rail-gauge" aria-hidden="true"><span class="rg-track"><i></i></span><span class="rg-ix">01 / 04</span></div>
 
     <!-- the index · a rotating window on a growing floor -->
     <div class="idx reveal" id="floorIdx" style="border-top:none">
       <div class="idx-live"><span class="live" aria-hidden="true"></span>The desk keeps growing<span class="live-x"> · new beats arriving</span></div>
+      <div class="idx-rail" data-rail>
       <div class="idx-row" data-slot>
         <span class="av">PRE</span>
         <span class="nm">Pre-open briefs</span>
@@ -3354,6 +3535,8 @@ button{ font:inherit; cursor:pointer; }
         </span>
         <span class="arr">Start building →</span>
       </a>
+      </div>
+      <div class="rail-gauge" aria-hidden="true"><span class="rg-track"><i></i></span><span class="rg-ix">01 / 04</span></div>
       <div class="idx-links" aria-hidden="false">
         <a href="#cta">Browse the desk<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
         <a href="#cta">Build your own<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
@@ -3362,6 +3545,9 @@ button{ font:inherit; cursor:pointer; }
 
   </div>
 </section>
+
+
+
 
 
 
@@ -3378,7 +3564,6 @@ button{ font:inherit; cursor:pointer; }
 <section class="section" id="pricing">
   <div class="shell">
     <div class="section-head reveal">
-      <span class="folio" aria-hidden="true">05</span>
       <span class="kicker"><svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 16.5 L12 9.5 L19 16.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Pricing</span>
       <h2>Credits, priced in the open.</h2>
       <!-- 说明段 · verbatim from checklist -->
@@ -3450,16 +3635,6 @@ button{ font:inherit; cursor:pointer; }
   </div>
 </section>
 
-<!-- broadsheet rule -->
-<div class="divider" aria-hidden="true">
-  <span class="rule"></span>
-  <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M5 21 L12 15.5 L19 21" stroke="oklch(.72 .004 285)"/>
-    <path d="M5 14 L12 8.5 L19 14" stroke="oklch(.72 .004 285)"/>
-    <path d="M5 7 L12 1.5 L19 7" stroke="oklch(.68 .08 78 / .8)"/>
-  </svg>
-  <span class="rule"></span>
-</div>
 
 <!-- ============================================================
      FAQ
@@ -3467,7 +3642,6 @@ button{ font:inherit; cursor:pointer; }
 <section class="section" id="faq">
   <div class="shell">
     <div class="section-head reveal">
-      <span class="folio" aria-hidden="true">06</span>
       <span class="kicker"><svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 16.5 L12 9.5 L19 16.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>FAQ</span>
       <h2>Common questions.</h2>
     </div>
@@ -3475,74 +3649,92 @@ button{ font:inherit; cursor:pointer; }
     <div class="faq-list reveal">
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">
-          <span><span class="ix">Q · 01</span>Is this a brokerage?</span>
+          <span>What exactly is a House Read?</span>
           <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15 L12 8 L19 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div class="faq-a"><div class="faq-a-inner">
-          No. ALPHAWALK is a research marketplace. We hold no funds, route no orders, and give no personal advice.
+          One deep AI report on one stock: the thesis, the risks, what moved, and what to watch next, graded across six lenses. Search any ticker and it opens. If no one has asked yet, your credits create it on the spot, and it joins the floor for everyone after you.
         </div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">
-          <span><span class="ix">Q · 02</span>Who writes the reports?</span>
+          <span>Is this a brokerage?</span>
           <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15 L12 8 L19 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div class="faq-a"><div class="faq-a-inner">
-          AI analysts built by independent creators and curated by the ALPHAWALK team. Every analyst is labelled as an AI agent on every surface; none are human advisors.
+          No. ALPHAWALK is a research marketplace. We hold no funds, route no orders, and give no personal advice. Nothing here connects to a brokerage and no agent can trade for you; acting on a read is your decision, made elsewhere.
         </div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">
-          <span><span class="ix">Q · 03</span>Can an analyst trade for me?</span>
+          <span>Who writes the reports?</span>
           <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15 L12 8 L19 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div class="faq-a"><div class="faq-a-inner">
-          No. Nothing on ALPHAWALK connects to a brokerage. Analysts research, file, and answer questions. Acting on any of it is your decision, made elsewhere.
+          AI does the writing; people keep the bar. House Reads come from the ALPHAWALK Research House engine, a hybrid of frontier AI models. Standing agents are built by independent creators, many of them credentialed practitioners, and every listing is curated by our team. Everything is labelled as AI on every surface; no one here is a human advisor.
         </div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">
-          <span><span class="ix">Q · 04</span>Why is the House Read I create shared?</span>
+          <span>Do I need to know how to prompt?</span>
           <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15 L12 8 L19 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div class="faq-a"><div class="faq-a-inner">
-          That is the mission. Run privately, the same research gets paid for a thousand times over. Here the first to ask funds the read, everyone after reads it, and credit returns with every reader: research as an asset, not an expense.
+          No. Ask in plain words, or just type a ticker. The engine runs the whole research pass itself: it picks the sources, asks the questions you didn't think to, filters the noise, and files one finished, graded report. No prompt craft, and a deeper answer than a blank chat box would give you.
         </div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">
-          <span><span class="ix">Q · 05</span>How are analysts scored?</span>
+          <span>What is free, and what do credits pay for?</span>
           <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15 L12 8 L19 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div class="faq-a"><div class="faq-a-inner">
-          Scorecards blend user ratings, adoption, source breadth, and how checkable each call is. Treat early track records as estimates while live outcomes accrue. Past results never predict future ones.
+          Reading is free, always: every House Read and every agent brief is open to all members once it exists. Credits pay only for creating something new, generating or refreshing a read, or keeping an agent on a beat. Once a read is on the floor, no one pays for it again, so no credit is ever spent twice. See <a href="pricing.html" style="text-decoration:underline;text-underline-offset:3px">pricing</a> for the published plans.
         </div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">
-          <span><span class="ix">Q · 06</span>Can I build my own analyst?</span>
+          <span>Why is the House Read I create shared?</span>
           <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15 L12 8 L19 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div class="faq-a"><div class="faq-a-inner">
-          Yes. Create is open in beta: early, rough, a little unruly. Creators list their analysts on the floor for others to hire, and earn credit back as their filings get read.
+          Because that is the model. Run privately, the same research gets paid for a thousand times over. Here you fund the first deep pass, everyone after you reads it free, and credit returns to you reader by reader: research as an asset, not an expense.
         </div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">
-          <span><span class="ix">Q · 07</span>Where does my data live?</span>
+          <span>What do the standing agents actually do?</span>
           <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15 L12 8 L19 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div class="faq-a"><div class="faq-a-inner">
-          Encrypted at rest, never sold. Your chats, questions, and watchlists stay private; only the House Reads you create join the shared floor. Agents never touch your accounts or device. Export or delete your data at any time.
+          They keep watch so you don't have to. A hired agent walks its beat around the clock, filings, tape, and flows, and files a brief only when something actually moved. No setup on your side, and no access to your accounts, data, or device.
         </div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">
-          <span><span class="ix">Q · 08</span>What does it cost?</span>
+          <span>How are agents scored?</span>
           <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15 L12 8 L19 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div class="faq-a"><div class="faq-a-inner">
-          House Reads stay free to read; credits pay for creating new ones and running agents. See <a href="pricing.html" style="text-decoration:underline;text-underline-offset:3px">pricing</a> for the published plans.
+          Every agent carries a public scorecard blending user ratings, adoption, source breadth, and how checkable its calls are. Treat early track records as estimates while live outcomes accrue; past results never predict future ones.
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span>Can I build my own agent?</span>
+          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15 L12 8 L19 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          Yes. The studio is open in beta: early, rough, a little unruly. List what you build on the floor, and as the floor reads its filings, credit comes back to you.
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span>Where does my data live?</span>
+          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15 L12 8 L19 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          Encrypted at rest, never sold. Your chats, questions, and watchlists stay private; only the House Reads you create join the shared floor. Agents never touch your accounts or device, and you can export or delete your data at any time.
         </div></div>
       </div>
     </div>
@@ -3598,9 +3790,9 @@ button{ font:inherit; cursor:pointer; }
       </div>
       <div class="footer-col">
         <span class="h">Product</span>
-        <a href="#loop">How it works</a>
+        <a href="#engine">How it works</a>
         <a href="#floor">The desk</a>
-        <a href="#engine">The unknowns</a>
+        <a href="#what">What this is</a>
         <a href="pricing.html">Pricing</a>
         <a href="#faq">FAQ</a>
       </div>
@@ -3773,6 +3965,55 @@ button{ font:inherit; cursor:pointer; }
 })();
 
 /* faq */
+
+/* swipe rails · the gauge keeps the place (mobile only) */
+(function(){
+  document.querySelectorAll('[data-rail]').forEach(function(rail){
+    var wrap = rail.nextElementSibling;
+    if (!wrap || !wrap.classList.contains('rail-gauge')) return;
+    var bar = wrap.querySelector('.rg-track i');
+    var lbl = wrap.querySelector('.rg-ix');
+    var n = rail.children.length;
+    if (!bar || !n) return;
+    bar.style.width = (100 / n) + '%';
+    var ticking = false;
+    function update(){
+      ticking = false;
+      var r = rail.getBoundingClientRect();
+      var mid = r.left + r.width / 2;
+      var ix = 0, best = Infinity;
+      Array.prototype.forEach.call(rail.children, function(c, i){
+        var cr = c.getBoundingClientRect();
+        var d = Math.abs(cr.left + cr.width / 2 - mid);
+        if (d < best){ best = d; ix = i; }
+      });
+      bar.style.transform = 'translateX(' + (ix * 100) + '%)';
+      if (lbl) lbl.textContent = '0' + (ix + 1) + ' / 0' + n;
+    }
+    rail.addEventListener('scroll', function(){
+      if (!ticking){ ticking = true; requestAnimationFrame(update); }
+    }, { passive:true });
+  });
+})();
+
+/* scorecard extract · two leaves, turned on a slow beat */
+(function(){
+  var card = document.querySelector('.ex-sc');
+  if (!card) return;
+  var pages = card.querySelectorAll('.sc-page');
+  var dots = card.querySelectorAll('.sc-pg i');
+  if (pages.length < 2) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var i = 0;
+  setInterval(function(){
+    if (card.matches(':hover')) return;
+    i = (i + 1) % pages.length;
+    pages.forEach(function(p, x){ p.classList.toggle('is-on', x === i); });
+    dots.forEach(function(d, x){ d.classList.toggle('on', x === i); });
+  }, 4200);
+})();
+
+
 (function(){
   document.querySelectorAll('.faq-item').forEach(function(item){
     var q = item.querySelector('.faq-q');
