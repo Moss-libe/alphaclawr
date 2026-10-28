@@ -39,7 +39,7 @@ Then add this before `</body>`:
 The API endpoint is inside `email-submit.js`:
 
 ```js
-const API_URL = "https://ctxcwa79ii.execute-api.us-east-1.amazonaws.com/prod/subscribe";
+const API_URL = "https://6a532z2rr8.execute-api.us-east-1.amazonaws.com/subscribe";
 ```
 
 Only change this if API Gateway changes.

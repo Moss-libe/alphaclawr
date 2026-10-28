@@ -1,0 +1,181 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Dedicated OIDC role for the AlphaWalk main-branch static website publisher. Reuses the existing provider; does not change website infrastructure.",
+  "Parameters": {
+    "GitHubOidcProviderArn": {
+      "Type": "String",
+      "Default": "arn:aws:iam::739871967026:oidc-provider/token.actions.githubusercontent.com",
+      "AllowedValues": [
+        "arn:aws:iam::739871967026:oidc-provider/token.actions.githubusercontent.com"
+      ],
+      "Description": "Existing GitHub OIDC provider in the new AWS account. This stack does not create or modify it."
+    },
+    "GitHubOidcSubject": {
+      "Type": "String",
+      "Default": "repo:Moss-libe/alphaclawr:ref:refs/heads/main",
+      "AllowedPattern": "^repo:(Moss-libe/alphaclawr|Moss-libe@[0-9]+/alphaclawr@[0-9]+):ref:refs/heads/main$",
+      "Description": "Use the exact GitHub OIDC sub for this repository and main. Verify whether immutable owner/repository IDs are enabled."
+    },
+    "WebsiteBucketName": {
+      "Type": "String",
+      "Default": "alphawalk-website-websitebucket-79ikctfx7zzd",
+      "AllowedValues": [
+        "alphawalk-website-websitebucket-79ikctfx7zzd"
+      ]
+    },
+    "WebsiteDistributionId": {
+      "Type": "String",
+      "Default": "E8NOVXBQ9GKY6",
+      "AllowedValues": [
+        "E8NOVXBQ9GKY6"
+      ]
+    }
+  },
+  "Resources": {
+    "GitHubWebsiteDeployRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "alphawalk-github-deploy",
+        "Description": "Publish only the approved AlphaWalk static objects and invalidate only the website CloudFront distribution.",
+        "MaxSessionDuration": 3600,
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Federated": {
+                  "Ref": "GitHubOidcProviderArn"
+                }
+              },
+              "Action": "sts:AssumeRoleWithWebIdentity",
+              "Condition": {
+                "StringEquals": {
+                  "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+                  "token.actions.githubusercontent.com:sub": {
+                    "Ref": "GitHubOidcSubject"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "PublishApprovedStaticFiles",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Sid": "ReadWriteApprovedStaticObjects",
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:GetObject",
+                    "s3:PutObject"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:s3:::${WebsiteBucketName}/apple-touch-icon.png"
+                    },
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:s3:::${WebsiteBucketName}/brand/avatar-earnings.png"
+                    },
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:s3:::${WebsiteBucketName}/brand/avatar-inc.png"
+                    },
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:s3:::${WebsiteBucketName}/brand/avatar-ins.png"
+                    },
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:s3:::${WebsiteBucketName}/brand/avatar-jim.png"
+                    },
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:s3:::${WebsiteBucketName}/brand/avatar-macro.png"
+                    },
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:s3:::${WebsiteBucketName}/brand/avatar-vol.png"
+                    },
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:s3:::${WebsiteBucketName}/brand/avatar-wang.png"
+                    },
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:s3:::${WebsiteBucketName}/brand/avatar-zhang.png"
+                    },
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:s3:::${WebsiteBucketName}/brand/plate-floor.png"
+                    },
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:s3:::${WebsiteBucketName}/brand/plate-hire.png"
+                    },
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:s3:::${WebsiteBucketName}/brand/plate-press.png"
+                    },
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:s3:::${WebsiteBucketName}/disclosures.html"
+                    },
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:s3:::${WebsiteBucketName}/email-submit.js"
+                    },
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:s3:::${WebsiteBucketName}/favicon.svg"
+                    },
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:s3:::${WebsiteBucketName}/index.html"
+                    },
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:s3:::${WebsiteBucketName}/pricing.html"
+                    },
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:s3:::${WebsiteBucketName}/privacy.html"
+                    },
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:s3:::${WebsiteBucketName}/terms.html"
+                    }
+                  ]
+                },
+                {
+                  "Sid": "InvalidateOnlyWebsiteDistribution",
+                  "Effect": "Allow",
+                  "Action": [
+                    "cloudfront:CreateInvalidation",
+                    "cloudfront:GetInvalidation"
+                  ],
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:cloudfront::${AWS::AccountId}:distribution/${WebsiteDistributionId}"
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "Application",
+            "Value": "AlphaWalk"
+          },
+          {
+            "Key": "Purpose",
+            "Value": "GitHubStaticPublishing"
+          }
+        ]
+      }
+    }
+  },
+  "Outputs": {
+    "DeployRoleArn": {
+      "Description": "Dedicated GitHub OIDC role used by the website workflow.",
+      "Value": {
+        "Fn::GetAtt": [
+          "GitHubWebsiteDeployRole",
+          "Arn"
+        ]
+      }
+    },
+    "TrustedGitHubSubject": {
+      "Description": "The one exact repository/main OIDC subject trusted by this role.",
+      "Value": {
+        "Ref": "GitHubOidcSubject"
+      }
+    }
+  }
+}

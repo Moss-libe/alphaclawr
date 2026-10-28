@@ -8,7 +8,7 @@
 */
 
 (function () {
-  const API_URL = 'https://ctxcwa79ii.execute-api.us-east-1.amazonaws.com/prod/subscribe';
+  const API_URL = 'https://6a532z2rr8.execute-api.us-east-1.amazonaws.com/subscribe';
   const forms = Array.prototype.slice.call(
     document.querySelectorAll('form.hero-form, form.hero-email-form')
   );

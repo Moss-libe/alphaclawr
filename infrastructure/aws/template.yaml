@@ -1,0 +1,455 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >-
+  AlphaWalk migration: private S3 website behind CloudFront OAC,
+  plus an HTTP API, Lambda, and DynamoDB email subscription service.
+  Uses the default CloudFront hostname until an optional website ACM
+  certificate ARN is supplied. Does not create or modify DNS records.
+
+Parameters:
+  WebsiteCertificateArn:
+    Type: String
+    Default: ''
+    Description: >-
+      Optional ACM certificate ARN in us-east-1 covering alphawalk.ai and
+      www.alphawalk.ai. Leave empty for the initial CloudFront-only deployment.
+    AllowedPattern: '^$|^arn:aws:acm:us-east-1:[0-9]{12}:certificate/[0-9a-fA-F-]{36}$'
+    ConstraintDescription: Must be empty or an ACM certificate ARN in us-east-1.
+  SubscribersTableName:
+    Type: String
+    Default: AlphaWalkSubscribers
+    Description: Name of the new subscribers table; must not already exist in this account and Region.
+    MinLength: 3
+    MaxLength: 255
+    AllowedPattern: '[a-zA-Z0-9_.-]+'
+    ConstraintDescription: Use 3-255 letters, numbers, underscores, hyphens, or periods.
+  EnableWebsiteAliases:
+    Type: String
+    Default: 'true'
+    AllowedValues:
+      - 'true'
+      - 'false'
+    Description: Set false to attach the website certificate without aliases while preparing a cross-account domain transfer.
+
+Conditions:
+  UseCustomDomain: !Not
+    - !Equals
+      - !Ref WebsiteCertificateArn
+      - ''
+  AttachWebsiteAliases: !And
+    - !Condition UseCustomDomain
+    - !Equals
+      - !Ref EnableWebsiteAliases
+      - 'true'
+
+Resources:
+  WebsiteBucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        IgnorePublicAcls: true
+        BlockPublicPolicy: true
+        RestrictPublicBuckets: true
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerEnforced
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      VersioningConfiguration:
+        Status: Enabled
+      Tags:
+        - Key: Application
+          Value: AlphaWalk
+        - Key: Purpose
+          Value: Website
+
+  WebsiteOriginAccessControl:
+    Type: AWS::CloudFront::OriginAccessControl
+    Properties:
+      OriginAccessControlConfig:
+        Name: !Sub '${AWS::StackName}-website-oac'
+        Description: Signed access to the private AlphaWalk website bucket
+        OriginAccessControlOriginType: s3
+        SigningBehavior: always
+        SigningProtocol: sigv4
+
+  WebsiteCachePolicy:
+    Type: AWS::CloudFront::CachePolicy
+    Properties:
+      CachePolicyConfig:
+        Name: !Sub '${AWS::StackName}-website-cache'
+        Comment: Honor origin no-cache directives while caching static assets
+        DefaultTTL: 300
+        MinTTL: 0
+        MaxTTL: 86400
+        ParametersInCacheKeyAndForwardedToOrigin:
+          EnableAcceptEncodingGzip: true
+          EnableAcceptEncodingBrotli: true
+          CookiesConfig:
+            CookieBehavior: none
+          HeadersConfig:
+            HeaderBehavior: none
+          QueryStringsConfig:
+            QueryStringBehavior: none
+
+  WebsiteDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Enabled: true
+        Comment: !Sub '${AWS::StackName} AlphaWalk website'
+        DefaultRootObject: index.html
+        HttpVersion: http2
+        IPV6Enabled: true
+        Aliases: !If
+          - AttachWebsiteAliases
+          - - alphawalk.ai
+            - www.alphawalk.ai
+          - !Ref AWS::NoValue
+        Origins:
+          - Id: PrivateWebsiteBucket
+            DomainName: !GetAtt WebsiteBucket.RegionalDomainName
+            OriginAccessControlId: !Ref WebsiteOriginAccessControl
+            S3OriginConfig:
+              OriginAccessIdentity: ''
+        DefaultCacheBehavior:
+          TargetOriginId: PrivateWebsiteBucket
+          ViewerProtocolPolicy: redirect-to-https
+          AllowedMethods:
+            - GET
+            - HEAD
+          CachedMethods:
+            - GET
+            - HEAD
+          Compress: true
+          CachePolicyId: !Ref WebsiteCachePolicy
+        ViewerCertificate: !If
+          - UseCustomDomain
+          - AcmCertificateArn: !Ref WebsiteCertificateArn
+            SslSupportMethod: sni-only
+            MinimumProtocolVersion: TLSv1.2_2021
+          - CloudFrontDefaultCertificate: true
+      Tags:
+        - Key: Application
+          Value: AlphaWalk
+
+  WebsiteBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref WebsiteBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: AllowOnlyThisCloudFrontDistribution
+            Effect: Allow
+            Principal:
+              Service: cloudfront.amazonaws.com
+            Action: s3:GetObject
+            Resource: !Sub '${WebsiteBucket.Arn}/*'
+            Condition:
+              StringEquals:
+                AWS:SourceArn: !Sub 'arn:${AWS::Partition}:cloudfront::${AWS::AccountId}:distribution/${WebsiteDistribution}'
+          - Sid: DenyInsecureTransport
+            Effect: Deny
+            Principal: '*'
+            Action: s3:*
+            Resource:
+              - !GetAtt WebsiteBucket.Arn
+              - !Sub '${WebsiteBucket.Arn}/*'
+            Condition:
+              Bool:
+                aws:SecureTransport: 'false'
+
+  SubscribersTable:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      TableName: !Ref SubscribersTableName
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: email
+          AttributeType: S
+      KeySchema:
+        - AttributeName: email
+          KeyType: HASH
+      DeletionProtectionEnabled: true
+      Tags:
+        - Key: Application
+          Value: AlphaWalk
+        - Key: Purpose
+          Value: Subscribers
+
+  SubscriptionLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      RetentionInDays: 14
+      Tags:
+        - Key: Application
+          Value: AlphaWalk
+
+  SubscriptionExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: WriteSubscriptionAndFunctionLogs
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Sid: CreateSubscriptionOnly
+                Effect: Allow
+                Action: dynamodb:PutItem
+                Resource: !GetAtt SubscribersTable.Arn
+              - Sid: WriteOnlyThisLogGroup
+                Effect: Allow
+                Action:
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: !GetAtt SubscriptionLogGroup.Arn
+      Tags:
+        - Key: Application
+          Value: AlphaWalk
+
+  SubscribeFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Description: Validate and idempotently record an AlphaWalk email subscription
+      Runtime: python3.13
+      Handler: index.handler
+      Architectures:
+        - arm64
+      MemorySize: 128
+      Timeout: 10
+      Role: !GetAtt SubscriptionExecutionRole.Arn
+      LoggingConfig:
+        LogGroup: !Ref SubscriptionLogGroup
+        LogFormat: JSON
+        ApplicationLogLevel: WARN
+        SystemLogLevel: INFO
+      Environment:
+        Variables:
+          SUBSCRIBERS_TABLE: !Ref SubscribersTable
+      Code:
+        ZipFile: |
+          import base64
+          import binascii
+          import json
+          import logging
+          import os
+          import re
+          from datetime import datetime, timezone
+
+          import boto3
+          from botocore.config import Config
+          from botocore.exceptions import BotoCoreError, ClientError
+
+          LOGGER = logging.getLogger(__name__)
+          DYNAMODB = boto3.client(
+              "dynamodb",
+              config=Config(
+                  connect_timeout=2,
+                  read_timeout=2,
+                  retries={"total_max_attempts": 2, "mode": "standard"},
+              ),
+          )
+          TABLE_NAME = os.environ["SUBSCRIBERS_TABLE"]
+          MAX_BODY_BYTES = 2048
+          LOCAL_PART = re.compile(r"[a-z0-9.!#$%&'*+/=?^_`{|}~-]+\Z", re.ASCII)
+          DOMAIN_LABEL = re.compile(r"[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\Z", re.ASCII)
+
+          def response(status, message, success=False):
+              return {
+                  "statusCode": status,
+                  "headers": {
+                      "Content-Type": "application/json; charset=utf-8",
+                      "Cache-Control": "no-store",
+                  },
+                  "body": json.dumps({"success": success, "message": message}),
+              }
+
+          def normalized_email(value):
+              if not isinstance(value, str):
+                  return None
+              email = value.strip().lower()
+              if len(email) > 254 or not email.isascii() or email.count("@") != 1:
+                  return None
+              local, domain = email.split("@")
+              if not 1 <= len(local) <= 64 or not LOCAL_PART.fullmatch(local):
+                  return None
+              if local.startswith(".") or local.endswith(".") or ".." in local:
+                  return None
+              labels = domain.split(".")
+              if len(labels) < 2 or any(not DOMAIN_LABEL.fullmatch(label) for label in labels):
+                  return None
+              if len(domain) > 253 or not labels[-1].isalpha() or len(labels[-1]) < 2:
+                  return None
+              return email
+
+          def handler(event, context):
+              method = event.get("requestContext", {}).get("http", {}).get("method")
+              if method != "POST":
+                  return response(405, "Method not allowed.")
+              headers = {key.lower(): value for key, value in (event.get("headers") or {}).items()}
+              content_type = headers.get("content-type", "").split(";", 1)[0].strip().lower()
+              if content_type != "application/json":
+                  return response(415, "Content-Type must be application/json.")
+              raw_body = event.get("body")
+              if not isinstance(raw_body, str) or not raw_body:
+                  return response(400, "A JSON body containing an email is required.")
+              if len(raw_body) > MAX_BODY_BYTES * 2:
+                  return response(413, "Request body is too large.")
+              try:
+                  body_bytes = (
+                      base64.b64decode(raw_body, validate=True)
+                      if event.get("isBase64Encoded")
+                      else raw_body.encode("utf-8")
+                  )
+                  if len(body_bytes) > MAX_BODY_BYTES:
+                      return response(413, "Request body is too large.")
+                  payload = json.loads(body_bytes.decode("utf-8"))
+              except (binascii.Error, UnicodeError, ValueError, RecursionError):
+                  return response(400, "Invalid JSON body.")
+              if not isinstance(payload, dict):
+                  return response(400, "A JSON object containing an email is required.")
+              email = normalized_email(payload.get("email"))
+              if email is None:
+                  return response(400, "Please enter a valid email address.")
+              try:
+                  DYNAMODB.put_item(
+                      TableName=TABLE_NAME,
+                      Item={
+                          "email": {"S": email},
+                          "created_at": {"S": datetime.now(timezone.utc).isoformat()},
+                      },
+                      ConditionExpression="attribute_not_exists(#email)",
+                      ExpressionAttributeNames={"#email": "email"},
+                  )
+              except ClientError as exc:
+                  code = exc.response.get("Error", {}).get("Code", "Unknown")
+                  if code != "ConditionalCheckFailedException":
+                      LOGGER.error("Subscription storage failed: %s", code)
+                      return response(503, "Unable to subscribe right now. Please try again later.")
+              except BotoCoreError as exc:
+                  LOGGER.error("Subscription storage failed: %s", type(exc).__name__)
+                  return response(503, "Unable to subscribe right now. Please try again later.")
+              return response(200, "Subscription successful! Thank you.", success=True)
+      Tags:
+        - Key: Application
+          Value: AlphaWalk
+
+  SubscriptionApi:
+    Type: AWS::ApiGatewayV2::Api
+    Properties:
+      Name: !Sub '${AWS::StackName}-subscribe'
+      Description: AlphaWalk public email subscription HTTP API
+      ProtocolType: HTTP
+      CorsConfiguration:
+        AllowOrigins:
+          - https://alphawalk.ai
+          - https://www.alphawalk.ai
+          - !Sub 'https://${WebsiteDistribution.DomainName}'
+        AllowMethods:
+          - POST
+          - OPTIONS
+        AllowHeaders:
+          - content-type
+        MaxAge: 300
+      Tags:
+        Application: AlphaWalk
+
+  SubscriptionIntegration:
+    Type: AWS::ApiGatewayV2::Integration
+    Properties:
+      ApiId: !Ref SubscriptionApi
+      IntegrationType: AWS_PROXY
+      IntegrationUri: !GetAtt SubscribeFunction.Arn
+      IntegrationMethod: POST
+      PayloadFormatVersion: '2.0'
+      TimeoutInMillis: 15000
+
+  SubscriptionRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref SubscriptionApi
+      RouteKey: POST /subscribe
+      AuthorizationType: NONE
+      Target: !Sub 'integrations/${SubscriptionIntegration}'
+
+  SubscriptionInvokePermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref SubscribeFunction
+      Principal: apigateway.amazonaws.com
+      SourceAccount: !Ref AWS::AccountId
+      SourceArn: !Sub 'arn:${AWS::Partition}:execute-api:${AWS::Region}:${AWS::AccountId}:${SubscriptionApi}/*/POST/subscribe'
+
+  SubscriptionAccessLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      RetentionInDays: 14
+      Tags:
+        - Key: Application
+          Value: AlphaWalk
+
+  SubscriptionStage:
+    Type: AWS::ApiGatewayV2::Stage
+    DependsOn:
+      - SubscriptionRoute
+      - SubscriptionInvokePermission
+    Properties:
+      ApiId: !Ref SubscriptionApi
+      StageName: $default
+      AutoDeploy: true
+      DefaultRouteSettings:
+        ThrottlingRateLimit: 10
+        ThrottlingBurstLimit: 20
+        DetailedMetricsEnabled: false
+      AccessLogSettings:
+        DestinationArn: !GetAtt SubscriptionAccessLogGroup.Arn
+        Format: '{"requestId":"$context.requestId","routeKey":"$context.routeKey","status":"$context.status","responseLength":"$context.responseLength","integrationLatency":"$context.integrationLatency"}'
+      Tags:
+        Application: AlphaWalk
+
+Outputs:
+  WebsiteUrl:
+    Description: Temporary HTTPS URL for testing before the custom domain is migrated
+    Value: !Sub 'https://${WebsiteDistribution.DomainName}'
+  WebsiteBucketName:
+    Description: Upload only the reviewed static website files to this bucket
+    Value: !Ref WebsiteBucket
+  CloudFrontDistributionId:
+    Description: Distribution ID for deployment checks and cache invalidations
+    Value: !Ref WebsiteDistribution
+  CloudFrontDomainName:
+    Description: Default CloudFront hostname; also allowed by the subscription API CORS configuration
+    Value: !GetAtt WebsiteDistribution.DomainName
+  SubscriptionApiUrl:
+    Description: Replace the old frontend subscription URL with this complete URL
+    Value: !Sub '${SubscriptionApi.ApiEndpoint}/subscribe'
+  SubscriptionApiId:
+    Description: Subscription HTTP API ID
+    Value: !Ref SubscriptionApi
+  SubscribersTableName:
+    Description: New subscribers table; historical subscribers are not imported by this template
+    Value: !Ref SubscribersTable
+  SubscribeFunctionName:
+    Description: Lambda function name
+    Value: !Ref SubscribeFunction
+  SubscriptionFunctionLogGroup:
+    Description: Function logs retained for 14 days
+    Value: !Ref SubscriptionLogGroup
+  SubscriptionApiLogGroup:
+    Description: API access logs retained for 14 days
+    Value: !Ref SubscriptionAccessLogGroup
