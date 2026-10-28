@@ -1,0 +1,15 @@
+{
+  "repository": "Moss-libe/alphaclawr",
+  "branch": "main",
+  "aws_region": "us-east-1",
+  "aws_account_id": "739871967026",
+  "deploy_role_arn": "arn:aws:iam::739871967026:role/alphawalk-github-deploy",
+  "website_bucket": "alphawalk-website-websitebucket-79ikctfx7zzd",
+  "cloudfront_distribution_id": "E8NOVXBQ9GKY6",
+  "website_origins": [
+    "https://alphawalk.ai",
+    "https://www.alphawalk.ai",
+    "https://d2lof5j9w6jxjg.cloudfront.net"
+  ],
+  "subscription_api_url": "https://6a532z2rr8.execute-api.us-east-1.amazonaws.com/subscribe"
+}
